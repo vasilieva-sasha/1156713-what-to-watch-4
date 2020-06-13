@@ -98,8 +98,8 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {titles.map((smallCardTitle, index) => (
-              <article key={index} className="small-movie-card catalog__movies-card">
+            {titles.map((smallCardTitle) => (
+              <article key={smallCardTitle} className="small-movie-card catalog__movies-card">
                 <div className="small-movie-card__image">
                   <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={smallCardTitle} width="280" height="175"/>
                 </div>

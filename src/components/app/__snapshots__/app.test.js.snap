@@ -720,7 +720,7 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Midnight Special"
+              alt="The Grand Budapest Hotel"
               height="175"
               src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
@@ -733,7 +733,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Midnight Special
+              The Grand Budapest Hotel
             </a>
           </h3>
         </article>
