@@ -2,13 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Main} from "../main/main.jsx";
 
+const titleHandler = (evt) => {
+  evt.preventDefault();
+};
+
 const App = (props) => {
   const {title, genre, date, titles} = props;
   return (
     <Main title={title}
       genre={genre}
       date={date}
-      titles={titles}/>
+      titles={titles}
+      onTitleClick={titleHandler}
+    />
   );
 };
 
