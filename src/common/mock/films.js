@@ -1,27 +1,27 @@
 export default [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    poster: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
+    poster: `fantastic-beasts-the-crimes-of-grindelwald`
   }, {
     title: `Bohemian Rhapsody`,
-    poster: `img/bohemian-rhapsody.jpg`
+    poster: `bohemian-rhapsody`
   }, {
     title: `Macbeth`,
-    poster: `img/macbeth.jpg`
+    poster: `macbeth`
   }, {
     title: `Aviator`,
-    poster: `img/aviator.jpg`
+    poster: `aviator`
   }, {
     title: `We need to talk about Kevin`,
-    poster: `img/we-need-to-talk-about-kevin.jpg`
+    poster: `we-need-to-talk-about-kevin`
   }, {
     title: `What We Do in the Shadows`,
-    poster: `img/what-we-do-in-the-shadows.jpg`
+    poster: `what-we-do-in-the-shadows`
   }, {
     title: `Revenant`,
-    poster: `img/revenant.jpg`
+    poster: `revenant`
   }, {
     title: `Johnny English`,
-    poster: `img/johnny-english.jpg`
+    poster: `johnny-english`
   }
 ];
