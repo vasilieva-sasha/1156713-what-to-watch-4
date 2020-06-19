@@ -23,7 +23,7 @@ describe(`MainComponent`, () => {
         />
     );
 
-    const smallCardTitles = mainComponent.find(`a.small-movie-card__link`);
+    const smallCardTitles = mainComponent.find(`.small-movie-card__title`);
 
     smallCardTitles.forEach((title) => title.simulate(`click`));
     expect(onTitleClick.mock.calls.length).toBe(TITLES.length);

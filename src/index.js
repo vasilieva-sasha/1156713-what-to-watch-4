@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {App} from "./components/app/app.jsx";
-import {Movie, TITLES} from "./common/mock";
+import {Movie, TITLES} from "./common/mock/mock";
 
 ReactDOM.render(
     <App title={Movie.TITLE} genre={Movie.GENRE} date={Movie.DATE} titles={TITLES}/>,
