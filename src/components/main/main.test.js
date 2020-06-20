@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Main} from "./main";
-import {Movie, TITLES} from "../../common/mock-test";
+import {Movie, mock} from "../../common/mock-test";
 
 describe(`MainComponent`, () => {
   it(`Main correct render`, () => {
@@ -11,7 +11,7 @@ describe(`MainComponent`, () => {
           title={Movie.TITLE}
           genre={Movie.GENRE}
           date={Movie.DATE}
-          titles={TITLES}
+          films={mock}
           onTitleClick={() => {}}
         />
     ).toJSON();
