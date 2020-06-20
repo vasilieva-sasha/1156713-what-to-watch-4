@@ -20,9 +20,10 @@ class FilmList extends PureComponent {
             <FilmCard
               key={`${film.poster}-${index}`}
               film={film}
-              onArticleOver={() => {
+              onArticleHover={(currentFilm) => {
+                currentFilm = films[index];
                 this.setState({
-                  selectedCard: films[index]
+                  selectedCard: currentFilm
                 });
               }}
               onTitleClick={onTitleClick}
