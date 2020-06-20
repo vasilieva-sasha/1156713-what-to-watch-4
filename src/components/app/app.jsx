@@ -7,12 +7,12 @@ const titleHandler = (evt) => {
 };
 
 const App = (props) => {
-  const {title, genre, date, titles} = props;
+  const {title, genre, date, films} = props;
   return (
     <Main title={title}
       genre={genre}
       date={date}
-      titles={titles}
+      films={films}
       onTitleClick={titleHandler}
     />
   );
@@ -22,7 +22,12 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
-  titles: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        poster: PropTypes.string
+      }))
+    .isRequired
 };
 
 export {App};
