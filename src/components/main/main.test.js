@@ -1,7 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Main} from "./main";
-import {Movie, TITLES} from "../../common/mock-test";
+import {Movie} from "../../common/mock-test";
+
+const films = [{
+  title: `Fantastic Beasts: The Crimes of Grindelwald`,
+  poster: `fantastic-beasts-the-crimes-of-grindelwald`
+}];
 
 describe(`MainComponent`, () => {
   it(`Main correct render`, () => {
@@ -11,7 +16,7 @@ describe(`MainComponent`, () => {
           title={Movie.TITLE}
           genre={Movie.GENRE}
           date={Movie.DATE}
-          titles={TITLES}
+          films={films}
           onTitleClick={() => {}}
         />
     ).toJSON();
