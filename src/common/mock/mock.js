@@ -1,3 +1,5 @@
+import React from "react";
+
 export const Movie = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
