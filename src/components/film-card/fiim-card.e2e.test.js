@@ -13,24 +13,24 @@ Enzyme.configure({
 });
 
 describe(`FilmCardComponent`, () => {
-  it(`Title click`, () => {
-    const onTitleClick = jest.fn();
+  it(`Card click`, () => {
+    const onCardClick = jest.fn();
 
     const filmCardComponent = mount(
-        <FilmCard film={currentFilm} onArticleHover={() => {}} onTitleClick={onTitleClick} />
+        <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} />
     );
 
     const smallCardTitle = filmCardComponent.find(`.small-movie-card__title`);
 
     smallCardTitle.simulate(`click`);
-    expect(onTitleClick.mock.calls.length).toBe(1);
+    expect(onCardClick.mock.calls.length).toBe(1);
   });
 
   it(`Card hover`, () => {
     const onArticleHover = jest.fn();
 
     const filmCardComponent = mount(
-        <FilmCard film={currentFilm} onArticleHover={onArticleHover} onTitleClick={() => {}} />
+        <FilmCard film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} />
     );
 
     const card = filmCardComponent.find(`.small-movie-card`);

@@ -10,7 +10,7 @@ const film = {
 describe(`FilmCardComponent`, () => {
   it(`FilmCard correct render`, () => {
     const tree = renderer.create(
-        <FilmCard film={film} onArticleHover={() => {}} onTitleClick={() => {}} />
+        <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

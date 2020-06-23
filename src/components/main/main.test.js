@@ -17,7 +17,7 @@ describe(`MainComponent`, () => {
           genre={Movie.GENRE}
           date={Movie.DATE}
           films={films}
-          onTitleClick={() => {}}
+          onCardClick={() => {}}
         />
     ).toJSON();
 

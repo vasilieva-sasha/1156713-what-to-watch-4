@@ -2,28 +2,52 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {Main} from "../main/main.jsx";
-import FilmInfo from "../film-info/film-info";
-import film from "../../common/mock/film";
-
-const titleHandler = (evt) => {
-  evt.preventDefault();
-};
+import FilmInfo from "../film-info/film-info.jsx";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedFilm: null
+    };
+
+    this._cardClickHandler = this._cardClickHandler.bind(this);
   }
 
   _renderApp() {
+    const {selectedFilm} = this.state;
+
+    if (selectedFilm) {
+      return this._renderFilmInfo();
+    } else {
+      return this._renderMain();
+    }
+  }
+
+  _renderMain() {
     const {title, genre, date, films} = this.props;
     return (
       <Main title={title}
         genre={genre}
         date={date}
         films={films}
-        onTitleClick={titleHandler}
+        onCardClick={this._cardClickHandler}
       />
     );
+  }
+
+  _renderFilmInfo() {
+    const filmInfo = this.state.selectedFilm;
+    return (
+      <FilmInfo film={filmInfo}/>
+    );
+  }
+
+  _cardClickHandler(film) {
+    this.setState({
+      selectedFilm: film
+    });
   }
 
   render() {
@@ -34,7 +58,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <FilmInfo film={film}/>
+            {this._renderFilmInfo()}
           </Route>
         </Switch>
       </BrowserRouter>
@@ -42,43 +66,27 @@ class App extends PureComponent {
   }
 }
 
-// const App = (props) => {
-//   const {title, genre, date, films} = props;
-//   return (
-//     <Main title={title}
-//       genre={genre}
-//       date={date}
-//       films={films}
-//       onTitleClick={titleHandler}
-//     />
-//   );
-// };
-
 App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string
+        title: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        releaseDate: PropTypes.number.isRequired,
+        posterInfo: PropTypes.string.isRequired,
+        background: PropTypes.string.isRequired,
+        rating: PropTypes.shape({
+          score: PropTypes.string.isRequired,
+          level: PropTypes.string.isRequired,
+          count: PropTypes.number.isRequired
+        }),
+        text: PropTypes.arrayOf(PropTypes.string).isRequired,
+        director: PropTypes.string.isRequired,
+        actors: PropTypes.arrayOf(PropTypes.string).isRequired
       }))
     .isRequired,
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired,
-    rating: PropTypes.shape({
-      score: PropTypes.string.isRequired,
-      level: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired
-    }),
-    text: PropTypes.arrayOf(PropTypes.string).isRequired,
-    director: PropTypes.string.isRequired,
-    actors: PropTypes.arrayOf(PropTypes.string).isRequired
-  }).isRequired
 };
 
 export {App};
