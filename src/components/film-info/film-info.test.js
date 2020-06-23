@@ -1,9 +1,15 @@
-export default {
-  title: `The Grand Budapest Hotel`,
+import React from "react";
+import renderer from "react-test-renderer";
+import FilmInfo from "./film-info";
+
+
+const film = {
+  title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
-  releaseDate: 2014,
-  poster: `the-grand-budapest-hotel-poster`,
-  background: `bg-the-grand-budapest-hotel`,
+  releaseDate: 2018,
+  poster: `fantastic-beasts-the-crimes-of-grindelwald`,
+  posterInfo: `posters/placeimg_218_327_animals`,
+  background: `background/placeimg_1000_424_animals`,
   rating: {
     score: `8,9`,
     level: `Very good`,
@@ -18,3 +24,13 @@ export default {
   director: `Wes Andreson`,
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 };
+
+describe(`FilmInfoComponent`, () => {
+  it(`FilmInfo correct render`, () => {
+    const tree = renderer.create(
+        <FilmInfo film={film} />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+});

@@ -6,7 +6,7 @@ const FilmCard = (props) => {
   return (
     <article
       onMouseEnter={() => onArticleHover(film)}
-      onMouseLeave={() => onArticleHover({})}
+      onMouseLeave={() => onArticleHover(null)}
       className="small-movie-card catalog__movies-card">
       <div onClick={(evt) => {
         evt.preventDefault();
