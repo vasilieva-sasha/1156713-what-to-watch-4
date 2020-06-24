@@ -12,7 +12,7 @@ class FilmList extends PureComponent {
   }
 
   render() {
-    const {films, onTitleClick} = this.props;
+    const {films, onCardClick} = this.props;
     return (
       <div className="catalog__movies-list">
         {films.map((film, index) => {
@@ -26,7 +26,7 @@ class FilmList extends PureComponent {
                   selectedCard: currentFilm
                 });
               }}
-              onTitleClick={onTitleClick}
+              onCardClick={onCardClick}
             />);
         })}
       </div>
@@ -41,7 +41,7 @@ FilmList.propTypes = {
         poster: PropTypes.string
       }))
     .isRequired,
-  onTitleClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default FilmList;

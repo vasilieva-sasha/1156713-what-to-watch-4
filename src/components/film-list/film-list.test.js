@@ -10,7 +10,7 @@ const films = [{
 describe(`FilmListComponent`, () => {
   it(`FilmList correct render`, () => {
     const tree = renderer.create(
-        <FilmList films={films} onTitleClick={() => {}} />
+        <FilmList films={films} onCardClick={() => {}} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
