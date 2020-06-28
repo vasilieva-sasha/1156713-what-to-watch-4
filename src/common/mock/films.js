@@ -6,6 +6,7 @@ export default [
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_animals`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -26,6 +27,7 @@ export default [
     poster: `bohemian-rhapsody`,
     posterInfo: `posters/placeimg_218_327_arch`,
     background: `background/placeimg_1000_424_any`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -46,6 +48,7 @@ export default [
     poster: `macbeth`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_arch`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -66,6 +69,7 @@ export default [
     poster: `aviator`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_grayscale_animals`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -86,6 +90,7 @@ export default [
     poster: `we-need-to-talk-about-kevin`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_grayscale_tech`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -106,6 +111,7 @@ export default [
     poster: `what-we-do-in-the-shadows`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_tech`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -126,6 +132,7 @@ export default [
     poster: `revenant`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_nature`,
+    preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     rating: {
       score: `8,9`,
       level: `Very good`,
@@ -146,6 +153,7 @@ export default [
     poster: `johnny-english`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_tech2`,
+    preview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     rating: {
       score: `8,9`,
       level: `Very good`,
