@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
+import {TIMEOUT} from "../../common/consts";
 
 class FilmList extends PureComponent {
   constructor(props) {
@@ -9,6 +10,24 @@ class FilmList extends PureComponent {
     this.state = {
       selectedCard: null
     };
+
+    this._timeOut = null;
+
+    this._handleArticleHover = this._handleArticleHover.bind(this);
+    this._handleCardLeave = this._handleCardLeave.bind(this);
+  }
+
+  _handleArticleHover(currentFilm) {
+    this._timeOut = setTimeout(() => {
+      this.setState({selectedCard: currentFilm});
+    }, TIMEOUT);
+  }
+
+  _handleCardLeave() {
+    clearTimeout(this._timeOut);
+    this.setState({
+      selectedCard: null
+    });
   }
 
   render() {
@@ -23,15 +42,11 @@ class FilmList extends PureComponent {
               film={film}
               onArticleHover={(currentFilm) => {
                 currentFilm = films[index];
-                this.setState({
-                  selectedCard: currentFilm
-                });
+                this._handleArticleHover(currentFilm);
               }}
               onCardClick={onCardClick}
               isPlaying={selectedCard === films[index]}
-              onCardLeave={() => this.setState({
-                selectedCard: null
-              })}
+              onCardLeave={this._handleCardLeave}
             />);
         })}
       </div>

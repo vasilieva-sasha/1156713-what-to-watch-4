@@ -4,13 +4,14 @@ import FilmCard from "./film-card";
 
 const film = {
   title: ``,
-  poster: ``
+  poster: ``,
+  preview: ``
 };
 
 describe(`FilmCardComponent`, () => {
   it(`FilmCard correct render`, () => {
     const tree = renderer.create(
-        <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} />
+        <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} isPlaying={false} onCardLeave={() => {}} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

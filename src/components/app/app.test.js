@@ -10,6 +10,7 @@ const films = [{
   poster: `fantastic-beasts-the-crimes-of-grindelwald`,
   posterInfo: `posters/placeimg_218_327_animals`,
   background: `background/placeimg_1000_424_animals`,
+  preview: ``,
   rating: {
     score: `8,9`,
     level: `Very good`,
