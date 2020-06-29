@@ -4,7 +4,8 @@ import FilmList from "./film-list";
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
-  poster: `fantastic-beasts-the-crimes-of-grindelwald`
+  poster: `fantastic-beasts-the-crimes-of-grindelwald`,
+  preview: ``
 }];
 
 describe(`FilmListComponent`, () => {
