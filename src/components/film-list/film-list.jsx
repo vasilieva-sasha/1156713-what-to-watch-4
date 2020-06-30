@@ -17,6 +17,13 @@ class FilmList extends PureComponent {
     this._handleCardLeave = this._handleCardLeave.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._timeOut);
+    this.setState({
+      selectedCard: null
+    });
+  }
+
   _handleArticleHover(currentFilm) {
     this._timeOut = setTimeout(() => {
       this.setState({selectedCard: currentFilm});
