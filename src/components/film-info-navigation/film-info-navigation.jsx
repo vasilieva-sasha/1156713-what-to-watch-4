@@ -9,32 +9,29 @@ class FilmInfoNavigation extends PureComponent {
     super(props);
 
     this.state = {
-      isActive: {
-        overview: true,
-        details: false,
-        reviews: false
-      }
+      detailsScreen: 0
     };
   }
 
-  _handleLinkClick(tab) {
+  _handleLinkClick(index) {
     this.setState({
-      isActive: {
-        [tab]: true
-      }});
+      detailsScreen: index
+    });
   }
 
   render() {
+    const {onTabClick} = this.props;
 
     return (
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
           {TABS.map((tab, index) => {
             return (
-              <li key={`${tab}-${index}`} className={`movie-nav__item ${this.state.isActive[tab] ? `movie-nav__item--active` : ``}`}>
+              <li key={`${tab}-${index}`} className={`movie-nav__item ${this.state.detailsScreen === index ? `movie-nav__item--active` : ``}`}>
                 <a href="#" className="movie-nav__link" onClick={(evt) => {
                   evt.preventDefault();
-                  this._handleLinkClick(tab);
+                  this._handleLinkClick(index);
+                  onTabClick(index);
                 }}>{makeLetterUppercase(tab)}</a>
               </li>
             );
@@ -46,7 +43,7 @@ class FilmInfoNavigation extends PureComponent {
 }
 
 FilmInfoNavigation.propTypes = {
-
+  onTabClick: PropTypes.func.isRequired
 };
 
 export default FilmInfoNavigation;
