@@ -3,6 +3,7 @@ export default [
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     genre: `Drama`,
     releaseDate: 2018,
+    runtime: 100,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_animals`,
@@ -19,11 +20,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [0, 1]
   }, {
     title: `Bohemian Rhapsody`,
     genre: `Drama`,
     releaseDate: 2018,
+    runtime: 100,
     poster: `bohemian-rhapsody`,
     posterInfo: `posters/placeimg_218_327_arch`,
     background: `background/placeimg_1000_424_any`,
@@ -40,11 +43,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [1, 3, 4, 6, 7]
   }, {
     title: `Macbeth`,
     genre: `Drama`,
     releaseDate: 2014,
+    runtime: 80,
     poster: `macbeth`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_arch`,
@@ -61,11 +66,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [3, 4]
   }, {
     title: `Aviator`,
     genre: `Drama`,
     releaseDate: 2010,
+    runtime: 110,
     poster: `aviator`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_grayscale_animals`,
@@ -82,11 +89,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [2, 3, 4, 5]
   }, {
     title: `We need to talk about Kevin`,
     genre: `Drama`,
     releaseDate: 2012,
+    runtime: 130,
     poster: `we-need-to-talk-about-kevin`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_grayscale_tech`,
@@ -103,11 +112,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [0, 1, 3, 4, 5, 6, 7]
   }, {
     title: `What We Do in the Shadows`,
     genre: `Drama`,
     releaseDate: 2014,
+    runtime: 90,
     poster: `what-we-do-in-the-shadows`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_tech`,
@@ -124,11 +135,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [0, 1]
   }, {
     title: `Revenant`,
     genre: `Drama`,
     releaseDate: 2014,
+    runtime: 100,
     poster: `revenant`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_nature`,
@@ -145,11 +158,13 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [0, 1]
   }, {
     title: `Johnny English`,
     genre: `Drama`,
     releaseDate: 2014,
+    runtime: 65,
     poster: `johnny-english`,
     posterInfo: `posters/placeimg_218_327_animals`,
     background: `background/placeimg_1000_424_tech2`,
@@ -166,6 +181,7 @@ export default [
                 mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her
                 murder.`],
     director: `Wes Andreson`,
-    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+    actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+    reviews: [0, 1]
   }
 ];

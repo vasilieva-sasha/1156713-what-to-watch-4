@@ -20,9 +20,9 @@ class FilmInfo extends PureComponent {
     if (detailsScreen === 0) {
       return <FilmInfoOverview film={film} />;
     } else if (detailsScreen === 1) {
-      return <FilmInfoDetails />;
+      return <FilmInfoDetails film={film}/>;
     } else if (detailsScreen === 2) {
-      return <FilmInfoReviews />;
+      return <FilmInfoReviews film={film}/>;
     }
     // switch (isActive) {
     //   case isActive === 0:
