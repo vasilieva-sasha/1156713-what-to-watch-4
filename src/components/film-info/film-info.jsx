@@ -24,13 +24,6 @@ class FilmInfo extends PureComponent {
     } else if (detailsScreen === 2) {
       return <FilmInfoReviews film={film}/>;
     }
-    // switch (isActive) {
-    //   case isActive === 0:
-    //     return <FilmInfoOverview film={film} />;
-    //   case isActive === 1:
-    //     return <FilmInfoDetails />;
-    // }
-    //
     return null;
   }
 
