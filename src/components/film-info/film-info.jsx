@@ -4,10 +4,15 @@ import FilmInfoNavigation from "../film-info-navigation/film-info-navigation.jsx
 import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
 import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
 import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
+import FilmList from "../film-list/film-list.jsx";
+import films from "../../common/mock/films";
+import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
 
 class FilmInfo extends PureComponent {
   constructor(props) {
     super(props);
+
+    this._filmsbyGenre = null;
 
     this.state = {
       detailsScreen: 0
@@ -27,8 +32,17 @@ class FilmInfo extends PureComponent {
     return null;
   }
 
-  render() {
+  _getFilmListByGenre() {
     const {film} = this.props;
+    this._filmsbyGenre = films.filter((filmItem) => {
+      return filmItem.genre === film.genre && filmItem.title !== film.title;
+    }).slice(0, SIMILAR_FILMS_AMOUNT_SHOW);
+
+    return this._filmsbyGenre;
+  }
+
+  render() {
+    const {film, onCardClick} = this.props;
     return (
       <React.Fragment>
         <section className="movie-card movie-card--full">
@@ -102,45 +116,7 @@ class FilmInfo extends PureComponent {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            <div className="catalog__movies-list">
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                    alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of
-                    Grindelwald</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-                </h3>
-              </article>
-            </div>
+            <FilmList films={this._getFilmListByGenre()} onCardClick={onCardClick} />
           </section>
 
           <footer className="page-footer">
@@ -169,7 +145,8 @@ FilmInfo.propTypes = {
     releaseDate: PropTypes.number.isRequired,
     posterInfo: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired
-  })
+  }),
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default FilmInfo;

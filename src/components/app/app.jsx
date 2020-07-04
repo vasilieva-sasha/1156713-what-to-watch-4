@@ -12,7 +12,7 @@ class App extends PureComponent {
       selectedFilm: null
     };
 
-    this._cardClickHandler = this._cardClickHandler.bind(this);
+    this._handlerCardClick = this._handlerCardClick.bind(this);
   }
 
   _renderApp() {
@@ -20,9 +20,8 @@ class App extends PureComponent {
 
     if (selectedFilm) {
       return this._renderFilmInfo();
-    } else {
-      return this._renderMain();
     }
+    return this._renderMain();
   }
 
   _renderMain() {
@@ -32,7 +31,7 @@ class App extends PureComponent {
         genre={genre}
         date={date}
         films={films}
-        onCardClick={this._cardClickHandler}
+        onCardClick={this._handlerCardClick}
       />
     );
   }
@@ -40,11 +39,11 @@ class App extends PureComponent {
   _renderFilmInfo() {
     const filmInfo = this.state.selectedFilm;
     return (
-      <FilmInfo film={filmInfo}/>
+      <FilmInfo film={filmInfo} onCardClick={this._handlerCardClick}/>
     );
   }
 
-  _cardClickHandler(film) {
+  _handlerCardClick(film) {
     this.setState({
       selectedFilm: film
     });

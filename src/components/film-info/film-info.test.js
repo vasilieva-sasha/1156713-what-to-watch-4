@@ -29,7 +29,7 @@ const film = {
 describe(`FilmInfoComponent`, () => {
   it(`FilmInfo correct render`, () => {
     const tree = renderer.create(
-        <FilmInfo film={film} />
+        <FilmInfo film={film} onCardClick={() => {}} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
