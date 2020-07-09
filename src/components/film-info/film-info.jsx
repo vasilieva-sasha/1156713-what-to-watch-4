@@ -1,9 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation.jsx";
-import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
-import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
-import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
 import FilmList from "../film-list/film-list.jsx";
 import films from "../../common/mock/films";
 import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
@@ -14,22 +11,6 @@ class FilmInfo extends PureComponent {
 
     this._filmsbyGenre = null;
 
-    this.state = {
-      detailsScreen: 0
-    };
-  }
-
-  _renderScreen() {
-    const {detailsScreen} = this.state;
-    const {film} = this.props;
-    if (detailsScreen === 0) {
-      return <FilmInfoOverview film={film} />;
-    } else if (detailsScreen === 1) {
-      return <FilmInfoDetails film={film}/>;
-    } else if (detailsScreen === 2) {
-      return <FilmInfoReviews film={film}/>;
-    }
-    return null;
   }
 
   _getFilmListByGenre() {
@@ -103,11 +84,8 @@ class FilmInfo extends PureComponent {
                   width="218" height="327"/>
               </div>
 
-              <div className="movie-card__desc">
-                <FilmInfoNavigation onTabClick={(index) => this.setState({detailsScreen: index})}/>
-                {this._renderScreen()}
+              <FilmInfoNavigation film={film} />
 
-              </div>
             </div>
           </div>
         </section>

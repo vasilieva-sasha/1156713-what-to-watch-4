@@ -30,7 +30,7 @@ exports[`ReviewsComponent film reviews component renders correctly 1`] = `
             className="review__date"
             dateTime="2016-12-24"
           >
-            December 24, 2016
+            2016-12-24
           </time>
         </footer>
       </blockquote>
@@ -67,7 +67,7 @@ exports[`ReviewsComponent film reviews component renders correctly 1`] = `
             className="review__date"
             dateTime="2016-12-24"
           >
-            December 24, 2016
+            2016-12-24
           </time>
         </footer>
       </blockquote>
