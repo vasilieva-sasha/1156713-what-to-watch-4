@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {App} from "./app";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+import {App} from "./app.jsx";
 import {Movie} from "../../common/mock-test";
 
 const films = [{
@@ -21,15 +23,23 @@ const films = [{
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 }];
 
+const mockStore = configureStore([]);
+
 describe(`AppComponent`, () => {
   it(`App correct render`, () => {
+    const store = mockStore({
+      genre: `All genres`,
+      films
+    });
+
     const tree = renderer.create(
-        <App
-          title={Movie.TITLE}
-          genre={Movie.GENRE}
-          date={Movie.DATE}
-          films={films}
-        />
+        <Provider store={store}>
+          <App
+            title={Movie.TITLE}
+            genre={Movie.GENRE}
+            date={Movie.DATE}
+          />
+        </Provider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

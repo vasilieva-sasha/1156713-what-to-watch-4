@@ -1,4 +1,13 @@
-export default [
+import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer.js";
+import {ALL_GENRES} from "../common/consts.js";
+
+const Genres = {
+  DRAMA: `Drama`,
+  COMEDY: `Comedy`,
+  HORROR: `Horror`
+};
+
+const films = [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     genre: `Drama`,
@@ -185,3 +194,50 @@ export default [
     reviews: [0, 1]
   }
 ];
+
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    genre: ALL_GENRES,
+    films
+  });
+});
+
+it(`Reducer should change current genre`, () => {
+  expect(reducer({
+    genre: ALL_GENRES,
+    films
+  }, {
+    type: ActionType.CHANGE_GENRE,
+    payload: Genres.DRAMA,
+  })).toEqual({
+    genre: Genres.DRAMA,
+    films
+  });
+
+  expect(reducer({
+    genre: ALL_GENRES,
+    films
+  }, {
+    type: ActionType.CHANGE_GENRE,
+    payload: Genres.COMEDY,
+  })).toEqual({
+    genre: Genres.COMEDY,
+    films
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for changing genre returns correct action`, () => {
+    expect(ActionCreator.changeGenre(Genres.HORROR)).toEqual({
+      type: ActionType.CHANGE_GENRE,
+      payload: Genres.HORROR,
+    });
+  });
+
+  it(`Action creator for getting new film list returns correct action`, () => {
+    expect(ActionCreator.getFilmsList(Genres.HORROR)).toEqual({
+      type: ActionType.GET_FILMS_LIST,
+      payload: getFilteredFilms(Genres.HORROR)
+    });
+  });
+});
