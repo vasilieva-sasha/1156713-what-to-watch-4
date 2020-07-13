@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import FilmInfo from "../film-info/film-info.jsx";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -36,9 +37,10 @@ class App extends PureComponent {
   }
 
   _renderFilmInfo() {
+    const {films} = this.props;
     const filmInfo = this.state.selectedFilm;
     return (
-      <FilmInfo film={filmInfo} onCardClick={this._handlerCardClick}/>
+      <FilmInfo films={films} film={filmInfo} onCardClick={this._handlerCardClick}/>
     );
   }
 
@@ -65,9 +67,17 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  })).isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
 };
 
-export {App};
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps)(App);

@@ -1,10 +1,12 @@
 import {ALL_GENRES} from "../common/consts";
-import {extend} from "../common/utils";
+import {extend, getGenres} from "../common/utils";
 import films from "../common/mock/films";
 
 const initialState = {
   genre: ALL_GENRES,
-  films
+  genres: getGenres(films),
+  films,
+  filteredFilms: films
 };
 
 const ActionType = {
@@ -12,11 +14,11 @@ const ActionType = {
   GET_FILMS_LIST: `GET_FILMS_LIST`
 };
 
-const getFilteredFilms = (genre) => {
+const getFilteredFilms = (filmsList, genre) => {
   if (genre === ALL_GENRES) {
-    return films;
+    return filmsList;
   } else {
-    return films.filter((film) => film.genre === genre);
+    return filmsList.filter((film) => film.genre === genre);
   }
 };
 
@@ -29,9 +31,10 @@ const ActionCreator = {
   },
 
   getFilmsList: (genre) => {
+    const filteredByGengeFilms = getFilteredFilms(films, genre);
     return {
       type: ActionType.GET_FILMS_LIST,
-      payload: getFilteredFilms(genre)
+      payload: filteredByGengeFilms
     };
   }
 };
@@ -44,7 +47,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_FILMS_LIST:
       return extend(state, {
-        films: action.payload
+        filteredFilms: action.payload
       });
   }
 

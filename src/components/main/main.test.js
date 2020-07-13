@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
 import {Movie} from "../../common/mock-test";
+import {getGenres} from "../../common/utils";
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -29,7 +30,9 @@ describe(`MainComponent`, () => {
   it(`Main correct render`, () => {
     const store = mockStore({
       genre: `All genres`,
-      films
+      genres: getGenres(films),
+      films,
+      filteredFilms: films
     });
 
     const tree = renderer
@@ -39,6 +42,9 @@ describe(`MainComponent`, () => {
             title={Movie.TITLE}
             genre={Movie.GENRE}
             date={Movie.DATE}
+            genres={store.genres}
+            films={store.filteredFilms}
+            activeGenre={store.genre}
             onCardClick={() => {}}
           />
         </Provider>

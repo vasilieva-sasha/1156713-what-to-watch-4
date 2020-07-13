@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {App} from "./components/app/app.jsx";
+import App from "./components/app/app.jsx";
 import {Movie} from "./common/mock/mock";
 import {createStore} from "redux";
 import {reducer} from "./reducer/reducer.js";

@@ -1,23 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ALL_GENRES, MAX_GENRES} from "../../common/consts";
-import films from "../../common/mock/films";
-
-export const getGenres = () => {
-  return films.reduce((filmGenres, film) => {
-    if (!filmGenres.includes(film.genre)) {
-      filmGenres.push(film.genre);
-    }
-    return filmGenres;
-  }, [ALL_GENRES]);
-};
+import {MAX_GENRES} from "../../common/consts";
 
 const GenreList = (props) => {
-  const {activeGenre, onFilterClick} = props;
+  const {genres, activeGenre, onFilterClick} = props;
 
   return (
     <ul className="catalog__genres-list">
-      {getGenres().slice(0, MAX_GENRES).map((genre, index) => {
+      {genres.slice(0, MAX_GENRES).map((genre, index) => {
         return (
           <li key={`${genre}-${index}`}
             className={`catalog__genres-item ${genre === activeGenre ? `catalog__genres-item--active` : ``}`}>
@@ -34,6 +24,7 @@ const GenreList = (props) => {
 };
 
 GenreList.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired
 };

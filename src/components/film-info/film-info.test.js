@@ -2,6 +2,21 @@ import React from "react";
 import renderer from "react-test-renderer";
 import FilmInfo from "./film-info";
 
+const films = [
+  {
+    title: `a`,
+    genre: `Drama`,
+    poster: `fantastic-beasts-the-crimes-of-grindelwald`,
+    preview: ``
+  },
+  {
+    title: `b`,
+    genre: `Drama`,
+    poster: `fantastic-beasts-the-crimes-of-grindelwald`,
+    preview: ``
+  }
+];
+
 
 const film = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -29,7 +44,7 @@ const film = {
 describe(`FilmInfoComponent`, () => {
   it(`FilmInfo correct render`, () => {
     const tree = renderer.create(
-        <FilmInfo film={film} onCardClick={() => {}} />
+        <FilmInfo films={films} film={film} onCardClick={() => {}} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

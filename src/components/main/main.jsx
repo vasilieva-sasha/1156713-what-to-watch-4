@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 
 const Main = (props) => {
-  const {title, genre, date, films, onCardClick, activeGenre, onFilterClick} = props;
+  const {title, genre, date, genres, films, onCardClick, activeGenre, onFilterClick} = props;
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -68,7 +68,7 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList activeGenre={activeGenre} onFilterClick={onFilterClick}/>
+          <GenreList genres={genres} activeGenre={activeGenre} onFilterClick={onFilterClick}/>
 
           <FilmList films={films} onCardClick={onCardClick}/>
 
@@ -99,6 +99,7 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string,
@@ -111,7 +112,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.filteredFilms,
+  genres: state.genres,
   activeGenre: state.genre,
 });
 

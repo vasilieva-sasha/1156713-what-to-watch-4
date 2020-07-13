@@ -281,7 +281,7 @@ Array [
             onClick={[Function]}
           >
             <video
-              poster="img/macbeth.jpg"
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               style={
                 Object {
                   "height": "100%",
@@ -298,7 +298,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Macbeth
+              a
             </a>
           </h3>
         </article>
@@ -312,7 +312,7 @@ Array [
             onClick={[Function]}
           >
             <video
-              poster="img/what-we-do-in-the-shadows.jpg"
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               style={
                 Object {
                   "height": "100%",
@@ -329,69 +329,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              What We Do in the Shadows
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-            onClick={[Function]}
-          >
-            <video
-              poster="img/revenant.jpg"
-              style={
-                Object {
-                  "height": "100%",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-            onClick={[Function]}
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Revenant
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-            onClick={[Function]}
-          >
-            <video
-              poster="img/johnny-english.jpg"
-              style={
-                Object {
-                  "height": "100%",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-            onClick={[Function]}
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Johnny English
+              b
             </a>
           </h3>
         </article>

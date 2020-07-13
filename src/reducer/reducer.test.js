@@ -1,5 +1,6 @@
 import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer.js";
 import {ALL_GENRES} from "../common/consts.js";
+import {getGenres} from "../common/utils.js";
 
 const Genres = {
   DRAMA: `Drama`,
@@ -198,31 +199,41 @@ const films = [
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: ALL_GENRES,
-    films
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
   });
 });
 
 it(`Reducer should change current genre`, () => {
   expect(reducer({
     genre: ALL_GENRES,
-    films
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.DRAMA,
   })).toEqual({
     genre: Genres.DRAMA,
-    films
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
   });
 
   expect(reducer({
     genre: ALL_GENRES,
-    films
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.COMEDY,
   })).toEqual({
     genre: Genres.COMEDY,
-    films
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
   });
 });
 
@@ -237,7 +248,7 @@ describe(`Action creators work correctly`, () => {
   it(`Action creator for getting new film list returns correct action`, () => {
     expect(ActionCreator.getFilmsList(Genres.HORROR)).toEqual({
       type: ActionType.GET_FILMS_LIST,
-      payload: getFilteredFilms(Genres.HORROR)
+      payload: getFilteredFilms(films, Genres.HORROR)
     });
   });
 });

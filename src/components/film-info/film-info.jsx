@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation.jsx";
 import FilmList from "../film-list/film-list.jsx";
-import films from "../../common/mock/films";
 import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
 
 const FilmInfo = (props) => {
-  const {film, onCardClick} = props;
+  const {films, film, onCardClick} = props;
 
   const getFilmListByGenre = () => {
     return films.filter((filmItem) => {
@@ -106,6 +105,10 @@ const FilmInfo = (props) => {
 };
 
 FilmInfo.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  })).isRequired,
   film: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
