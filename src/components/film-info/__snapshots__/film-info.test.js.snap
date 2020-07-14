@@ -334,6 +334,7 @@ Array [
           </h3>
         </article>
       </div>
+      
     </section>
     <footer
       className="page-footer"

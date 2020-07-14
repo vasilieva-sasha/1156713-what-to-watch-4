@@ -1,27 +1,50 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import FilmCard from "../film-card/film-card.jsx";
-import {TIMEOUT} from "../../common/consts";
+import {TIMEOUT, FILMS_SHOW_AMOUNT} from "../../common/consts";
+import CatalogButton from './../catalog-button/catalog-button.jsx';
+import {connect} from "react-redux";
 
 class FilmList extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedCard: null
+      selectedCard: null,
+      filmsAmount: FILMS_SHOW_AMOUNT,
+      activeGenre: props.genre
     };
 
     this._timeOut = null;
+    this._shownFilms = FILMS_SHOW_AMOUNT;
 
     this._handleArticleHover = this._handleArticleHover.bind(this);
     this._handleCardLeave = this._handleCardLeave.bind(this);
+    this._handleCatalogButtonClick = this._handleCatalogButtonClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.genre !== this.state.activeGenre) {
+      this.setState({
+        selectedCard: null,
+        filmsAmount: FILMS_SHOW_AMOUNT
+      });
+    }
   }
 
   componentWillUnmount() {
     clearTimeout(this._timeOut);
     this.setState({
-      selectedCard: null
+      selectedCard: null,
+      filmsAmount: FILMS_SHOW_AMOUNT
     });
+  }
+
+  _getShownFilms() {
+    const {films} = this.props;
+    const {filmsAmount} = this.state;
+
+    return films.slice(0, filmsAmount);
   }
 
   _handleArticleHover(currentFilm) {
@@ -37,26 +60,34 @@ class FilmList extends PureComponent {
     });
   }
 
+  _handleCatalogButtonClick() {
+    this._shownFilms = this._shownFilms + FILMS_SHOW_AMOUNT;
+    this.setState({filmsAmount: this._shownFilms});
+  }
+
   render() {
     const {films, onCardClick} = this.props;
-    const {selectedCard} = this.state;
+    const {selectedCard, filmsAmount} = this.state;
     return (
-      <div className="catalog__movies-list">
-        {films.map((film, index) => {
-          return (
-            <FilmCard
-              key={`${film.poster}-${index}`}
-              film={film}
-              onArticleHover={(currentFilm) => {
-                currentFilm = films[index];
-                this._handleArticleHover(currentFilm);
-              }}
-              onCardClick={onCardClick}
-              isPlaying={selectedCard === films[index]}
-              onCardLeave={this._handleCardLeave}
-            />);
-        })}
-      </div>
+      <React.Fragment>
+        <div className="catalog__movies-list">
+          {this._getShownFilms().map((film, index) => {
+            return (
+              <FilmCard
+                key={`${film.poster}-${index}`}
+                film={film}
+                onArticleHover={(currentFilm) => {
+                  currentFilm = films[index];
+                  this._handleArticleHover(currentFilm);
+                }}
+                onCardClick={onCardClick}
+                isPlaying={selectedCard === films[index]}
+                onCardLeave={this._handleCardLeave}
+              />);
+          })}
+        </div>
+        {films.length > filmsAmount ? <CatalogButton onCatalogButtonClick={this._handleCatalogButtonClick} /> : ``}
+      </React.Fragment>
     );
   }
 }
@@ -68,7 +99,12 @@ FilmList.propTypes = {
         poster: PropTypes.string
       }))
     .isRequired,
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired
 };
 
-export default FilmList;
+const mapStateToProps = (state) => ({
+  genre: state.genre,
+});
+
+export default connect(mapStateToProps)(FilmList);

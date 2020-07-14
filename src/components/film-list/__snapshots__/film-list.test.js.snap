@@ -1,39 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmListComponent FilmList correct render 1`] = `
-<div
-  className="catalog__movies-list"
->
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+Array [
+  <div
+    className="catalog__movies-list"
   >
-    <div
-      className="small-movie-card__image"
-      onClick={[Function]}
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
-      <video
-        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-      onClick={[Function]}
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
+      <div
+        className="small-movie-card__image"
+        onClick={[Function]}
       >
-        Fantastic Beasts: The Crimes of Grindelwald
-      </a>
-    </h3>
-  </article>
-</div>
+        <video
+          poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          style={
+            Object {
+              "height": "100%",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+        onClick={[Function]}
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Fantastic Beasts: The Crimes of Grindelwald
+        </a>
+      </h3>
+    </article>
+  </div>,
+  "",
+]
 `;
