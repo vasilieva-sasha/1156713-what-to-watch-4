@@ -1,3 +1,7 @@
 export const TIMEOUT = 1000;
 
 export const SIMILAR_FILMS_AMOUNT_SHOW = 4;
+
+export const ALL_GENRES = `All genres`;
+
+export const MAX_GENRES = 9;

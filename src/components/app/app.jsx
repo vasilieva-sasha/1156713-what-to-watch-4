@@ -1,8 +1,9 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Main} from "../main/main.jsx";
+import Main from "../main/main.jsx";
 import FilmInfo from "../film-info/film-info.jsx";
+import {connect} from "react-redux";
 
 class App extends PureComponent {
   constructor(props) {
@@ -25,21 +26,21 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {title, genre, date, films} = this.props;
+    const {title, genre, date} = this.props;
     return (
       <Main title={title}
         genre={genre}
         date={date}
-        films={films}
         onCardClick={this._handlerCardClick}
       />
     );
   }
 
   _renderFilmInfo() {
+    const {films} = this.props;
     const filmInfo = this.state.selectedFilm;
     return (
-      <FilmInfo film={filmInfo} onCardClick={this._handlerCardClick}/>
+      <FilmInfo films={films} film={filmInfo} onCardClick={this._handlerCardClick}/>
     );
   }
 
@@ -66,26 +67,17 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  })).isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        releaseDate: PropTypes.number.isRequired,
-        posterInfo: PropTypes.string.isRequired,
-        background: PropTypes.string.isRequired,
-        rating: PropTypes.shape({
-          score: PropTypes.string.isRequired,
-          level: PropTypes.string.isRequired,
-          count: PropTypes.number.isRequired
-        }),
-        text: PropTypes.arrayOf(PropTypes.string).isRequired,
-        director: PropTypes.string.isRequired,
-        actors: PropTypes.arrayOf(PropTypes.string).isRequired
-      }))
-    .isRequired,
 };
 
-export {App};
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps)(App);

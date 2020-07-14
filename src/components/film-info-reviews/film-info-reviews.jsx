@@ -21,20 +21,7 @@ const FilmInfoReviews = (props) => {
       </div>
       <div className="movie-card__reviews-col">
         {reviewsList.slice(splitIndex, reviewsList.length).map((review) => {
-          return (
-            <div className="review" key={`${review.author}-${review.id}`}>
-              <blockquote className="review__quote">
-                <p className="review__text">{review.text}</p>
-
-                <footer className="review__details">
-                  <cite className="review__author">{review.author}</cite>
-                  <time className="review__date" dateTime="2016-12-24">{review.date}</time>
-                </footer>
-              </blockquote>
-
-              <div className="review__rating">{review.rating}</div>
-            </div>
-          );
+          return <Review review={review} key={`${review.author}-${review.id}`}/>;
         })}
       </div>
     </div>
