@@ -1,6 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FilmInfo from "./film-info";
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+import {getGenres} from './../../common/utils';
+
+const mockStore = configureStore([]);
 
 const films = [
   {
@@ -42,9 +47,18 @@ const film = {
 };
 
 describe(`FilmInfoComponent`, () => {
+  const store = mockStore({
+    genre: `All genres`,
+    genres: getGenres(films),
+    films,
+    filteredFilms: films
+  });
+
   it(`FilmInfo correct render`, () => {
     const tree = renderer.create(
-        <FilmInfo films={films} film={film} onCardClick={() => {}} />
+        <Provider store={store}>
+          <FilmInfo films={films} film={film} onCardClick={() => {}} />
+        </Provider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
