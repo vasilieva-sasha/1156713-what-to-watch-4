@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import App from "./components/app/app";
 import {Movie} from "./common/mock/mock";
 import {createStore} from "redux";
-import {reducer} from "./reducer/reducer.js";
+import {reducer} from "./reducer/reducer";
 import {Provider} from "react-redux";
 
 const store = createStore(reducer);

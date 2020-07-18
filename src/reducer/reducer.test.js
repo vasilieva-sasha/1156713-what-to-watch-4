@@ -1,6 +1,6 @@
-import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer.js";
-import {ALL_GENRES} from "../common/consts.js";
-import {getGenres} from "../common/utils.js";
+import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer";
+import {ALL_GENRES} from "../common/consts";
+import {getGenres} from "../common/utils";
 
 const Genres = {
   DRAMA: `Drama`,

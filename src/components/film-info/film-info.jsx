@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilmInfoNavigation from "../film-info-navigation/film-info-navigation.jsx";
-import FilmList from "../film-list/film-list.jsx";
+import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
+import FilmList from "../film-list/film-list";
 import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
 
 const FilmInfo = (props) => {

@@ -1,9 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import FilmCard from "../film-card/film-card.jsx";
+import FilmCard from "../film-card/film-card";
 import {TIMEOUT, FILMS_SHOW_AMOUNT} from "../../common/consts";
-import CatalogButton from './../catalog-button/catalog-button.jsx';
+import CatalogButton from './../catalog-button/catalog-button';
 import {connect} from "react-redux";
+import withActivePlayer from './../../hocs/with-active-player/with-active-player';
+
+const FilmCardWrapped = withActivePlayer(FilmCard);
 
 class FilmList extends PureComponent {
   constructor(props) {
@@ -73,7 +76,7 @@ class FilmList extends PureComponent {
         <div className="catalog__movies-list">
           {this._getShownFilms().map((film, index) => {
             return (
-              <FilmCard
+              <FilmCardWrapped
                 key={`${film.poster}-${index}`}
                 film={film}
                 onArticleHover={(currentFilm) => {

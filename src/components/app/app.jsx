@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Main from "../main/main.jsx";
-import FilmInfo from "../film-info/film-info.jsx";
+import Main from "../main/main";
+import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/reducer";
 
 const App = (props) => {
   const {films, title, genre, date, selectedFilm, onCardClick} = props;

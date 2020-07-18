@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import GenreList from "./genre-list.jsx";
+import GenreList from "./genre-list";
 
 const genres = [`All genres`, `Comedy`, `Horror`, `Family`];
 

@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
-import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
-import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
+import FilmInfoOverview from "../film-info-overview/film-info-overview";
+import FilmInfoDetails from "../film-info-details/film-info-details";
+import FilmInfoReviews from "../film-info-reviews/film-info-reviews";
 import {makeLetterUppercase} from "../../common/utils";
 
 const TABS = [`overview`, `details`, `reviews`];

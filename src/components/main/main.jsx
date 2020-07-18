@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilmList from "../film-list/film-list.jsx";
-import GenreList from "../genre-list/genre-list.jsx";
+import FilmList from "../film-list/film-list";
+import GenreList from "../genre-list/genre-list";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/reducer";
 
 const Main = (props) => {
   const {title, genre, date, genres, films, onCardClick, activeGenre, onFilterClick} = props;

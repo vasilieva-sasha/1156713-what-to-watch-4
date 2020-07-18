@@ -2,9 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import App from "./app.jsx";
+import App from "./app";
 import {Movie} from "../../common/mock-test";
-import {getGenres} from "../../common/utils.js";
+import {getGenres} from "../../common/utils";
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
