@@ -7,13 +7,15 @@ const initialState = {
   genre: ALL_GENRES,
   genres: getGenres(films),
   films,
-  filteredFilms: films
+  filteredFilms: films,
+  detailsScreen: 0
 };
 
 const ActionType = {
   CHANGE_CARD: `CHANGE_CARD`,
   CHANGE_GENRE: `CHANGE_GENRE`,
   GET_FILMS_LIST: `GET_FILMS_LIST`,
+  CHANGE_DETAILS_SCREEN: `CHANGE_DETAILS_SCREEN`
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -45,6 +47,13 @@ const ActionCreator = {
       type: ActionType.GET_FILMS_LIST,
       payload: filteredByGengeFilms
     };
+  },
+
+  changeDetailsScreen: (index) => {
+    return {
+      type: ActionType.CHANGE_DETAILS_SCREEN,
+      payload: index
+    };
   }
 };
 
@@ -61,6 +70,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_FILMS_LIST:
       return extend(state, {
         filteredFilms: action.payload
+      });
+    case ActionType.CHANGE_DETAILS_SCREEN:
+      return extend(state, {
+        detailsScreen: action.payload
       });
   }
 

@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FilmInfoNavigation from "./film-info-navigation";
+import configureStore from 'redux-mock-store';
+import {Provider} from "react-redux";
 
 const mock = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -22,10 +24,19 @@ const mock = {
   reviews: [0, 1]
 };
 
+const mockStore = configureStore([]);
+
 describe(`FilmNavigationComponent`, () => {
   it(`Navigation bar renders correctly`, () => {
+    const store = mockStore({
+      detailsScreen: 0
+    });
     const tree = renderer.create(
-        <FilmInfoNavigation film={mock} />
+        <Provider store={store} >
+          <FilmInfoNavigation film={mock}
+            detailsScreen={store.detailsScreen}
+            onLinkClick={() => {}}/>
+        </Provider>
     );
 
     expect(tree).toMatchSnapshot();

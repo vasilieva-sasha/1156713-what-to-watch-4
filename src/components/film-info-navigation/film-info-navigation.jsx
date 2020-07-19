@@ -1,9 +1,11 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import FilmInfoOverview from "../film-info-overview/film-info-overview";
-import FilmInfoDetails from "../film-info-details/film-info-details";
-import FilmInfoReviews from "../film-info-reviews/film-info-reviews";
+import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
+import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
+import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
 import {makeLetterUppercase} from "../../common/utils";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 const TABS = [`overview`, `details`, `reviews`];
 
@@ -13,24 +15,23 @@ const FilmInfoScreen = {
   REVIEWS: 2
 };
 
-class FilmInfoNavigation extends PureComponent {
-  constructor(props) {
-    super(props);
+const FilmInfoNavigation = (props) => {
+  const {film, detailsScreen, onLinkClick} = props;
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      detailsScreen: 0
-    };
-  }
+  //   this.state = {
+  //     detailsScreen: 0
+  //   };
+  // }
 
-  _handleLinkClick(index) {
-    this.setState({
-      detailsScreen: index
-    });
-  }
+  // const handleLinkClick = (index) => {
+  //   this.setState({
+  //     detailsScreen: index
+  //   });
+  // };
 
-  _renderScreen() {
-    const {detailsScreen} = this.state;
-    const {film} = this.props;
+  const renderScreen = () => {
     if (detailsScreen === FilmInfoScreen.OVERVIEW) {
       return <FilmInfoOverview film={film} />;
     } else if (detailsScreen === FilmInfoScreen.DETAILS) {
@@ -39,19 +40,19 @@ class FilmInfoNavigation extends PureComponent {
       return <FilmInfoReviews film={film}/>;
     }
     return null;
-  }
+  };
 
-  _renderNavigationMenu() {
+  const renderNavigationMenu = () => {
 
     return (
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
           {TABS.map((tab, index) => {
             return (
-              <li key={`${tab}-${index}`} className={`movie-nav__item ${this.state.detailsScreen === index ? `movie-nav__item--active` : ``}`}>
+              <li key={`${tab}-${index}`} className={`movie-nav__item ${detailsScreen === index ? `movie-nav__item--active` : ``}`}>
                 <a href="#" className="movie-nav__link" onClick={(evt) => {
                   evt.preventDefault();
-                  this._handleLinkClick(index);
+                  onLinkClick(index);
                 }}>{makeLetterUppercase(tab)}</a>
               </li>
             );
@@ -59,18 +60,16 @@ class FilmInfoNavigation extends PureComponent {
         </ul>
       </nav>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className="movie-card__desc">
-        {this._renderNavigationMenu()}
-        {this._renderScreen()}
+  return (
+    <div className="movie-card__desc">
+      {renderNavigationMenu()}
+      {renderScreen()}
 
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 FilmInfoNavigation.propTypes = {
   film: PropTypes.shape({
@@ -80,6 +79,18 @@ FilmInfoNavigation.propTypes = {
     posterInfo: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired
   }),
+  detailsScreen: PropTypes.number.isRequired,
+  onLinkClick: PropTypes.func.isRequired
 };
 
-export default FilmInfoNavigation;
+const mapStateToProps = (state) => ({
+  detailsScreen: state.detailsScreen,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLinkClick(index) {
+    dispatch(ActionCreator.changeDetailsScreen(index));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmInfoNavigation);

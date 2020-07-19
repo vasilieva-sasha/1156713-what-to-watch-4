@@ -3,29 +3,8 @@ import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player";
 
 const FilmCard = (props) => {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     isPlaying: this.props.isPlaying
-  //   };
-
-  //   this._handleMouseEnter = this._handleMouseEnter.bind(this);
-  //   this._handleMouseLeave = this._handleMouseLeave.bind(this);
-  // }
-
-  // const handleMouseEnter(handler) {
-  //   this.setState({isPlaying: !this.state.isPlaying});
-  //   handler();
-  // }
-
-  // _handleMouseLeave(handler) {
-  //   this.setState({isPlaying: false});
-  //   handler();
-  // }
-
-  // render() {
   const {film, onArticleHover, onCardClick, isPlaying, onCardLeave} = props;
+
   return (
     <article
       onMouseEnter={onArticleHover}
@@ -45,7 +24,6 @@ const FilmCard = (props) => {
       </h3>
     </article>
   );
-  // }
 };
 
 FilmCard.propTypes = {

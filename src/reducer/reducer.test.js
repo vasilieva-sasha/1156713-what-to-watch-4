@@ -294,7 +294,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   });
 });
 
@@ -304,7 +305,8 @@ it(`Reducer should change current genre`, () => {
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.DRAMA,
@@ -313,7 +315,8 @@ it(`Reducer should change current genre`, () => {
     genre: Genres.DRAMA,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   });
 
   expect(reducer({
@@ -321,7 +324,8 @@ it(`Reducer should change current genre`, () => {
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.COMEDY,
@@ -330,7 +334,8 @@ it(`Reducer should change current genre`, () => {
     genre: Genres.COMEDY,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   });
 });
 
