@@ -63,10 +63,8 @@ describe(`FilmCardComponent`, () => {
     const onArticleHover = jest.fn();
     const onCardLeave = jest.fn();
 
-    const FilmCardWrapped = withActivePlayer(FilmCard);
-
     const filmCardComponent = mount(
-        <FilmCardWrapped film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} isPlaying={false} onCardLeave={onCardLeave} />
+        <FilmCard film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} isPlaying={false} onCardLeave={onCardLeave} />
     );
 
     const card = filmCardComponent.find(`.small-movie-card`);
@@ -74,12 +72,9 @@ describe(`FilmCardComponent`, () => {
     card.simulate(`mouseenter`);
 
     expect(onArticleHover.mock.calls.length).toBe(1);
-    expect(filmCardComponent.state().isPlaying).toBe(true);
-    expect(onArticleHover).toHaveBeenCalledWith(currentFilm);
 
     card.simulate(`mouseleave`);
 
     expect(onCardLeave.mock.calls.length).toBe(1);
-    expect(filmCardComponent.state().isPlaying).toBe(false);
   });
 });

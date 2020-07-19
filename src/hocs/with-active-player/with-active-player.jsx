@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
+import {TIMEOUT} from './../../common/consts';
 
 const withActivePlayer = (Component) => {
   class WithActivePlayer extends PureComponent {
@@ -7,25 +8,38 @@ const withActivePlayer = (Component) => {
       super(props);
 
       this.state = {
-        isPlaying: this.props.isPlaying
+        isPlaying: false
       };
+
+      this._timeOut = null;
+      this._handleArticleHover = this._handleArticleHover.bind(this);
+      this._handleCardLeave = this._handleCardLeave.bind(this);
+    }
+
+    componentWillUnmount() {
+      clearTimeout(this._timeOut);
+    }
+
+    _handleArticleHover() {
+      this._timeOut = setTimeout(() => {
+        this.setState({isPlaying: true});
+      }, TIMEOUT);
+    }
+
+    _handleCardLeave() {
+      clearTimeout(this._timeOut);
+      this.setState({isPlaying: false});
     }
 
     render() {
-      const {film, onArticleHover, onCardClick, isPlaying, onCardLeave} = this.props;
+      const {film, onCardClick} = this.props;
       return (
         <Component
           film={film}
-          onArticleHover={() => {
-            this.setState({isPlaying: !this.state.isPlaying});
-            onArticleHover(film);
-          }}
+          onArticleHover={this._handleArticleHover}
           onCardClick={onCardClick}
-          isPlaying={isPlaying}
-          onCardLeave={() => {
-            this.setState({isPlaying: false});
-            onCardLeave();
-          }}
+          isPlaying={this.state.isPlaying}
+          onCardLeave={this._handleCardLeave}
         />
       );
     }
@@ -37,10 +51,7 @@ const withActivePlayer = (Component) => {
       poster: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired
     }).isRequired,
-    onArticleHover: PropTypes.func.isRequired,
     onCardClick: PropTypes.func.isRequired,
-    isPlaying: PropTypes.bool.isRequired,
-    onCardLeave: PropTypes.func.isRequired
   };
 
   return WithActivePlayer;

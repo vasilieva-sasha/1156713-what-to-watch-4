@@ -4,6 +4,9 @@ import FilmList from "../film-list/film-list";
 import GenreList from "../genre-list/genre-list";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
+import withFilmsAmount from "../../hocs/with-films-amount/with-films-amount";
+
+const FilmListWrapped = withFilmsAmount(FilmList);
 
 const Main = (props) => {
   const {title, genre, date, genres, films, onCardClick, activeGenre, onFilterClick} = props;
@@ -70,7 +73,7 @@ const Main = (props) => {
 
           <GenreList genres={genres} activeGenre={activeGenre} onFilterClick={onFilterClick}/>
 
-          <FilmList films={films} onCardClick={onCardClick}/>
+          <FilmListWrapped films={films} onCardClick={onCardClick}/>
 
         </section>
 

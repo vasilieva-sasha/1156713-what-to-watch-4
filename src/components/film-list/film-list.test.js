@@ -4,6 +4,7 @@ import FilmList from "./film-list";
 import configureStore from "redux-mock-store";
 import {getGenres} from './../../common/utils';
 import {Provider} from 'react-redux';
+import withFilmsAmount from './../../hocs/with-films-amount/with-films-amount';
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -22,9 +23,11 @@ describe(`FilmListComponent`, () => {
   });
 
   it(`FilmList correct render`, () => {
+
+    const FilmListWrapped = withFilmsAmount(FilmList);
     const tree = renderer.create(
         <Provider store={store}>
-          <FilmList films={films} onCardClick={() => {}} genre={store.genre}/>
+          <FilmListWrapped films={films} onCardClick={() => {}} genre={store.genre}/>
         </Provider>
     ).toJSON();
 

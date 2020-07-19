@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
 import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
+import withFilmsAmount from './../../hocs/with-films-amount/with-films-amount';
+
+const FilmListWrapped = withFilmsAmount(FilmList);
 
 const FilmInfo = (props) => {
   const {films, film, onCardClick} = props;
@@ -83,7 +86,7 @@ const FilmInfo = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={getFilmListByGenre()} onCardClick={onCardClick} />
+          <FilmListWrapped films={getFilmListByGenre()} onCardClick={onCardClick} />
         </section>
 
         <footer className="page-footer">
