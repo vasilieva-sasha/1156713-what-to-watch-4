@@ -17,19 +17,6 @@ const FilmInfoScreen = {
 
 const FilmInfoNavigation = (props) => {
   const {film, detailsScreen, onLinkClick} = props;
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     detailsScreen: 0
-  //   };
-  // }
-
-  // const handleLinkClick = (index) => {
-  //   this.setState({
-  //     detailsScreen: index
-  //   });
-  // };
 
   const renderScreen = () => {
     if (detailsScreen === FilmInfoScreen.OVERVIEW) {
