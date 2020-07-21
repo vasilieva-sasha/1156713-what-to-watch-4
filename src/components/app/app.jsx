@@ -4,7 +4,6 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
 
 const App = (props) => {
   const {films, title, genre, date, selectedFilm, onCardClick} = props;
@@ -63,13 +62,6 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: state.films,
-  selectedFilm: state.activeCard
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCardClick(film) {
-    dispatch(ActionCreator.changeCard(film));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

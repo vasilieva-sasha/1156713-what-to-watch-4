@@ -4,8 +4,6 @@ import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
 import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
 import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
 import {makeLetterUppercase} from "../../common/utils";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
 
 const TABS = [`overview`, `details`, `reviews`];
 
@@ -70,14 +68,4 @@ FilmInfoNavigation.propTypes = {
   onLinkClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  detailsScreen: state.detailsScreen,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLinkClick(index) {
-    dispatch(ActionCreator.changeDetailsScreen(index));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilmInfoNavigation);
+export default FilmInfoNavigation;

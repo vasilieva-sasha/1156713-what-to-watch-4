@@ -22,13 +22,6 @@ const mock = {
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 };
 
-const MockComponent = ({onCardClick}) => <div><a onClick={onCardClick}/></div>;
-
-MockComponent.propTypes = {
-  onCardClick: PropTypes.func.isRequired
-};
-
-const MockComponentWrapped = withActivePlayer(MockComponent);
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -36,15 +29,53 @@ Enzyme.configure({
 
 describe(`WithActivePalyer`, () => {
   it(`Should click happen`, () => {
+    const MockComponent = ({onCardClick}) => <div><a onClick={onCardClick}/></div>;
+
+    MockComponent.propTypes = {
+      onCardClick: PropTypes.func.isRequired,
+    };
+
+    const MockComponentWrapped = withActivePlayer(MockComponent);
+
     const onCardClick = jest.fn();
 
     const wrapper = mount(
-        <MockComponentWrapped film={mock} onCardClick={onCardClick}/>
+        <MockComponentWrapped film={mock} onCardClick={onCardClick} onMouseEnter={() => {}} onMouseLeave={() => {}}/>
     );
 
     const link = wrapper.find(`a`);
 
     link.simulate(`click`);
+
     expect(onCardClick).toHaveBeenCalledTimes(1);
+  });
+
+  it(`Should video play with delay`, () => {
+    const MockComponent = ({onArticleHover, onCardLeave}) => <div onMouseEnter={onArticleHover} onMouseLeave={onCardLeave}></div>;
+
+    MockComponent.propTypes = {
+      onArticleHover: PropTypes.func.isRequired,
+      onCardLeave: PropTypes.func.isRequired
+    };
+
+    const MockComponentWrapped = withActivePlayer(MockComponent);
+
+    const wrapper = mount(
+        <MockComponentWrapped film={mock} onCardClick={() => {}} onArticleHover={() => {}} onCardLeave={() => {}}/>
+    );
+
+    jest.useFakeTimers();
+
+    wrapper.simulate(`mouseenter`);
+
+    expect(wrapper.state().isPlaying).toBe(false);
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+
+    jest.runAllTimers();
+
+    expect(wrapper.state().isPlaying).toBe(true);
+
+    wrapper.simulate(`mouseleave`);
+    expect(wrapper.state().isPlaying).toBe(false);
   });
 });

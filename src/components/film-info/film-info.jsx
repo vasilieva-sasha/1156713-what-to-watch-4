@@ -4,8 +4,10 @@ import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
 import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
 import withFilmsAmount from './../../hocs/with-films-amount/with-films-amount';
+import withActiveNavigationScreen from "../../hocs/with-active-navigation-screen/with-active-navigation-screen";
 
 const FilmListWrapped = withFilmsAmount(FilmList);
+const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
 const FilmInfo = (props) => {
   const {films, film, onCardClick} = props;
@@ -76,7 +78,7 @@ const FilmInfo = (props) => {
                 width="218" height="327"/>
             </div>
 
-            <FilmInfoNavigation film={film} />
+            <FilmInfoNavigationWrapped film={film} />
 
           </div>
         </div>
@@ -86,7 +88,7 @@ const FilmInfo = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmListWrapped films={getFilmListByGenre()} onCardClick={onCardClick} />
+          <FilmListWrapped films={getFilmListByGenre()} genre={film.genre} onCardClick={onCardClick} />
         </section>
 
         <footer className="page-footer">

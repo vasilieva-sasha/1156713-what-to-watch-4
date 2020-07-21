@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import {FILMS_SHOW_AMOUNT} from './../../common/consts';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 const withFilmsAmount = (Component) => {
   class WithFilmsAmount extends PureComponent {
@@ -11,8 +10,6 @@ const withFilmsAmount = (Component) => {
       this.state = {
         filmsAmount: FILMS_SHOW_AMOUNT,
       };
-
-      this._shownFilms = FILMS_SHOW_AMOUNT;
 
       this._handleCatalogButtonClick = this._handleCatalogButtonClick.bind(this);
       this._updateAmount = this._updateAmount.bind(this);
@@ -44,15 +41,15 @@ const withFilmsAmount = (Component) => {
     }
 
     _handleCatalogButtonClick() {
-      this._shownFilms = this._shownFilms + FILMS_SHOW_AMOUNT;
-      this.setState({filmsAmount: this._shownFilms});
+      this.setState({filmsAmount: this.state.filmsAmount + FILMS_SHOW_AMOUNT});
     }
 
     render() {
-      const {films, onCardClick} = this.props;
+      const {films, genre, onCardClick} = this.props;
       return (
         <Component films={films}
           shownFilms={this._getShownFilms()}
+          genre={genre}
           onCardClick={onCardClick}
           onCatalogButtonClick={this._handleCatalogButtonClick}
           onGenreUpdate ={this._updateAmount}/>
@@ -71,11 +68,7 @@ const withFilmsAmount = (Component) => {
     onCardClick: PropTypes.func.isRequired,
   };
 
-  const mapStateToProps = (state) => ({
-    genre: state.genre,
-  });
-
-  return connect(mapStateToProps)(WithFilmsAmount);
+  return WithFilmsAmount;
 };
 
 export default withFilmsAmount;

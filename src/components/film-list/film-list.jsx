@@ -43,7 +43,8 @@ FilmList.propTypes = {
     .isRequired,
   onCardClick: PropTypes.func.isRequired,
   onCatalogButtonClick: PropTypes.func.isRequired,
-  onGenreUpdate: PropTypes.func.isRequired
+  onGenreUpdate: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired
 };
 
 export default FilmList;

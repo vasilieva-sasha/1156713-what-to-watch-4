@@ -27,7 +27,7 @@ const films = [{
 const mockStore = configureStore([]);
 
 describe(`AppComponent`, () => {
-  it(`App correct render`, () => {
+  it(`App main page correct render`, () => {
     const store = mockStore({
       genre: `All genres`,
       genres: getGenres(films),
@@ -42,6 +42,32 @@ describe(`AppComponent`, () => {
             title={Movie.TITLE}
             genre={Movie.GENRE}
             date={Movie.DATE}
+            selectedFilm={null}
+            onCardClick={() => {}}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App movie page correct render`, () => {
+    const store = mockStore({
+      genre: `All genres`,
+      genres: getGenres(films),
+      films,
+      filteredFilms: films
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={films}
+            title={Movie.TITLE}
+            genre={Movie.GENRE}
+            date={Movie.DATE}
+            selectedFilm={films[0]}
+            onCardClick={() => {}}
           />
         </Provider>
     ).toJSON();

@@ -2,8 +2,6 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import FilmInfoNavigation from "./film-info-navigation";
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
 
 const mock = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -25,32 +23,24 @@ const mock = {
   reviews: [0, 1]
 };
 
-const mockStore = configureStore([]);
-
 Enzyme.configure({
   adapter: new Adapter()
 });
 
 describe(`FilmNavigationComponent`, () => {
-  const store = mockStore({
-    detailsScreen: 0
-  });
-
   it(`Get index by click on tab`, () => {
     const onLinkClick = jest.fn((index) => index);
 
     const navigation = mount(
-        <Provider store={store} >
-          <FilmInfoNavigation film={mock}
-            detailsScreen={store.detailsScreen}
-            onLinkClick={onLinkClick}/>
-        </Provider>
+        <FilmInfoNavigation film={mock}
+          detailsScreen={0}
+          onLinkClick={onLinkClick}/>
     );
 
     const tab = navigation.find(`.movie-nav__link`).at(1);
 
-    tab.simulate(`click`, {preventDefault: onLinkClick});
+    tab.simulate(`click`, {preventDefault: () => {}});
     expect(onLinkClick).toHaveBeenCalledTimes(1);
-    // expect(onLinkClick).toHaveBeenCalledWith(1); почему-то не получает аргументы
+    expect(onLinkClick).toHaveBeenCalledWith(1);
   });
 });

@@ -290,52 +290,42 @@ const films = [
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    activeCard: null,
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
     filteredFilms: films,
-    detailsScreen: 0
   });
 });
 
 it(`Reducer should change current genre`, () => {
   expect(reducer({
-    activeCard: null,
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
     filteredFilms: films,
-    detailsScreen: 0
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.DRAMA,
   })).toEqual({
-    activeCard: null,
     genre: Genres.DRAMA,
     genres: getGenres(films),
     films,
     filteredFilms: films,
-    detailsScreen: 0
   });
 
   expect(reducer({
-    activeCard: null,
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
     filteredFilms: films,
-    detailsScreen: 0
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.COMEDY,
   })).toEqual({
-    activeCard: null,
     genre: Genres.COMEDY,
     genres: getGenres(films),
     films,
     filteredFilms: films,
-    detailsScreen: 0
   });
 });
 

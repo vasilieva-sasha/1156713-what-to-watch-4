@@ -2,7 +2,6 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import FilmCard from "./film-card";
-import withActivePlayer from './../../hocs/with-active-player/with-active-player';
 
 const currentFilm = {
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -30,10 +29,8 @@ describe(`FilmCardComponent`, () => {
   it(`Title click`, () => {
     const onCardClick = jest.fn();
 
-    const FilmCardWrapped = withActivePlayer(FilmCard);
-
     const filmCardComponent = mount(
-        <FilmCardWrapped film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
     );
 
     const smallCardTitle = filmCardComponent.find(`.small-movie-card__title`);
@@ -46,10 +43,8 @@ describe(`FilmCardComponent`, () => {
   it(`Image click`, () => {
     const onCardClick = jest.fn();
 
-    const FilmCardWrapped = withActivePlayer(FilmCard);
-
     const filmCardComponent = mount(
-        <FilmCardWrapped film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
     );
 
     const smallCardImage = filmCardComponent.find(`.small-movie-card__image`);
