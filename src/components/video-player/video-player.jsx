@@ -15,10 +15,6 @@ class VideoPlayer extends PureComponent {
     if (video) {
       video.src = film.preview;
       video.muted = true;
-
-      video.onplay = () => this.setState({
-        isPlaying: true
-      });
     }
   }
 

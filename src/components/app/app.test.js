@@ -2,9 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import App from "./app.jsx";
+import App from "./app";
 import {Movie} from "../../common/mock-test";
-import {getGenres} from "../../common/utils.js";
+import {getGenres} from "../../common/utils";
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -27,7 +27,7 @@ const films = [{
 const mockStore = configureStore([]);
 
 describe(`AppComponent`, () => {
-  it(`App correct render`, () => {
+  it(`App main page correct render`, () => {
     const store = mockStore({
       genre: `All genres`,
       genres: getGenres(films),
@@ -42,6 +42,32 @@ describe(`AppComponent`, () => {
             title={Movie.TITLE}
             genre={Movie.GENRE}
             date={Movie.DATE}
+            selectedFilm={null}
+            onCardClick={() => {}}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App movie page correct render`, () => {
+    const store = mockStore({
+      genre: `All genres`,
+      genres: getGenres(films),
+      films,
+      filteredFilms: films
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={films}
+            title={Movie.TITLE}
+            genre={Movie.GENRE}
+            date={Movie.DATE}
+            selectedFilm={films[0]}
+            onCardClick={() => {}}
           />
         </Provider>
     ).toJSON();

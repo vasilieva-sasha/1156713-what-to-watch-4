@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import reviews from "../../common/mock/reviews";
-import {Review} from "../review/review.jsx";
+import {Review} from "../review/review";
 
 const FilmInfoReviews = (props) => {
   const {film} = props;

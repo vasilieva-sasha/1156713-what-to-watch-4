@@ -6,12 +6,12 @@ const initialState = {
   genre: ALL_GENRES,
   genres: getGenres(films),
   films,
-  filteredFilms: films
+  filteredFilms: films,
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
-  GET_FILMS_LIST: `GET_FILMS_LIST`
+  GET_FILMS_LIST: `GET_FILMS_LIST`,
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -36,7 +36,7 @@ const ActionCreator = {
       type: ActionType.GET_FILMS_LIST,
       payload: filteredByGengeFilms
     };
-  }
+  },
 };
 
 const reducer = (state = initialState, action) => {

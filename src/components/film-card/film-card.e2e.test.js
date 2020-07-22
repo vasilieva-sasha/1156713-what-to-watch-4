@@ -67,12 +67,9 @@ describe(`FilmCardComponent`, () => {
     card.simulate(`mouseenter`);
 
     expect(onArticleHover.mock.calls.length).toBe(1);
-    expect(filmCardComponent.state().isPlaying).toBe(true);
-    expect(onArticleHover).toHaveBeenCalledWith(currentFilm);
 
     card.simulate(`mouseleave`);
 
     expect(onCardLeave.mock.calls.length).toBe(1);
-    expect(filmCardComponent.state().isPlaying).toBe(false);
   });
 });

@@ -29,14 +29,18 @@ Enzyme.configure({
 
 describe(`FilmNavigationComponent`, () => {
   it(`Get index by click on tab`, () => {
+    const onLinkClick = jest.fn((index) => index);
 
     const navigation = mount(
-        <FilmInfoNavigation film={mock} />
+        <FilmInfoNavigation film={mock}
+          detailsScreen={0}
+          onLinkClick={onLinkClick}/>
     );
 
-    const tab = navigation.find(`a.movie-nav__link`).at(1);
+    const tab = navigation.find(`.movie-nav__link`).at(1);
 
-    tab.simulate(`click`);
-    expect(navigation.state().detailsScreen).toEqual(1);
+    tab.simulate(`click`, {preventDefault: () => {}});
+    expect(onLinkClick).toHaveBeenCalledTimes(1);
+    expect(onLinkClick).toHaveBeenCalledWith(1);
   });
 });

@@ -25,7 +25,9 @@ const mock = {
 describe(`FilmNavigationComponent`, () => {
   it(`Navigation bar renders correctly`, () => {
     const tree = renderer.create(
-        <FilmInfoNavigation film={mock} />
+        <FilmInfoNavigation film={mock}
+          detailsScreen={0}
+          onLinkClick={() => {}}/>
     );
 
     expect(tree).toMatchSnapshot();

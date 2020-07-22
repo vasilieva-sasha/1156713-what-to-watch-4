@@ -1,6 +1,6 @@
-import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer.js";
-import {ALL_GENRES} from "../common/consts.js";
-import {getGenres} from "../common/utils.js";
+import {reducer, ActionCreator, ActionType, getFilteredFilms} from "./reducer";
+import {ALL_GENRES} from "../common/consts";
+import {getGenres} from "../common/utils";
 
 const Genres = {
   DRAMA: `Drama`,
@@ -293,7 +293,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
   });
 });
 
@@ -302,7 +302,7 @@ it(`Reducer should change current genre`, () => {
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.DRAMA,
@@ -310,14 +310,14 @@ it(`Reducer should change current genre`, () => {
     genre: Genres.DRAMA,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
   });
 
   expect(reducer({
     genre: ALL_GENRES,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
   }, {
     type: ActionType.CHANGE_GENRE,
     payload: Genres.COMEDY,
@@ -325,7 +325,7 @@ it(`Reducer should change current genre`, () => {
     genre: Genres.COMEDY,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
   });
 });
 

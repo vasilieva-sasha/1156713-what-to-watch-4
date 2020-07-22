@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import GenreList from "./genre-list.jsx";
+import GenreList from "./genre-list";
 
 const genres = [`All genres`, `Comedy`, `Horror`, `Family`];
 

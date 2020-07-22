@@ -51,7 +51,8 @@ describe(`FilmInfoComponent`, () => {
     genre: `All genres`,
     genres: getGenres(films),
     films,
-    filteredFilms: films
+    filteredFilms: films,
+    detailsScreen: 0
   });
 
   it(`FilmInfo correct render`, () => {

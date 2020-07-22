@@ -1,70 +1,49 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Main from "../main/main.jsx";
-import FilmInfo from "../film-info/film-info.jsx";
+import Main from "../main/main";
+import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
+const App = (props) => {
+  const {films, title, genre, date, selectedFilm, onCardClick} = props;
 
-    this.state = {
-      selectedFilm: null
-    };
-
-    this._handlerCardClick = this._handlerCardClick.bind(this);
-  }
-
-  _renderApp() {
-    const {selectedFilm} = this.state;
-
+  const renderApp = () => {
     if (selectedFilm) {
-      return this._renderFilmInfo();
+      return renderFilmInfo();
     }
-    return this._renderMain();
-  }
+    return renderMain();
+  };
 
-  _renderMain() {
-    const {title, genre, date} = this.props;
+  const renderMain = () => {
     return (
       <Main title={title}
         genre={genre}
         date={date}
-        onCardClick={this._handlerCardClick}
+        onCardClick={onCardClick}
       />
     );
-  }
+  };
 
-  _renderFilmInfo() {
-    const {films} = this.props;
-    const filmInfo = this.state.selectedFilm;
+  const renderFilmInfo = () => {
     return (
-      <FilmInfo films={films} film={filmInfo} onCardClick={this._handlerCardClick}/>
+      <FilmInfo films={films} film={selectedFilm} onCardClick={onCardClick}/>
     );
-  }
+  };
 
-  _handlerCardClick(film) {
-    this.setState({
-      selectedFilm: film
-    });
-  }
-
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-film">
-            {this._renderFilmInfo()}
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {renderApp()}
+        </Route>
+        <Route exact path="/dev-film">
+          {renderFilmInfo()}
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
@@ -74,6 +53,11 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
+  selectedFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  }),
+  onCardClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
