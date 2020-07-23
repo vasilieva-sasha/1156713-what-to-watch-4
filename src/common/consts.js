@@ -7,3 +7,8 @@ export const ALL_GENRES = `All genres`;
 export const MAX_GENRES = 9;
 
 export const FILMS_SHOW_AMOUNT = 8;
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};

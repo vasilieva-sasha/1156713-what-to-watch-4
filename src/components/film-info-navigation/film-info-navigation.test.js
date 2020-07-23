@@ -12,11 +12,11 @@ const mock = {
   background: `background/placeimg_1000_424_animals`,
   preview: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   rating: {
-    score: `8,9`,
+    score: 8.9,
     level: `Very good`,
     count: 240
   },
-  text: [`In the 1930s`],
+  text: `In the 1930s`,
   director: `Wes Andreson`,
   actors: [`Bill Murray`],
   reviews: [0, 1]

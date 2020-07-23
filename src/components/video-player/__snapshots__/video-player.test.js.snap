@@ -2,7 +2,7 @@
 
 exports[`VideoPlayer Video player renders correctly 1`] = `
 <video
-  poster="img/.jpg"
+  poster=""
   style={
     Object {
       "height": "100%",

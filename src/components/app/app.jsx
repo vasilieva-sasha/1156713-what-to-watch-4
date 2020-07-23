@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
+import {getFilms} from "../../reducer/data/selectors";
 
 const App = (props) => {
   const {films, title, genre, date, selectedFilm, onCardClick} = props;
@@ -61,7 +62,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: getFilms(state),
 });
 
 export default connect(mapStateToProps)(App);

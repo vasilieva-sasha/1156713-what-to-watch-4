@@ -255,6 +255,11 @@ exports[`AppComponent App movie page correct render 1`] = `
 Array [
   <section
     className="movie-card movie-card--full"
+    style={
+      Object {
+        "background": "",
+      }
+    }
   >
     <div
       className="movie-card__hero"
@@ -264,7 +269,7 @@ Array [
       >
         <img
           alt="Fantastic Beasts: The Crimes of Grindelwald"
-          src="img/background/placeimg_1000_424_animals.jpg"
+          src="background/placeimg_1000_424_animals"
         />
       </div>
       <h1
@@ -398,7 +403,7 @@ Array [
           <img
             alt="Fantastic Beasts: The Crimes of Grindelwald poster"
             height="327"
-            src="img/posters/placeimg_218_327_animals.jpg"
+            src="posters/placeimg_218_327_animals"
             width="218"
           />
         </div>
@@ -452,7 +457,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              8,9
+              8.9
             </div>
             <p
               className="movie-rating__meta"
@@ -473,9 +478,6 @@ Array [
           <div
             className="movie-card__text"
           >
-            <p>
-              text
-            </p>
             <p>
               text
             </p>

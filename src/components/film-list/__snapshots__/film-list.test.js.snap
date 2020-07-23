@@ -15,7 +15,7 @@ Array [
         onClick={[Function]}
       >
         <video
-          poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          poster="fantastic-beasts-the-crimes-of-grindelwald"
           style={
             Object {
               "height": "100%",

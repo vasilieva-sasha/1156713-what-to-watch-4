@@ -20,10 +20,10 @@ const FilmInfo = (props) => {
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{background: film.backgroundColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${film.background}.jpg`} alt={film.title}/>
+            <img src={film.background} alt={film.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -74,7 +74,7 @@ const FilmInfo = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${film.posterInfo}.jpg`} alt={`${film.title} poster`}
+              <img src={film.posterInfo} alt={`${film.title} poster`}
                 width="218" height="327"/>
             </div>
 
@@ -119,7 +119,8 @@ FilmInfo.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     posterInfo: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired
+    background: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired
   }),
   onCardClick: PropTypes.func.isRequired
 };

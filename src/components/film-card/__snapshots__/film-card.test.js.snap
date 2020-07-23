@@ -11,7 +11,7 @@ exports[`FilmCardComponent FilmCard correct render 1`] = `
     onClick={[Function]}
   >
     <video
-      poster="img/.jpg"
+      poster=""
       style={
         Object {
           "height": "100%",

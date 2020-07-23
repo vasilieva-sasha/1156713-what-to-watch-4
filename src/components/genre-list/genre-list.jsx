@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {MAX_GENRES} from "../../common/consts";
 
 const GenreList = (props) => {
-  const {genres, activeGenre, onFilterClick} = props;
+  const {films, genres, activeGenre, onFilterClick} = props;
 
   return (
     <ul className="catalog__genres-list">
@@ -14,7 +14,7 @@ const GenreList = (props) => {
             <a href="#" className="catalog__genres-link"
               onClick={(evt) => {
                 evt.preventDefault();
-                onFilterClick(genre);
+                onFilterClick(films, genre);
               }}>{genre}</a>
           </li>
         );
@@ -24,6 +24,12 @@ const GenreList = (props) => {
 };
 
 GenreList.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        poster: PropTypes.string
+      }))
+  .isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired
