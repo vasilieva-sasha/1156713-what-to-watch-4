@@ -3,23 +3,23 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "./app";
-import {Movie} from "../../common/mock-test";
-import {getGenres} from "../../common/utils";
+import NameSpace from "../../reducer/name-space.js";
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
-  poster: `fantastic-beasts-the-crimes-of-grindelwald`,
+  poster: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   posterInfo: `posters/placeimg_218_327_animals`,
   background: `background/placeimg_1000_424_animals`,
+  backgroundColor: ``,
   preview: ``,
   rating: {
-    score: `8,9`,
+    score: 8.9,
     level: `Very good`,
     count: 240
   },
-  text: [`text`, `text`],
+  text: `text`,
   director: `Wes Andreson`,
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 }];
@@ -27,21 +27,25 @@ const films = [{
 const mockStore = configureStore([]);
 
 describe(`AppComponent`, () => {
-  it(`App main page correct render`, () => {
-    const store = mockStore({
+  const store = mockStore({
+    [NameSpace.APP]: {
       genre: `All genres`,
-      genres: getGenres(films),
+    },
+    [NameSpace.DATA]: {
+      promoFilm: films[0],
       films,
-      filteredFilms: films
-    });
+      filteredFilms: films,
+      serverError: false
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `NO_AUTH`,
+    },
+  });
 
+  it(`App main page correct render`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            films={films}
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
             selectedFilm={null}
             onCardClick={() => {}}
           />
@@ -52,20 +56,9 @@ describe(`AppComponent`, () => {
   });
 
   it(`App movie page correct render`, () => {
-    const store = mockStore({
-      genre: `All genres`,
-      genres: getGenres(films),
-      films,
-      filteredFilms: films
-    });
-
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            films={films}
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
             selectedFilm={films[0]}
             onCardClick={() => {}}
           />

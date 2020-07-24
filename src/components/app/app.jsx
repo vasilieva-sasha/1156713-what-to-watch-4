@@ -4,22 +4,26 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
+import {getFilms, getServerError} from "../../reducer/data/selectors";
+import LoadErrorScreen from "../load-error-screen/load-error-screen";
 
 const App = (props) => {
-  const {films, title, genre, date, selectedFilm, onCardClick} = props;
+  const {films, serverError, selectedFilm, onCardClick} = props;
 
   const renderApp = () => {
-    if (selectedFilm) {
-      return renderFilmInfo();
+    if (serverError) {
+      return <LoadErrorScreen/>;
+    } else {
+      if (selectedFilm) {
+        return renderFilmInfo();
+      }
+      return renderMain();
     }
-    return renderMain();
   };
 
   const renderMain = () => {
     return (
-      <Main title={title}
-        genre={genre}
-        date={date}
+      <Main
         onCardClick={onCardClick}
       />
     );
@@ -50,9 +54,7 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
   })).isRequired,
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
+  serverError: PropTypes.bool.isRequired,
   selectedFilm: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
@@ -61,7 +63,8 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: getFilms(state),
+  serverError: getServerError(state)
 });
 
 export default connect(mapStateToProps)(App);

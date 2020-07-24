@@ -3,8 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
-import {Movie} from "../../common/mock-test";
-import {getGenres} from "../../common/utils";
+import NameSpace from './../../reducer/name-space';
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -24,25 +23,31 @@ const films = [{
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 }];
 
+const genres = [`All genres`, `Comedy`, `Horror`, `Family`];
+
 const mockStore = configureStore([]);
 
 describe(`MainComponent`, () => {
   it(`Main correct render`, () => {
     const store = mockStore({
-      genre: `All genres`,
-      genres: getGenres(films),
-      films,
-      filteredFilms: films
+      [NameSpace.APP]: {
+        genre: `All genres`,
+      },
+      [NameSpace.DATA]: {
+        promoFilm: films[0],
+        films,
+        filteredFilms: films
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: `NO_AUTH`,
+      },
     });
 
     const tree = renderer
     .create(
         <Provider store={store}>
           <Main
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
-            genres={store.genres}
+            genres={genres}
             films={store.filteredFilms}
             activeGenre={store.genre}
             onCardClick={() => {}}

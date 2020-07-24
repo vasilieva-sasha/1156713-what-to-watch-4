@@ -14,9 +14,7 @@ const FilmInfoOverview = (props) => {
       </div>
 
       <div className="movie-card__text">
-        <p>{film.text[0]}</p>
-
-        <p>{film.text[1]}</p>
+        <p>{film.text}</p>
 
         <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
@@ -29,11 +27,11 @@ const FilmInfoOverview = (props) => {
 FilmInfoOverview.propTypes = {
   film: PropTypes.shape({
     rating: PropTypes.shape({
-      score: PropTypes.string.isRequired,
+      score: PropTypes.number.isRequired,
       level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired
     }),
-    text: PropTypes.arrayOf(PropTypes.string).isRequired,
+    text: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     actors: PropTypes.arrayOf(PropTypes.string).isRequired
   })

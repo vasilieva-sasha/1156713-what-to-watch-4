@@ -45,7 +45,7 @@ class VideoPlayer extends PureComponent {
     return (
       <video
         style={{width: `100%`, height: `100%`}}
-        poster={`img/${film.poster}.jpg`}
+        poster={film.poster}
         ref={this._videoRef}
       />
     );

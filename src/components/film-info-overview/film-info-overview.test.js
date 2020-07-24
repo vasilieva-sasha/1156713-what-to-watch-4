@@ -4,11 +4,11 @@ import FilmInfoOverview from "./film-info-overview";
 
 const mock = {
   rating: {
-    score: ` `,
+    score: 8,
     level: ` `,
     count: 200
   },
-  text: [`text`],
+  text: `text`,
   director: `director`,
   actors: [`actor`, `actor`]
 };
