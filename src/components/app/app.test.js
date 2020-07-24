@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "./app";
-import {Movie} from "../../common/mock-test";
 import NameSpace from "../../reducer/name-space.js";
 
 const films = [{
@@ -33,8 +32,10 @@ describe(`AppComponent`, () => {
       genre: `All genres`,
     },
     [NameSpace.DATA]: {
+      promoFilm: films[0],
       films,
-      filteredFilms: films
+      filteredFilms: films,
+      serverError: false
     },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`,
@@ -45,10 +46,6 @@ describe(`AppComponent`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            // films={films}
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
             selectedFilm={null}
             onCardClick={() => {}}
           />
@@ -62,10 +59,6 @@ describe(`AppComponent`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            // films={films}
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
             selectedFilm={films[0]}
             onCardClick={() => {}}
           />

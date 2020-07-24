@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
-import {Movie} from "../../common/mock-test";
 import NameSpace from './../../reducer/name-space';
 
 const films = [{
@@ -35,6 +34,7 @@ describe(`MainComponent`, () => {
         genre: `All genres`,
       },
       [NameSpace.DATA]: {
+        promoFilm: films[0],
         films,
         filteredFilms: films
       },
@@ -47,9 +47,6 @@ describe(`MainComponent`, () => {
     .create(
         <Provider store={store}>
           <Main
-            title={Movie.TITLE}
-            genre={Movie.GENRE}
-            date={Movie.DATE}
             genres={genres}
             films={store.filteredFilms}
             activeGenre={store.genre}

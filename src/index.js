@@ -8,7 +8,6 @@ import {ActionCreator} from "./reducer/user/user";
 import reducer from "./reducer/reducer";
 import {Provider} from "react-redux";
 import App from "./components/app/app";
-import {Movie} from "./common/mock/mock";
 import withActiveCard from "./hocs/with-active-card/with-active-card";
 import {createAPI} from './api';
 import {AuthorizationStatus} from "./common/consts";
@@ -26,13 +25,14 @@ const store = createStore(
     )
 );
 
+store.dispatch(DataOperations.loadPromoFilm());
 store.dispatch(DataOperations.loadFilms());
 
 const AppWrapped = withActiveCard(App);
 
 ReactDOM.render(
     <Provider store={store}>
-      <AppWrapped title={Movie.TITLE} genre={Movie.GENRE} date={Movie.DATE}/>
+      <AppWrapped/>
     </Provider>,
     document.querySelector(`#root`)
 );

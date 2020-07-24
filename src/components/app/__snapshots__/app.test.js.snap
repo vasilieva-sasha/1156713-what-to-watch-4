@@ -9,8 +9,8 @@ Array [
       className="movie-card__bg"
     >
       <img
-        alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        src="background/placeimg_1000_424_animals"
       />
     </div>
     <h1
@@ -69,9 +69,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="Fantastic Beasts: The Crimes of Grindelwald poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="posters/placeimg_218_327_animals"
             width="218"
           />
         </div>
@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Fantastic Beasts: The Crimes of Grindelwald
           </h2>
           <p
             className="movie-card__meta"
@@ -94,7 +94,7 @@ Array [
             <span
               className="movie-card__year"
             >
-              2014
+              2018
             </span>
           </p>
           <div

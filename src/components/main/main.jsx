@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data";
 import withFilmsAmount from "../../hocs/with-films-amount/with-films-amount";
-import Header from "../header/header";
 import MainFilmCard from "../main-film-card/main-film-card";
 import Footer from "../footer/footer";
 import {getGenres} from './../../common/utils';
@@ -16,22 +15,12 @@ import {getGenre} from './../../reducer/app/selectors';
 const FilmListWrapped = withFilmsAmount(FilmList);
 
 const Main = (props) => {
-  const {title, genre, date, films, allFilms, onCardClick, activeGenre, onFilterClick} = props;
+  const {films, allFilms, onCardClick, activeGenre, onFilterClick} = props;
 
   return (
     <React.Fragment>
-      <section className="movie-card">
-        <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title}/>
-        </div>
 
-        <h1 className="visually-hidden">WTW</h1>
-
-        <Header/>
-
-        <MainFilmCard title={title} genre={genre} date={date}/>
-
-      </section>
+      <MainFilmCard/>
 
       <div className="page-content">
         <section className="catalog">
@@ -51,9 +40,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string,

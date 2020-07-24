@@ -13,6 +13,7 @@ const films = [
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
     preview: ``,
+    background: ``,
     backgroundColor: ``
   },
   {
@@ -20,6 +21,7 @@ const films = [
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
     preview: ``,
+    background: ``,
     backgroundColor: ``
   }
 ];
