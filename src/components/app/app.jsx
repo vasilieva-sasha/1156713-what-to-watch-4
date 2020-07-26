@@ -4,16 +4,26 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
-import {getFilms, getServerError} from "../../reducer/data/selectors";
+import {getFilms, getServerError, getPromo} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
+import withFullPlayer from "../../hocs/with-full-player/with-full-player";
+import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
+import {getPlayerStatus} from "../../reducer/app/selectors";
+import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
+
+const FilminfoWrapped = withFullPlayer(FilmInfo);
+const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
 
 const App = (props) => {
-  const {films, serverError, selectedFilm, onCardClick} = props;
+  const {films, serverError, isFullPlayerActive, promoFilm, selectedFilm, onCardClick} = props;
 
   const renderApp = () => {
     if (serverError) {
       return <LoadErrorScreen/>;
     } else {
+      if (isFullPlayerActive) {
+        return <FullScreenVideoPlayerWrapper film={!selectedFilm ? promoFilm : selectedFilm}/>;
+      }
       if (selectedFilm) {
         return renderFilmInfo();
       }
@@ -31,7 +41,7 @@ const App = (props) => {
 
   const renderFilmInfo = () => {
     return (
-      <FilmInfo films={films} film={selectedFilm} onCardClick={onCardClick}/>
+      <FilminfoWrapped films={films} film={selectedFilm} onCardClick={onCardClick}/>
     );
   };
 
@@ -54,7 +64,12 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
   })).isRequired,
+  promoFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  }),
   serverError: PropTypes.bool.isRequired,
+  isFullPlayerActive: PropTypes.bool.isRequired,
   selectedFilm: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
@@ -64,7 +79,9 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),
-  serverError: getServerError(state)
+  promoFilm: getPromo(state),
+  serverError: getServerError(state),
+  isFullPlayerActive: getPlayerStatus(state)
 });
 
 export default connect(mapStateToProps)(App);
