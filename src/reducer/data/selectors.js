@@ -14,6 +14,10 @@ export const getFilms = (state) => {
   return state[NameSpace.DATA].films;
 };
 
+export const getReviews = (state) => {
+  return state[NameSpace.DATA].reviews;
+};
+
 const getGenre = (state) => {
   return state[NameSpace.APP].genre;
 };

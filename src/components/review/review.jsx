@@ -6,10 +6,10 @@ const Review = (props) => {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{review.text}</p>
+        <p className="review__text">{review.comment}</p>
 
         <footer className="review__details">
-          <cite className="review__author">{review.author}</cite>
+          <cite className="review__author">{review.user.name}</cite>
           <time className="review__date" dateTime={review.date}>{review.date}</time>
         </footer>
       </blockquote>
@@ -22,10 +22,13 @@ const Review = (props) => {
 Review.propTypes = {
   review: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    author: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    comment: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
   })
 };
 

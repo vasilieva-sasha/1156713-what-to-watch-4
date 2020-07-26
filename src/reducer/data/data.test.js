@@ -6,6 +6,7 @@ import filmAdapter from './../../adapter/film';
 const api = createAPI(() => {});
 
 const promoFilm = {
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -45,6 +46,17 @@ const films = [{
   actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 }];
 
+const reviews = [{
+  id: 0,
+  user: {
+    id: 0,
+    name: ``,
+  },
+  comment: ``,
+  date: `PropTypes.string.isRequired`,
+  rating: 0,
+}];
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     promoFilm: {
@@ -56,6 +68,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     },
     films: [],
     filteredFilms: [],
+    reviews: [],
     serverError: false
   });
 });
@@ -85,6 +98,17 @@ it(`Reducer should update films by load films`, () => {
     payload: films,
   })).toEqual({
     films,
+  });
+});
+
+it(`Reducer should update reviews by load reviews`, () => {
+  expect(reducer({
+    reviews: [],
+  }, {
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  })).toEqual({
+    reviews,
   });
 });
 
@@ -134,6 +158,25 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FILMS,
           payload: [filmAdapter({fake: true})],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /comments/film_id`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operations.loadReviews(promoFilm);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
         });
       });
   });

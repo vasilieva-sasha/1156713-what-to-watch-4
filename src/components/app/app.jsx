@@ -8,8 +8,10 @@ import {getFilms, getServerError, getPromo} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import {getPlayerStatus} from "../../reducer/app/selectors";
+import {getPlayerStatus, getActiveCard} from "../../reducer/app/selectors";
 import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
+import {Operations as DataOperations} from "../../reducer/data/data";
+import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
@@ -81,7 +83,15 @@ const mapStateToProps = (state) => ({
   films: getFilms(state),
   promoFilm: getPromo(state),
   serverError: getServerError(state),
-  isFullPlayerActive: getPlayerStatus(state)
+  isFullPlayerActive: getPlayerStatus(state),
+  selectedFilm: getActiveCard(state)
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  onCardClick(film) {
+    dispatch(DataOperations.loadReviews(film));
+    dispatch(AppActionCreator.changeCard(film));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

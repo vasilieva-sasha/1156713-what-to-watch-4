@@ -16,7 +16,7 @@ exports[`ReviewsComponent film reviews component renders correctly 1`] = `
         <p
           className="review__text"
         >
-          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.
+          
         </p>
         <footer
           className="review__details"
@@ -24,59 +24,25 @@ exports[`ReviewsComponent film reviews component renders correctly 1`] = `
           <cite
             className="review__author"
           >
-            Kate Muir
+            
           </cite>
           <time
             className="review__date"
-            dateTime="2016-12-24"
+            dateTime="PropTypes.string.isRequired"
           >
-            2016-12-24
+            PropTypes.string.isRequired
           </time>
         </footer>
       </blockquote>
       <div
         className="review__rating"
       >
-        8,9
+        0
       </div>
     </div>
   </div>
   <div
     className="movie-card__reviews-col"
-  >
-    <div
-      className="review"
-    >
-      <blockquote
-        className="review__quote"
-      >
-        <p
-          className="review__text"
-        >
-          Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.
-        </p>
-        <footer
-          className="review__details"
-        >
-          <cite
-            className="review__author"
-          >
-            Kate Muir
-          </cite>
-          <time
-            className="review__date"
-            dateTime="2016-12-24"
-          >
-            2016-12-24
-          </time>
-        </footer>
-      </blockquote>
-      <div
-        className="review__rating"
-      >
-        7,2
-      </div>
-    </div>
-  </div>
+  />
 </div>
 `;
