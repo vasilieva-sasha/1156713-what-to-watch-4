@@ -69,7 +69,7 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
   }),
   serverError: PropTypes.bool.isRequired,
-  isFullPlayerActive: PropTypes.bool.isRequired,
+  isFullPlayerActive: PropTypes.bool,
   selectedFilm: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,

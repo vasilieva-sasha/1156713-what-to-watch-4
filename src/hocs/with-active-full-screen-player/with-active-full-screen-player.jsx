@@ -105,9 +105,11 @@ const withActiveFullScreenPlayer = (Component) => {
 
     _getTogglerPosition() {
       const {progress, duration} = this.state;
+      let position = 0;
       if (progress > 0) {
-        return progress / duration * 100;
+        position = progress / duration * 100;
       }
+      return position;
     }
 
     _getCountDown() {

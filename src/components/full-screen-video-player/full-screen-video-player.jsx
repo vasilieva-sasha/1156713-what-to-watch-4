@@ -8,7 +8,6 @@ class FullScreenVideoPlayer extends PureComponent {
   render() {
     const {onExitClick,
       isPlaying,
-      progress,
       renderVideo,
       renderPlayButton,
       renderPauseButton,
@@ -50,7 +49,6 @@ class FullScreenVideoPlayer extends PureComponent {
 FullScreenVideoPlayer.propTypes = {
   onExitClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  progress: PropTypes.number,
   renderVideo: PropTypes.func.isRequired,
   renderPlayButton: PropTypes.func,
   renderPauseButton: PropTypes.func,

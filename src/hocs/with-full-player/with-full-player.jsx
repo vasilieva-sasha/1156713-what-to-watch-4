@@ -20,7 +20,7 @@ const withFullPlayer = (Component) => {
   };
 
   WithFullPlayer.propTypes = {
-    isPlayerActive: PropTypes.bool.isRequired,
+    isPlayerActive: PropTypes.bool,
     onPlayClick: PropTypes.func.isRequired
   };
 
