@@ -60,7 +60,7 @@ describe(`FilmInfoComponent`, () => {
   it(`FilmInfo correct render`, () => {
     const tree = renderer.create(
         <Provider store={store}>
-          <FilmInfo films={films} film={film} onCardClick={() => {}} />
+          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}}/>
         </Provider>
     ).toJSON();
 

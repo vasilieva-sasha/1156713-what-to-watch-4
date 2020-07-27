@@ -10,7 +10,7 @@ const FilmListWrapped = withFilmsAmount(FilmList);
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
 const FilmInfo = (props) => {
-  const {films, film, onCardClick} = props;
+  const {films, film, onCardClick, onPlayClick} = props;
 
   const getFilmListByGenre = () => {
     return films.filter((filmItem) => {
@@ -53,7 +53,7 @@ const FilmInfo = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={onPlayClick}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -122,7 +122,8 @@ FilmInfo.propTypes = {
     background: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired
   }),
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
 };
 
 export default FilmInfo;

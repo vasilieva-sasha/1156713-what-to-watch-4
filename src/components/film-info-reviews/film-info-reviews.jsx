@@ -1,27 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import reviews from "../../common/mock/reviews";
 import {Review} from "../review/review";
+import {getReviews} from "../../reducer/data/selectors";
+import {connect} from "react-redux";
 
 const FilmInfoReviews = (props) => {
-  const {film} = props;
+  const {reviews} = props;
 
-  const reviewsList = reviews.filter((reviewData) => {
-    return film.reviews.includes(reviewData.id);
-  });
-
-  const splitIndex = Math.ceil(reviewsList.length / 2);
+  const splitIndex = Math.ceil(reviews.length / 2);
 
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {reviewsList.slice(0, splitIndex).map((review) => {
-          return <Review review={review} key={`${review.author}-${review.id}`}/>;
+        {reviews.slice(0, splitIndex).map((review) => {
+          return <Review review={review} key={`${review.user.name}-${review.user.id}`}/>;
         })}
       </div>
       <div className="movie-card__reviews-col">
-        {reviewsList.slice(splitIndex, reviewsList.length).map((review) => {
-          return <Review review={review} key={`${review.author}-${review.id}`}/>;
+        {reviews.slice(splitIndex, reviews.length).map((review) => {
+          return <Review review={review} key={`${review.user.name}-${review.user.id}`}/>;
         })}
       </div>
     </div>
@@ -29,9 +26,22 @@ const FilmInfoReviews = (props) => {
 };
 
 FilmInfoReviews.propTypes = {
-  film: PropTypes.shape({
-    reviews: PropTypes.arrayOf(PropTypes.number).isRequired
-  }).isRequired
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }),
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+      })
+  )
 };
 
-export default FilmInfoReviews;
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state)
+});
+
+export default connect(mapStateToProps)(FilmInfoReviews);

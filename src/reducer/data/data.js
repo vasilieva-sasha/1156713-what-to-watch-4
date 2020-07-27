@@ -12,12 +12,14 @@ const initialState = {
   },
   films: [],
   filteredFilms: [],
+  reviews: [],
   serverError: false
 };
 
 const ActionType = {
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   LOAD_FILMS: `LOAD_FILMS`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
   SHOW_ERROR: `SHOW_ERROR`,
   GET_FILMS_LIST: `GET_FILMS_LIST`,
 };
@@ -41,6 +43,12 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_FILMS,
       payload: films
+    };
+  },
+  loadReviews: (reviews) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews
     };
   },
   showLoadingError: (bool) => {
@@ -67,6 +75,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FILMS:
       return extend(state, {
         films: action.payload
+      });
+    case ActionType.LOAD_REVIEWS:
+      return extend(state, {
+        reviews: action.payload
       });
     case ActionType.SHOW_ERROR:
       return extend(state, {
@@ -100,6 +112,12 @@ const Operations = {
         dispatch(ActionCreator.showLoadingError(true));
       });
   },
+  loadReviews: (film) => (dispatch, getState, api) => {
+    return api.get(`/comments/${film.id}`)
+    .then((response) => {
+      dispatch(ActionCreator.loadReviews(response.data));
+    });
+  }
 };
 
 export {reducer, ActionCreator, ActionType, getFilteredFilms, Operations};

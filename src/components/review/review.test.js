@@ -4,10 +4,13 @@ import {Review} from "./review";
 
 const mock = {
   id: 0,
-  author: ``,
-  text: ``,
-  date: ``,
-  rating: ``,
+  user: {
+    id: 0,
+    name: ``,
+  },
+  comment: ``,
+  date: `PropTypes.string.isRequired`,
+  rating: 0,
 };
 
 describe(`ReviewComponent`, () => {

@@ -22,16 +22,16 @@ exports[`ReviewComponent review component renders correctly 1`] = `
       </cite>
       <time
         className="review__date"
-        dateTime=""
+        dateTime="PropTypes.string.isRequired"
       >
-        
+        PropTypes.string.isRequired
       </time>
     </footer>
   </blockquote>
   <div
     className="review__rating"
   >
-    
+    0
   </div>
 </div>
 `;

@@ -6,6 +6,10 @@ export const getGenre = (state) => {
   return state[NAME_SPACE].genre;
 };
 
-export const getGenres = (state) => {
-  return state[NAME_SPACE].genres;
+export const getActiveCard = (state) => {
+  return state[NAME_SPACE].activeCard;
+};
+
+export const getPlayerStatus = (state) => {
+  return state[NAME_SPACE].isFullPlayerActive;
 };

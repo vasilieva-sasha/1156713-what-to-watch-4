@@ -26,7 +26,7 @@ it(`Main film card renders correctly`, () => {
   });
   const tree = renderer.create(
       <Provider store={store}>
-        <MainFilmCard/>
+        <MainFilmCard onPlayClick={() => {}}/>
       </Provider>
   ).toJSON();
 

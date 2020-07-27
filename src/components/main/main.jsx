@@ -11,8 +11,10 @@ import Footer from "../footer/footer";
 import {getGenres} from './../../common/utils';
 import {getFilms, getFilteredByGenreFilms} from "../../reducer/data/selectors";
 import {getGenre} from './../../reducer/app/selectors';
+import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 
 const FilmListWrapped = withFilmsAmount(FilmList);
+const MainFilmCardWrapped = withFullPlayer(MainFilmCard);
 
 const Main = (props) => {
   const {films, allFilms, onCardClick, activeGenre, onFilterClick} = props;
@@ -20,7 +22,7 @@ const Main = (props) => {
   return (
     <React.Fragment>
 
-      <MainFilmCard/>
+      <MainFilmCardWrapped/>
 
       <div className="page-content">
         <section className="catalog">
