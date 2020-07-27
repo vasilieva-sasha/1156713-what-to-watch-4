@@ -45,7 +45,7 @@ exports[`FullScreenVideoPlayerComponent Full Screen Video Player renders correct
       <div
         className="player__name"
       >
-        Transpotting
+        
       </div>
       <button
         className="player__full-screen"
@@ -115,7 +115,7 @@ exports[`FullScreenVideoPlayerComponent Full Screen Video Player renders correct
       <div
         className="player__name"
       >
-        Transpotting
+        
       </div>
       <button
         className="player__full-screen"

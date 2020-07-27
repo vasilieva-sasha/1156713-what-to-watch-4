@@ -13,7 +13,8 @@ class FullScreenVideoPlayer extends PureComponent {
       renderPauseButton,
       getTogglerPosition,
       getCountDown,
-      onFullScreenClick} = this.props;
+      onFullScreenClick,
+      film} = this.props;
     return (
       <div className="player">
         {renderVideo()}
@@ -31,7 +32,7 @@ class FullScreenVideoPlayer extends PureComponent {
 
           <div className="player__controls-row">
             {isPlaying ? renderPauseButton() : renderPlayButton()}
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{film.title}</div>
 
             <button type="button" className="player__full-screen" onClick={onFullScreenClick}>
               <svg viewBox="0 0 27 27" width="27" height="27">
@@ -54,7 +55,10 @@ FullScreenVideoPlayer.propTypes = {
   renderPauseButton: PropTypes.func,
   getTogglerPosition: PropTypes.func.isRequired,
   getCountDown: PropTypes.func.isRequired,
-  onFullScreenClick: PropTypes.func.isRequired
+  onFullScreenClick: PropTypes.func.isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired
+  })
 };
 
 const mapStateToProps = () => ({});

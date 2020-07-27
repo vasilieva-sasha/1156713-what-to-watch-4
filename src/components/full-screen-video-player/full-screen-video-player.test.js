@@ -5,6 +5,10 @@ import configureStore from 'redux-mock-store';
 import NameSpace from './../../reducer/name-space';
 import {Provider} from "react-redux";
 
+const mock = {
+  title: ``
+};
+
 describe(`FullScreenVideoPlayerComponent`, () => {
   const mockStore = configureStore([]);
   const store = mockStore({
@@ -27,6 +31,7 @@ describe(`FullScreenVideoPlayerComponent`, () => {
             getTogglerPosition={() => {}}
             getCountDown={() => {}}
             onFullScreenClick={() => {}}
+            film={mock}
           />
         </Provider>
     ).toJSON();
@@ -45,6 +50,7 @@ describe(`FullScreenVideoPlayerComponent`, () => {
             getTogglerPosition={() => {}}
             getCountDown={() => {}}
             onFullScreenClick={() => {}}
+            film={mock}
           />
         </Provider>
     ).toJSON();
