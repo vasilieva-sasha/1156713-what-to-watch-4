@@ -43,7 +43,7 @@ exports[`SingInComponent SingIn renders correctly 1`] = `
     <form
       action="#"
       className="sign-in__form"
-      onClick={[Function]}
+      onSubmit={[Function]}
     >
       
       <div

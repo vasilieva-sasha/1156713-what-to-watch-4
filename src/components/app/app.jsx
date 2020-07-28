@@ -13,6 +13,7 @@ import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-pla
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import {Operations as UserOperations} from "../../reducer/user/user";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 import SignIn from './../sign-in/sign-in';
 import {getsignInErrorStatus} from './../../reducer/user/selectors';
 
@@ -109,12 +110,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperations.login(authData));
+
   },
-  onSignIn(singInError) {
-    if (!singInError) {
-      dispatch(UserOperations.checkAuth());
-      dispatch(AppActionCreator.changeAuthorizationPage(false));
-    }
+  onSignIn() {
+    dispatch(UserActionCreator.checkSignIn(false));
   }
 });
 

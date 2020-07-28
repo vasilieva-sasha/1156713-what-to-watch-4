@@ -1,6 +1,7 @@
 import {AuthorizationStatus} from "../../common/consts";
 import {extend} from "../../common/utils";
 import userAdapter from './../../adapter/user';
+import {ActionCreator as AppActionCreator} from "../app/app";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -74,6 +75,7 @@ const Operations = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.loadAuthInfo(userAdapter(response.data)));
         dispatch(ActionCreator.checkSignIn(false));
+        dispatch(AppActionCreator.changeAuthorizationPage(false));
       })
       .catch(() => {
         dispatch(ActionCreator.checkSignIn(true));

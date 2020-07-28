@@ -41,7 +41,7 @@ class SignIn extends PureComponent {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onClick={this._handleSubmit}>
+          <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
             {singInError ?
               <div className="sign-in__message">
                 <p>Please enter a valid email address</p>
@@ -70,7 +70,7 @@ class SignIn extends PureComponent {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit" onClick={() => onSignIn(singInError)}>Sign in</button>
+              <button className="sign-in__btn" type="submit" onClick={onSignIn}>Sign in</button>
             </div>
           </form>
         </div>
