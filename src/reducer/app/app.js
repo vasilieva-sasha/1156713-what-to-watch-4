@@ -4,13 +4,15 @@ import {extend} from './../../common/utils';
 const initialState = {
   genre: ALL_GENRES,
   activeCard: null,
-  isFullPlayerActive: false
+  isFullPlayerActive: false,
+  isAuthorization: false
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   CHANGE_CARD: `CHANGE_CARD`,
-  CHANGE_PLAYER_STATUS: `CHANGE_PLAYER_STATUS`
+  CHANGE_PLAYER_STATUS: `CHANGE_PLAYER_STATUS`,
+  CHANGE_AUTHORIZATION_PAGE: `CHANGE_AUTHORIZATION_PAGE`
 };
 
 const ActionCreator = {
@@ -31,6 +33,12 @@ const ActionCreator = {
       type: ActionType.CHANGE_PLAYER_STATUS,
       payload: bool
     };
+  },
+  changeAuthorizationPage: (bool) => {
+    return {
+      type: ActionType.CHANGE_AUTHORIZATION_PAGE,
+      payload: bool
+    };
   }
 };
 
@@ -47,6 +55,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_PLAYER_STATUS:
       return extend(state, {
         isFullPlayerActive: action.payload
+      });
+    case ActionType.CHANGE_AUTHORIZATION_PAGE:
+      return extend(state, {
+        isAuthorization: action.payload
       });
   }
 

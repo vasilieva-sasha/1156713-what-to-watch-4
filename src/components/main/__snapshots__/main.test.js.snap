@@ -48,14 +48,15 @@ Array [
         className="user-block"
       >
         <div
-          className="user-block__avatar"
+          className="user-block"
         >
-          <img
-            alt="User avatar"
-            height="63"
-            src="img/avatar.jpg"
-            width="63"
-          />
+          <a
+            className="user-block__link"
+            href="sign-in.html"
+            onClick={[Function]}
+          >
+            Sign in
+          </a>
         </div>
       </div>
     </header>

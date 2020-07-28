@@ -25,7 +25,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     genre: ALL_GENRES,
     activeCard: null,
-    isFullPlayerActive: false
+    isFullPlayerActive: false,
+    isAuthorization: false
   });
 });
 

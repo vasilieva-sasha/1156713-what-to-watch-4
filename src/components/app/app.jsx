@@ -8,16 +8,19 @@ import {getFilms, getServerError, getPromo} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import {getPlayerStatus, getActiveCard} from "../../reducer/app/selectors";
+import {getPlayerStatus, getActiveCard, getAuthorizationBool} from "../../reducer/app/selectors";
 import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
+import {Operations as UserOperations} from "../../reducer/user/user";
+import SignIn from './../sign-in/sign-in';
+import {getsignInErrorStatus} from './../../reducer/user/selectors';
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
 
 const App = (props) => {
-  const {films, serverError, isFullPlayerActive, promoFilm, selectedFilm, onCardClick} = props;
+  const {films, serverError, isFullPlayerActive, promoFilm, selectedFilm, onCardClick, isAuthorization, login, onSignIn, singInError} = props;
 
   const renderApp = () => {
     if (serverError) {
@@ -28,6 +31,9 @@ const App = (props) => {
       }
       if (selectedFilm) {
         return renderFilmInfo();
+      }
+      if (isAuthorization) {
+        return <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>;
       }
       return renderMain();
     }
@@ -56,6 +62,9 @@ const App = (props) => {
         <Route exact path="/dev-film">
           {renderFilmInfo()}
         </Route>
+        <Route exact path="/login">
+          <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );
@@ -76,7 +85,11 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
   }),
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  isAuthorization: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
+  onSignIn: PropTypes.func.isRequired,
+  singInError: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -84,13 +97,24 @@ const mapStateToProps = (state) => ({
   promoFilm: getPromo(state),
   serverError: getServerError(state),
   isFullPlayerActive: getPlayerStatus(state),
-  selectedFilm: getActiveCard(state)
+  selectedFilm: getActiveCard(state),
+  isAuthorization: getAuthorizationBool(state),
+  singInError: getsignInErrorStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardClick(film) {
     dispatch(DataOperations.loadReviews(film));
     dispatch(AppActionCreator.changeCard(film));
+  },
+  login(authData) {
+    dispatch(UserOperations.login(authData));
+  },
+  onSignIn(singInError) {
+    if (!singInError) {
+      dispatch(UserOperations.checkAuth());
+      dispatch(AppActionCreator.changeAuthorizationPage(false));
+    }
   }
 });
 
