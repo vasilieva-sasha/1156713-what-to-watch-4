@@ -116,6 +116,9 @@ const Operations = {
     return api.get(`/comments/${film.id}`)
     .then((response) => {
       dispatch(ActionCreator.loadReviews(response.data));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.loadReviews([]));
     });
   }
 };

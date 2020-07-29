@@ -1,51 +1,49 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 
-class FullScreenVideoPlayer extends PureComponent {
+const FullScreenVideoPlayer = (props) => {
 
-  render() {
-    const {onExitClick,
-      isPlaying,
-      renderVideo,
-      renderPlayButton,
-      renderPauseButton,
-      getTogglerPosition,
-      getCountDown,
-      onFullScreenClick,
-      film} = this.props;
-    return (
-      <div className="player">
-        {renderVideo()}
+  const {onExitClick,
+    isPlaying,
+    renderVideo,
+    renderPlayButton,
+    renderPauseButton,
+    getTogglerPosition,
+    getCountDown,
+    onFullScreenClick,
+    film} = props;
+  return (
+    <div className="player">
+      {renderVideo()}
 
-        <button type="button" className="player__exit" onClick={onExitClick}>Exit</button>
+      <button type="button" className="player__exit" onClick={onExitClick}>Exit</button>
 
-        <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value={getTogglerPosition()} max="100"></progress>
-              <div className="player__toggler" style={{left: `${getTogglerPosition()}%`}}>Toggler</div>
-            </div>
-            <div className="player__time-value">{getCountDown()}</div>
+      <div className="player__controls">
+        <div className="player__controls-row">
+          <div className="player__time">
+            <progress className="player__progress" value={getTogglerPosition()} max="100"></progress>
+            <div className="player__toggler" style={{left: `${getTogglerPosition()}%`}}>Toggler</div>
           </div>
+          <div className="player__time-value">{getCountDown()}</div>
+        </div>
 
-          <div className="player__controls-row">
-            {isPlaying ? renderPauseButton() : renderPlayButton()}
-            <div className="player__name">{film.title}</div>
+        <div className="player__controls-row">
+          {isPlaying ? renderPauseButton() : renderPlayButton()}
+          <div className="player__name">{film.title}</div>
 
-            <button type="button" className="player__full-screen" onClick={onFullScreenClick}>
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen"></use>
-              </svg>
-              <span>Full screen</span>
-            </button>
-          </div>
+          <button type="button" className="player__full-screen" onClick={onFullScreenClick}>
+            <svg viewBox="0 0 27 27" width="27" height="27">
+              <use xlinkHref="#full-screen"></use>
+            </svg>
+            <span>Full screen</span>
+          </button>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 FullScreenVideoPlayer.propTypes = {
   onExitClick: PropTypes.func.isRequired,
@@ -61,11 +59,9 @@ FullScreenVideoPlayer.propTypes = {
   })
 };
 
-const mapStateToProps = () => ({});
-
 const mapDispatchToProps = (dispatch) => ({
   onExitClick() {
     dispatch(AppActionCreator.changePlayerStatus(false));
   }
 });
-export default connect(mapStateToProps, mapDispatchToProps)(FullScreenVideoPlayer);
+export default connect(null, mapDispatchToProps)(FullScreenVideoPlayer);

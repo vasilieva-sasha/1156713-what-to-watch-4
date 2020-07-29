@@ -10,6 +10,7 @@ import {Provider} from "react-redux";
 import App from "./components/app/app";
 import {createAPI} from './api';
 import {AuthorizationStatus} from "./common/consts";
+import {Operations as UserOperations} from "./reducer/user/user";
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -26,6 +27,7 @@ const store = createStore(
 
 store.dispatch(DataOperations.loadPromoFilm());
 store.dispatch(DataOperations.loadFilms());
+store.dispatch(UserOperations.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

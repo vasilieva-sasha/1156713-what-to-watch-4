@@ -13,3 +13,7 @@ export const getActiveCard = (state) => {
 export const getPlayerStatus = (state) => {
   return state[NAME_SPACE].isFullPlayerActive;
 };
+
+export const getCurrentPage = (state) => {
+  return state[NAME_SPACE].currentPage;
+};

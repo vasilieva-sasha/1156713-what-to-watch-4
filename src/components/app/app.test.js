@@ -31,6 +31,8 @@ describe(`AppComponent`, () => {
     [NameSpace.APP]: {
       genre: `All genres`,
       activeCard: null,
+      isFullPlayerActive: false,
+      currentPage: `MAIN`
     },
     [NameSpace.DATA]: {
       promoFilm: films[0],
@@ -40,6 +42,8 @@ describe(`AppComponent`, () => {
     },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`,
+      authInfo: null,
+      signInError: false
     },
   });
 
@@ -47,8 +51,16 @@ describe(`AppComponent`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            films={store.films}
+            serverError={store.serverError}
+            isFullPlayerActive={false}
+            promoFilm={store.promoFilm}
             selectedFilm={null}
             onCardClick={() => {}}
+            currentPage={store.currentPage}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
           />
         </Provider>
     ).toJSON();
@@ -60,8 +72,16 @@ describe(`AppComponent`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            films={store.films}
+            serverError={store.serverError}
+            isFullPlayerActive={false}
+            promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
+            currentPage={`INFO`}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
           />
         </Provider>
     ).toJSON();

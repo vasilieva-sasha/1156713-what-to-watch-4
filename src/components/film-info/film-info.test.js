@@ -49,6 +49,12 @@ const film = {
 
 describe(`FilmInfoComponent`, () => {
   const store = mockStore({
+    [NameSpace.APP]: {
+      genre: `All genres`,
+      activeCard: null,
+      isFullPlayerActive: false,
+      currentPage: `INFO`
+    },
     [NameSpace.DATA]: {
       films
     },
@@ -57,10 +63,20 @@ describe(`FilmInfoComponent`, () => {
     },
   });
 
-  it(`FilmInfo correct render`, () => {
+  it(`FilmInfo correct render no-auth`, () => {
     const tree = renderer.create(
         <Provider store={store}>
-          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}}/>
+          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus}/>
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`FilmInfo correct render with auth`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={`AUTH`}/>
         </Provider>
     ).toJSON();
 
