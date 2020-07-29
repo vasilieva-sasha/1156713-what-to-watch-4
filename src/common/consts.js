@@ -12,3 +12,9 @@ export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
+
+export const CurrentPage = {
+  MAIN: `MAIN`,
+  INFO: `INFO`,
+  LOGIN: `LOGIN`
+};

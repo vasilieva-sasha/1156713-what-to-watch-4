@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import {getAuthorizationStatus, getAuthInfo} from './../../reducer/user/selectors';
 import {connect} from 'react-redux';
 import {ActionCreator} from "../../reducer/app/app";
-import {AuthorizationStatus} from "../../common/consts";
+import {AuthorizationStatus, CurrentPage} from "../../common/consts";
+import {getCurrentPage} from './../../reducer/app/selectors';
 
 const Header = (props) => {
-  const {authorizationStatus, onLoginClick, authInfo} = props;
+  const {authorizationStatus, onLoginClick, authInfo, currentPage} = props;
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
-        <a className="logo__link">
+        <a className="logo__link" href={currentPage === CurrentPage.MAIN ? `#` : `main.html`}>
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
@@ -36,18 +37,20 @@ Header.propTypes = {
   onLoginClick: PropTypes.func.isRequired,
   authInfo: PropTypes.shape({
     avatar: PropTypes.string.isRequired
-  })
+  }),
+  currentPage: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  authInfo: getAuthInfo(state)
+  authInfo: getAuthInfo(state),
+  currentPage: getCurrentPage(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoginClick(evt) {
     evt.preventDefault();
-    dispatch(ActionCreator.changeAuthorizationPage(true));
+    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
   }
 });
 

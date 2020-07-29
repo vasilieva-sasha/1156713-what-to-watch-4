@@ -14,6 +14,6 @@ export const getPlayerStatus = (state) => {
   return state[NAME_SPACE].isFullPlayerActive;
 };
 
-export const getAuthorizationBool = (state) => {
-  return state[NAME_SPACE].isAuthorization;
+export const getCurrentPage = (state) => {
+  return state[NAME_SPACE].currentPage;
 };

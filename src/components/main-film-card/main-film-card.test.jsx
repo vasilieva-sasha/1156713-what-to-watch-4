@@ -17,6 +17,12 @@ const mockStore = configureStore([]);
 
 it(`Main film card renders correctly`, () => {
   const store = mockStore({
+    [NameSpace.APP]: {
+      genre: `All genres`,
+      activeCard: null,
+      isFullPlayerActive: false,
+      currentPage: `MAIN`
+    },
     [NameSpace.DATA]: {
       promoFilm: mock,
     },

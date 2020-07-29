@@ -8,7 +8,7 @@ import {getFilms, getServerError, getPromo} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import {getPlayerStatus, getActiveCard, getAuthorizationBool} from "../../reducer/app/selectors";
+import {getPlayerStatus, getActiveCard} from "../../reducer/app/selectors";
 import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
@@ -16,27 +16,34 @@ import {Operations as UserOperations} from "../../reducer/user/user";
 import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 import SignIn from './../sign-in/sign-in';
 import {getsignInErrorStatus} from './../../reducer/user/selectors';
+import {CurrentPage} from "../../common/consts";
+import {getCurrentPage} from './../../reducer/app/selectors';
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
 
 const App = (props) => {
-  const {films, serverError, isFullPlayerActive, promoFilm, selectedFilm, onCardClick, isAuthorization, login, onSignIn, singInError} = props;
+  const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, onSignIn, singInError} = props;
 
   const renderApp = () => {
     if (serverError) {
       return <LoadErrorScreen/>;
     } else {
+
       if (isFullPlayerActive) {
         return <FullScreenVideoPlayerWrapper film={!selectedFilm ? promoFilm : selectedFilm}/>;
       }
-      if (selectedFilm) {
-        return renderFilmInfo();
+
+      switch (currentPage) {
+        case CurrentPage.PLAYER:
+          return <FullScreenVideoPlayerWrapper film={!selectedFilm ? promoFilm : selectedFilm}/>;
+        case CurrentPage.INFO:
+          return renderFilmInfo();
+        case CurrentPage.LOGIN:
+          return <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>;
+        default:
+          return renderMain();
       }
-      if (isAuthorization) {
-        return <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>;
-      }
-      return renderMain();
     }
   };
 
@@ -87,10 +94,10 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
   }),
   onCardClick: PropTypes.func.isRequired,
-  isAuthorization: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   onSignIn: PropTypes.func.isRequired,
-  singInError: PropTypes.bool.isRequired
+  singInError: PropTypes.bool.isRequired,
+  currentPage: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -99,12 +106,13 @@ const mapStateToProps = (state) => ({
   serverError: getServerError(state),
   isFullPlayerActive: getPlayerStatus(state),
   selectedFilm: getActiveCard(state),
-  isAuthorization: getAuthorizationBool(state),
-  singInError: getsignInErrorStatus(state)
+  singInError: getsignInErrorStatus(state),
+  currentPage: getCurrentPage(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardClick(film) {
+    dispatch(AppActionCreator.changePage(CurrentPage.INFO));
     dispatch(DataOperations.loadReviews(film));
     dispatch(AppActionCreator.changeCard(film));
   },

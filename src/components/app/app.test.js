@@ -32,7 +32,7 @@ describe(`AppComponent`, () => {
       genre: `All genres`,
       activeCard: null,
       isFullPlayerActive: false,
-      isAuthorization: false
+      currentPage: `MAIN`
     },
     [NameSpace.DATA]: {
       promoFilm: films[0],
@@ -57,7 +57,7 @@ describe(`AppComponent`, () => {
             promoFilm={store.promoFilm}
             selectedFilm={null}
             onCardClick={() => {}}
-            isAuthorization={false}
+            currentPage={store.currentPage}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -78,7 +78,7 @@ describe(`AppComponent`, () => {
             promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
-            isAuthorization={false}
+            currentPage={`INFO`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}

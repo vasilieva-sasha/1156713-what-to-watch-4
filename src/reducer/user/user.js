@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from "../../common/consts";
+import {AuthorizationStatus, CurrentPage} from "../../common/consts";
 import {extend} from "../../common/utils";
 import userAdapter from './../../adapter/user';
 import {ActionCreator as AppActionCreator} from "../app/app";
@@ -75,7 +75,7 @@ const Operations = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.loadAuthInfo(userAdapter(response.data)));
         dispatch(ActionCreator.checkSignIn(false));
-        dispatch(AppActionCreator.changeAuthorizationPage(false));
+        dispatch(AppActionCreator.changePage(CurrentPage.MAIN));
       })
       .catch(() => {
         dispatch(ActionCreator.checkSignIn(true));

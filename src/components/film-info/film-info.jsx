@@ -2,16 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
-import {SIMILAR_FILMS_AMOUNT_SHOW} from "../../common/consts";
+import {SIMILAR_FILMS_AMOUNT_SHOW, AuthorizationStatus} from "../../common/consts";
 import withFilmsAmount from './../../hocs/with-films-amount/with-films-amount';
 import withActiveNavigationScreen from "../../hocs/with-active-navigation-screen/with-active-navigation-screen";
 import Header from './../header/header';
+import {getAuthorizationStatus} from './../../reducer/user/selectors';
+import {connect} from "react-redux";
 
 const FilmListWrapped = withFilmsAmount(FilmList);
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
 const FilmInfo = (props) => {
-  const {films, film, onCardClick, onPlayClick} = props;
+  const {films, film, onCardClick, onPlayClick, authorizationStatus} = props;
 
   const getFilmListByGenre = () => {
     return films.filter((filmItem) => {
@@ -52,7 +54,7 @@ const FilmInfo = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH ? <a href="add-review.html" className="btn movie-card__button">Add review</a> : ``}
               </div>
             </div>
           </div>
@@ -111,6 +113,11 @@ FilmInfo.propTypes = {
   }),
   onCardClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-export default FilmInfo;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state)
+});
+
+export default connect(mapStateToProps)(FilmInfo);

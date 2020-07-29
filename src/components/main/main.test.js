@@ -32,6 +32,9 @@ describe(`MainComponent`, () => {
     const store = mockStore({
       [NameSpace.APP]: {
         genre: `All genres`,
+        activeCard: null,
+        isFullPlayerActive: false,
+        currentPage: `MAIN`
       },
       [NameSpace.DATA]: {
         promoFilm: films[0],

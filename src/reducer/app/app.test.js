@@ -26,7 +26,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genre: ALL_GENRES,
     activeCard: null,
     isFullPlayerActive: false,
-    isAuthorization: false
+    currentPage: `MAIN`
   });
 });
 

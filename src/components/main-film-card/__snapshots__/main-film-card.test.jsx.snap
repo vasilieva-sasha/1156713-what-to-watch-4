@@ -25,6 +25,7 @@ exports[`Main film card renders correctly 1`] = `
     >
       <a
         className="logo__link"
+        href="#"
       >
         <span
           className="logo__letter logo__letter--1"
