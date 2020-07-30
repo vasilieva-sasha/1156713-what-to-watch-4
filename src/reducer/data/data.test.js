@@ -69,6 +69,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     films: [],
     filteredFilms: [],
     reviews: [],
+    review: {},
     serverError: false
   });
 });
@@ -135,8 +136,8 @@ describe(`Operation work correctly`, () => {
 
     return promoFilmLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_PROMO_FILM,
           payload: filmAdapter({fake: true}),
         });
@@ -154,8 +155,8 @@ describe(`Operation work correctly`, () => {
 
     return filmsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_FILMS,
           payload: [filmAdapter({fake: true})],
         });
@@ -173,8 +174,8 @@ describe(`Operation work correctly`, () => {
 
     return reviewsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });

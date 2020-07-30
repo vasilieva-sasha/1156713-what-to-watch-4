@@ -88,4 +88,88 @@ describe(`AppComponent`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`App movie page correct render`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={store.films}
+            serverError={store.serverError}
+            isFullPlayerActive={false}
+            promoFilm={store.promoFilm}
+            selectedFilm={films[0]}
+            onCardClick={() => {}}
+            currentPage={`REVIEW`}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App movie page correct render`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={store.films}
+            serverError={store.serverError}
+            isFullPlayerActive={false}
+            promoFilm={store.promoFilm}
+            selectedFilm={films[0]}
+            onCardClick={() => {}}
+            currentPage={`LOGIN`}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App Loading Error page correct render`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={store.films}
+            serverError={true}
+            isFullPlayerActive={false}
+            promoFilm={store.promoFilm}
+            selectedFilm={films[0]}
+            onCardClick={() => {}}
+            currentPage={`MAIN`}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`App Player page correct render`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            films={store.films}
+            serverError={false}
+            isFullPlayerActive={true}
+            promoFilm={store.promoFilm}
+            selectedFilm={null}
+            onCardClick={() => {}}
+            currentPage={`MAIN`}
+            login={() => {}}
+            onSignIn={() => {}}
+            singInError={false}
+          />
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

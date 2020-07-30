@@ -4,7 +4,6 @@ import FilmList from "../film-list/film-list";
 import GenreList from "../genre-list/genre-list";
 import {connect} from "react-redux";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
-import {ActionCreator as DataActionCreator} from "../../reducer/data/data";
 import withFilmsAmount from "../../hocs/with-films-amount/with-films-amount";
 import MainFilmCard from "../main-film-card/main-film-card";
 import Footer from "../footer/footer";
@@ -68,7 +67,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onFilterClick(films, genre) {
     dispatch(AppActionCreator.changeGenre(genre));
-    dispatch(DataActionCreator.getFilmsList(films, genre));
   }
 });
 

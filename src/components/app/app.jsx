@@ -13,20 +13,22 @@ import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-pla
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import {Operations as UserOperations} from "../../reducer/user/user";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 import SignIn from './../sign-in/sign-in';
 import {getsignInErrorStatus} from './../../reducer/user/selectors';
 import {CurrentPage} from "../../common/consts";
 import {getCurrentPage} from './../../reducer/app/selectors';
+import AddReview from "../add-review/add-review";
+import withInputHandlers from './../../hocs/with-input-hadlers/with-input-handlers';
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
+const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, onSignIn, singInError} = props;
+  const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, singInError, onReviewSubmit} = props;
 
   const renderApp = () => {
-    if (serverError) {
+    if (currentPage === CurrentPage.MAIN && serverError) {
       return <LoadErrorScreen/>;
     } else {
 
@@ -35,12 +37,12 @@ const App = (props) => {
       }
 
       switch (currentPage) {
-        case CurrentPage.PLAYER:
-          return <FullScreenVideoPlayerWrapper film={!selectedFilm ? promoFilm : selectedFilm}/>;
         case CurrentPage.INFO:
           return renderFilmInfo();
         case CurrentPage.LOGIN:
-          return <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>;
+          return renderSignIn();
+        case CurrentPage.REVIEW:
+          return renderAddReview();
         default:
           return renderMain();
       }
@@ -61,6 +63,18 @@ const App = (props) => {
     );
   };
 
+  const renderSignIn = () => {
+    return (
+      <SignIn onSubmit={login} singInError={singInError}/>
+    );
+  };
+
+  const renderAddReview = () => {
+    return (
+      <AddReviewWrapped film={selectedFilm} onReviewSubmit={onReviewSubmit}/>
+    );
+  };
+
   return (
     <BrowserRouter>
       <Switch>
@@ -71,7 +85,10 @@ const App = (props) => {
           {renderFilmInfo()}
         </Route>
         <Route exact path="/login">
-          <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>
+          {renderSignIn()}
+        </Route>
+        <Route exact path="/dev-review">
+          {renderAddReview()}
         </Route>
       </Switch>
     </BrowserRouter>
@@ -95,9 +112,9 @@ App.propTypes = {
   }),
   onCardClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-  onSignIn: PropTypes.func.isRequired,
   singInError: PropTypes.bool.isRequired,
-  currentPage: PropTypes.string.isRequired
+  currentPage: PropTypes.string.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -120,8 +137,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperations.login(authData));
 
   },
-  onSignIn() {
-    dispatch(UserActionCreator.checkSignIn(false));
+  onReviewSubmit(film, reviewData) {
+    dispatch(DataOperations.sendReview(film, reviewData));
   }
 });
 

@@ -1,6 +1,8 @@
-import {ALL_GENRES} from './../../common/consts';
+import {ALL_GENRES, CurrentPage} from './../../common/consts';
 import {extend} from '../../common/utils';
 import filmAdapter from './../../adapter/film';
+import {ActionCreator as AppActionCreator} from '../app/app';
+
 
 const initialState = {
   promoFilm: {
@@ -13,6 +15,7 @@ const initialState = {
   films: [],
   filteredFilms: [],
   reviews: [],
+  review: {},
   serverError: false
 };
 
@@ -21,7 +24,7 @@ const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SHOW_ERROR: `SHOW_ERROR`,
-  GET_FILMS_LIST: `GET_FILMS_LIST`,
+  SEND_REVIEW: `SEND_REVIEW`
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -57,13 +60,12 @@ const ActionCreator = {
       payload: bool
     };
   },
-  getFilmsList: (films, genre) => {
-    const filteredByGengeFilms = getFilteredFilms(films, genre);
+  sendReview: (review) => {
     return {
-      type: ActionType.GET_FILMS_LIST,
-      payload: filteredByGengeFilms
+      type: ActionType.SEND_REVIEW,
+      payload: review
     };
-  },
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -84,9 +86,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         serverError: action.payload
       });
-    case ActionType.GET_FILMS_LIST:
+    case ActionType.SEND_REVIEW:
       return extend(state, {
-        filteredFilms: action.payload
+        review: action.payload
       });
   }
 
@@ -97,6 +99,7 @@ const Operations = {
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
         dispatch(ActionCreator.loadPromoFilm(filmAdapter(response.data)));
       })
       .catch(() => {
@@ -106,6 +109,7 @@ const Operations = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
         dispatch(ActionCreator.loadFilms(response.data.map((film) => filmAdapter(film))));
       })
       .catch(() => {
@@ -115,12 +119,34 @@ const Operations = {
   loadReviews: (film) => (dispatch, getState, api) => {
     return api.get(`/comments/${film.id}`)
     .then((response) => {
+      dispatch(ActionCreator.showLoadingError(false));
       dispatch(ActionCreator.loadReviews(response.data));
     })
     .catch(() => {
       dispatch(ActionCreator.loadReviews([]));
+      dispatch(ActionCreator.showLoadingError(true));
     });
-  }
+  },
+  sendReview: (film, reviewData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${film.id}`, {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+    })
+      .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
+        dispatch(ActionCreator.sendReview(reviewData));
+        dispatch(AppActionCreator.changeFormstatus(true));
+        dispatch(ActionCreator.loadReviews(response.data));
+      })
+      .then(() => {
+        dispatch(AppActionCreator.changeFormstatus(false));
+        dispatch(AppActionCreator.changePage(CurrentPage.INFO));
+      })
+      .catch(() => {
+        dispatch(AppActionCreator.changeFormstatus(false));
+        dispatch(ActionCreator.showLoadingError(true));
+      });
+  },
 };
 
 export {reducer, ActionCreator, ActionType, getFilteredFilms, Operations};
