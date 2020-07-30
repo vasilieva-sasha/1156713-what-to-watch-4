@@ -1,6 +1,8 @@
-import {ALL_GENRES} from './../../common/consts';
+import {ALL_GENRES, CurrentPage} from './../../common/consts';
 import {extend} from '../../common/utils';
 import filmAdapter from './../../adapter/film';
+import {ActionCreator as AppActionCreator} from '../app/app';
+
 
 const initialState = {
   promoFilm: {
@@ -126,11 +128,18 @@ const Operations = {
       rating: reviewData.rating,
       comment: reviewData.comment,
     })
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.sendReview(reviewData));
+        dispatch(AppActionCreator.changeFormstatus(true));
+        dispatch(ActionCreator.loadReviews(response.data));
       })
-      .catch((err) => {
-        throw err;
+      .then(() => {
+        dispatch(AppActionCreator.changeFormstatus(false));
+        dispatch(AppActionCreator.changePage(CurrentPage.INFO));
+      })
+      .catch(() => {
+        dispatch(AppActionCreator.changeFormstatus(false));
+        dispatch(ActionCreator.showLoadingError(true));
       });
   },
 };

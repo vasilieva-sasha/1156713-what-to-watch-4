@@ -17,3 +17,7 @@ export const getPlayerStatus = (state) => {
 export const getCurrentPage = (state) => {
   return state[NAME_SPACE].currentPage;
 };
+
+export const getFormStatus = (state) => {
+  return state[NAME_SPACE].isFormBlocked;
+};

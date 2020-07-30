@@ -19,15 +19,17 @@ import {getsignInErrorStatus} from './../../reducer/user/selectors';
 import {CurrentPage} from "../../common/consts";
 import {getCurrentPage} from './../../reducer/app/selectors';
 import AddReview from "../add-review/add-review";
+import withInputHandlers from './../../hocs/with-input-hadlers/with-input-handlers';
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
+const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
   const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, onSignIn, singInError, onReviewSubmit} = props;
 
   const renderApp = () => {
-    if (serverError) {
+    if (currentPage === CurrentPage.MAIN && serverError) {
       return <LoadErrorScreen/>;
     } else {
 
@@ -43,7 +45,7 @@ const App = (props) => {
         case CurrentPage.LOGIN:
           return <SignIn onSubmit={login} onSignIn={onSignIn} singInError={singInError}/>;
         case CurrentPage.REVIEW:
-          return <AddReview film={selectedFilm} onSubmit={onReviewSubmit}/>;
+          return <AddReviewWrapped film={selectedFilm} onReviewSubmit={onReviewSubmit}/>;
         default:
           return renderMain();
       }

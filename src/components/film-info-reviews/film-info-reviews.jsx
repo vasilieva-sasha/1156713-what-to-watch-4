@@ -18,7 +18,7 @@ const FilmInfoReviews = (props) => {
       </div>
       <div className="movie-card__reviews-col">
         {reviews.slice(splitIndex, reviews.length).map((review) => {
-          return <Review review={review} key={`${review.user.name}-${review.user.id}`}/>;
+          return <Review review={review} key={`${review.user.name}-${review.id}`}/>;
         })}
       </div>
     </div>
