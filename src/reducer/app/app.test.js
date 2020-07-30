@@ -26,7 +26,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genre: ALL_GENRES,
     activeCard: null,
     isFullPlayerActive: false,
-    currentPage: `MAIN`
+    currentPage: `MAIN`,
+    isFormBlocked: false
   });
 });
 
@@ -60,5 +61,27 @@ it(`Reducer should change player status`, () => {
     payload: true,
   })).toEqual({
     isFullPlayerActive: true,
+  });
+});
+
+it(`reducer should change page`, () => {
+  expect(reducer({
+    currentPage: `MAIN`
+  }, {
+    type: ActionType.CHANGE_PAGE,
+    payload: `INFO`,
+  })).toEqual({
+    currentPage: `INFO`
+  });
+});
+
+it(`reducer should change form status`, () => {
+  expect(reducer({
+    isFormBlocked: false
+  }, {
+    type: ActionType.CHANGE_FORM_STATUS,
+    payload: true,
+  })).toEqual({
+    isFormBlocked: true
   });
 });

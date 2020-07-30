@@ -24,7 +24,7 @@ class SignIn extends PureComponent {
   }
 
   render() {
-    const {onSignIn, singInError} = this.props;
+    const {singInError} = this.props;
 
     return (
       <div className="user-page">
@@ -70,7 +70,7 @@ class SignIn extends PureComponent {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit" onClick={onSignIn}>Sign in</button>
+              <button className="sign-in__btn" type="submit" >Sign in</button>
             </div>
           </form>
         </div>
@@ -84,7 +84,7 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onSignIn: PropTypes.func.isRequired,
+
   singInError: PropTypes.bool.isRequired
 };
 

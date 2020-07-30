@@ -99,6 +99,7 @@ const Operations = {
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
         dispatch(ActionCreator.loadPromoFilm(filmAdapter(response.data)));
       })
       .catch(() => {
@@ -108,6 +109,7 @@ const Operations = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
         dispatch(ActionCreator.loadFilms(response.data.map((film) => filmAdapter(film))));
       })
       .catch(() => {
@@ -117,10 +119,12 @@ const Operations = {
   loadReviews: (film) => (dispatch, getState, api) => {
     return api.get(`/comments/${film.id}`)
     .then((response) => {
+      dispatch(ActionCreator.showLoadingError(false));
       dispatch(ActionCreator.loadReviews(response.data));
     })
     .catch(() => {
       dispatch(ActionCreator.loadReviews([]));
+      dispatch(ActionCreator.showLoadingError(true));
     });
   },
   sendReview: (film, reviewData) => (dispatch, getState, api) => {
@@ -129,6 +133,7 @@ const Operations = {
       comment: reviewData.comment,
     })
       .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
         dispatch(ActionCreator.sendReview(reviewData));
         dispatch(AppActionCreator.changeFormstatus(true));
         dispatch(ActionCreator.loadReviews(response.data));

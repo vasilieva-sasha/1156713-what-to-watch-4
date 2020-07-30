@@ -6,7 +6,6 @@ describe(`SingInComponent`, () => {
   it(`SingIn renders correctly`, () => {
     const tree = renderer.create(
         <SignIn onSubmit={() => {}}
-          onSignIn={() => {}}
           singInError={false}/>
     ).toJSON();
 

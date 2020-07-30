@@ -62,8 +62,8 @@ const Operations = {
         dispatch(ActionCreator.loadAuthInfo(userAdapter(response.data)));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })
-      .catch(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      .catch((err) => {
+        throw err;
       });
   },
   login: (authData) => (dispatch, getState, api) => {
