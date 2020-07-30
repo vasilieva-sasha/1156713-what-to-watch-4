@@ -13,6 +13,7 @@ const initialState = {
   films: [],
   filteredFilms: [],
   reviews: [],
+  review: {},
   serverError: false
 };
 
@@ -21,7 +22,7 @@ const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SHOW_ERROR: `SHOW_ERROR`,
-  GET_FILMS_LIST: `GET_FILMS_LIST`,
+  SEND_REVIEW: `SEND_REVIEW`
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -57,13 +58,12 @@ const ActionCreator = {
       payload: bool
     };
   },
-  getFilmsList: (films, genre) => {
-    const filteredByGengeFilms = getFilteredFilms(films, genre);
+  sendReview: (review) => {
     return {
-      type: ActionType.GET_FILMS_LIST,
-      payload: filteredByGengeFilms
+      type: ActionType.SEND_REVIEW,
+      payload: review
     };
-  },
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -84,9 +84,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         serverError: action.payload
       });
-    case ActionType.GET_FILMS_LIST:
+    case ActionType.SEND_REVIEW:
       return extend(state, {
-        filteredFilms: action.payload
+        review: action.payload
       });
   }
 
@@ -120,7 +120,19 @@ const Operations = {
     .catch(() => {
       dispatch(ActionCreator.loadReviews([]));
     });
-  }
+  },
+  sendReview: (film, reviewData) => (dispatch, getState, api) => {
+    return api.post(`/comments/${film.id}`, {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+    })
+      .then(() => {
+        dispatch(ActionCreator.sendReview(reviewData));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 export {reducer, ActionCreator, ActionType, getFilteredFilms, Operations};

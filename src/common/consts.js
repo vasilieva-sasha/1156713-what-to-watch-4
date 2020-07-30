@@ -16,5 +16,6 @@ export const AuthorizationStatus = {
 export const CurrentPage = {
   MAIN: `MAIN`,
   INFO: `INFO`,
-  LOGIN: `LOGIN`
+  LOGIN: `LOGIN`,
+  REVIEW: `REVIEW`
 };

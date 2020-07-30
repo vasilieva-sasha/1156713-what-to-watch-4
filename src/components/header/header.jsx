@@ -7,7 +7,7 @@ import {AuthorizationStatus, CurrentPage} from "../../common/consts";
 import {getCurrentPage} from './../../reducer/app/selectors';
 
 const Header = (props) => {
-  const {authorizationStatus, onLoginClick, authInfo, currentPage} = props;
+  const {authorizationStatus, onLoginClick, authInfo, currentPage, children} = props;
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
@@ -17,6 +17,8 @@ const Header = (props) => {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
+
+      {children}
 
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH ?
@@ -38,7 +40,8 @@ Header.propTypes = {
   authInfo: PropTypes.shape({
     avatar: PropTypes.string.isRequired
   }),
-  currentPage: PropTypes.string.isRequired
+  currentPage: PropTypes.string.isRequired,
+  children: PropTypes.node
 };
 
 const mapStateToProps = (state) => ({
