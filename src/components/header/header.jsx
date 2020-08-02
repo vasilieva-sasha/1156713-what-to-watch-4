@@ -2,14 +2,22 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {getAuthorizationStatus, getAuthInfo} from './../../reducer/user/selectors';
 import {connect} from 'react-redux';
-import {ActionCreator} from "../../reducer/app/app";
-import {AuthorizationStatus, CurrentPage} from "../../common/consts";
+import {AuthorizationStatus, CurrentPage, AppRoute} from "../../common/consts";
 import {getCurrentPage} from './../../reducer/app/selectors';
+import {Link} from "react-router-dom";
+import {ActionCreator} from "../../reducer/app/app";
 
 const Header = (props) => {
-  const {authorizationStatus, onLoginClick, authInfo, currentPage, children} = props;
+  const {authorizationStatus, authInfo, currentPage, children, onMylistClick} = props;
+
+  const getHeaderClass = () => {
+    return currentPage === (CurrentPage.MYLIST || CurrentPage.LOGIN) ?
+      `user-page__head` :
+      `movie-card__head`;
+  };
+
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${getHeaderClass()}`}>
       <div className="logo">
         <a className="logo__link" href={currentPage === CurrentPage.MAIN ? `#` : `main.html`}>
           <span className="logo__letter logo__letter--1">W</span>
@@ -23,10 +31,10 @@ const Header = (props) => {
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH ?
           <div className="user-block__avatar">
-            <img src={authInfo.avatar} alt="User avatar" width="63" height="63"/>
+            <Link to={AppRoute.MYLIST} onClick={onMylistClick}><img src={authInfo.avatar} alt="User avatar" width="63" height="63"/></Link>
           </div> :
           <div className="user-block">
-            <a href="sign-in.html" className="user-block__link" onClick={onLoginClick}>Sign in</a>
+            <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>
           </div>}
 
       </div>
@@ -36,12 +44,12 @@ const Header = (props) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  onLoginClick: PropTypes.func.isRequired,
   authInfo: PropTypes.shape({
     avatar: PropTypes.string.isRequired
   }),
   currentPage: PropTypes.string.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
+  onMylistClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -51,9 +59,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoginClick(evt) {
-    evt.preventDefault();
-    dispatch(ActionCreator.changePage(CurrentPage.LOGIN));
+  onMylistClick() {
+    dispatch(ActionCreator.changePage(CurrentPage.MYLIST));
   }
 });
 

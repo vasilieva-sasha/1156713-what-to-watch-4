@@ -53,7 +53,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -122,6 +122,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -130,7 +131,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -307,7 +308,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -376,6 +377,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -384,7 +386,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -561,7 +563,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -630,6 +632,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -638,7 +641,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -815,7 +818,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -884,6 +887,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -892,7 +896,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -1069,7 +1073,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -1138,6 +1142,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -1146,7 +1151,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -1270,7 +1275,7 @@ Array [
 ]
 `;
 
-exports[`AppComponent App movie page correct render 3`] = `
+exports[`AppComponent App movie page review correct render 1`] = `
 Array [
   <section
     className="movie-card"
@@ -1323,7 +1328,7 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -1392,6 +1397,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -1400,7 +1406,7 @@ Array [
                 width="19"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>

@@ -4,6 +4,8 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
 import NameSpace from './../../reducer/name-space';
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const films = [{
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -20,7 +22,8 @@ const films = [{
   },
   text: [`text`, `text`],
   director: `Wes Andreson`,
-  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  isFavorite: false
 }];
 
 const genres = [`All genres`, `Comedy`, `Horror`, `Family`];
@@ -48,14 +51,16 @@ describe(`MainComponent`, () => {
 
     const tree = renderer
     .create(
-        <Provider store={store}>
-          <Main
-            genres={genres}
-            films={store.filteredFilms}
-            activeGenre={store.genre}
-            onCardClick={() => {}}
-          />
-        </Provider>
+        <Router history={history}>
+          <Provider store={store}>
+            <Main
+              genres={genres}
+              films={store.filteredFilms}
+              activeGenre={store.genre}
+              onCardClick={() => {}}
+            />
+          </Provider>
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

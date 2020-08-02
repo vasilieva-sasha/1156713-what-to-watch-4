@@ -4,6 +4,8 @@ import FilmInfo from "./film-info";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import NameSpace from './../../reducer/name-space';
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const mockStore = configureStore([]);
 
@@ -44,7 +46,8 @@ const film = {
   text: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
                 Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\`s friend and protege.`,
   director: `Wes Andreson`,
-  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  isFavorite: false
 };
 
 describe(`FilmInfoComponent`, () => {
@@ -65,9 +68,11 @@ describe(`FilmInfoComponent`, () => {
 
   it(`FilmInfo correct render no-auth`, () => {
     const tree = renderer.create(
-        <Provider store={store}>
-          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus}/>
-        </Provider>
+        <Router history={history}>
+          <Provider store={store}>
+            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus}/>
+          </Provider>
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -75,9 +80,11 @@ describe(`FilmInfoComponent`, () => {
 
   it(`FilmInfo correct render with auth`, () => {
     const tree = renderer.create(
-        <Provider store={store}>
-          <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={`AUTH`}/>
-        </Provider>
+        <Router history={history}>
+          <Provider store={store}>
+            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={`AUTH`}/>
+          </Provider>
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

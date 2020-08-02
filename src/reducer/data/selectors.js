@@ -29,3 +29,7 @@ export const getFilteredByGenreFilms = createSelector(
       return getFilteredFilms(resultOne, resultTwo);
     }
 );
+
+export const getFavoriteFilms = (state) => {
+  return state[NameSpace.DATA].favoriteFilms;
+};

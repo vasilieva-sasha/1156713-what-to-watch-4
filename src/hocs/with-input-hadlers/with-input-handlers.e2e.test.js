@@ -19,7 +19,7 @@ describe(`WithInputHandlers`, () => {
   it(`Text value work correctly`, () => {
     const MockComponent = ({onCommentType}) => {
       return (
-        <textarea onChange={onCommentType} value="comment"></textarea>
+        <textarea onChange={onCommentType} value=""></textarea>
       );
     };
 
@@ -37,9 +37,11 @@ describe(`WithInputHandlers`, () => {
 
     const input = wrapper.find(`textarea`);
 
-    expect(wrapper.state().comment).toEqual(null);
-
-    input.simulate(`change`);
+    input.simulate(`change`, {
+      target: {
+        value: `comment`,
+      },
+    });
 
     expect(wrapper.state().comment).toEqual(`comment`);
   });
@@ -65,7 +67,7 @@ describe(`WithInputHandlers`, () => {
 
     const input = wrapper.find(`input`);
 
-    expect(wrapper.state().rating).toEqual(0);
+    expect(wrapper.state().rating).toEqual(5);
 
     input.simulate(`change`);
 

@@ -21,7 +21,8 @@ const films = [{
   },
   text: `text`,
   director: `Wes Andreson`,
-  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  isFavorite: true
 }];
 
 const mockStore = configureStore([]);
@@ -38,7 +39,8 @@ describe(`AppComponent`, () => {
       promoFilm: films[0],
       films,
       filteredFilms: films,
-      serverError: false
+      serverError: false,
+      favoriteFilms: films
     },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`,
@@ -61,6 +63,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
@@ -82,6 +86,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
@@ -89,7 +95,7 @@ describe(`AppComponent`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App movie page correct render`, () => {
+  it(`App movie page review correct render`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
@@ -103,6 +109,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
@@ -124,6 +132,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
@@ -145,6 +155,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
@@ -166,6 +178,8 @@ describe(`AppComponent`, () => {
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
+            favoriteFilms={store.favoriteFilms}
+            authorizationStatus={store.authorizationStatus}
           />
         </Provider>
     ).toJSON();
