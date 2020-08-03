@@ -4,6 +4,8 @@ import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
 import NameSpace from './../../reducer/name-space';
 import AddReview from './add-review';
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const film = {
   title: ``,
@@ -32,17 +34,20 @@ describe(`AddReviewComponent`, () => {
   });
   it(`Add review renders correctly`, () => {
     const tree = renderer.create(
-        <Provider store={store}>
-          <AddReview
-            film={film}
-            onSubmit={() => {}}
-            onRatingSelect={() => {}}
-            onCommentType={() => {}}
-            isButtonBlocked={false}
-            isFormBlocked={store.isFormBlocked}
-            currentPage={store.currentPage}
-            serverError={store.serverError} />
-        </Provider>
+        <Router history={history}>
+          <Provider store={store}>
+            <AddReview
+              film={film}
+              onSubmit={() => {}}
+              onRatingSelect={() => {}}
+              onCommentType={() => {}}
+              isButtonBlocked={false}
+              isFormBlocked={store.isFormBlocked}
+              currentPage={store.currentPage}
+              serverError={store.serverError}
+              comment={``}/>
+          </Provider>
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

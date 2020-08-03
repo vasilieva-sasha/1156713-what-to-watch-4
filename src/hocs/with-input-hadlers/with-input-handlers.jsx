@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {RATING} from '../../common/consts';
 
 const withInputHandlers = (Component) => {
   class WithInputHandlers extends PureComponent {
@@ -7,8 +8,8 @@ const withInputHandlers = (Component) => {
       super(props);
 
       this.state = {
-        rating: 0,
-        comment: null
+        rating: RATING,
+        comment: ``
       };
 
       this._handleSubmit = this._handleSubmit.bind(this);
@@ -43,10 +44,11 @@ const withInputHandlers = (Component) => {
       return (
         <Component
           {...this.props}
+          comment={this.state.comment}
           onSubmit={this._handleSubmit}
           onRatingSelect={this._handleRatingSelect}
           onCommentType={this._handleCommentType}
-          isButtonBlocked={(this.state.comment) && (this.state.rating > 0) ? false : true}
+          isButtonBlocked={this.state.comment && this.state.rating !== 0 ? false : true}
         />
       );
     }

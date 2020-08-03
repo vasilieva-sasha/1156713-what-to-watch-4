@@ -23,10 +23,12 @@ const promoFilm = {
   text: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
                 Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\`s friend and protege.`,
   director: `Wes Andreson`,
-  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  isFavorite: false
 };
 
 const films = [{
+  id: 2,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -43,7 +45,8 @@ const films = [{
   text: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
                 Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\`s friend and protege.`,
   director: `Wes Andreson`,
-  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
+  actors: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  isFavorite: false
 }];
 
 const reviews = [{
@@ -57,6 +60,11 @@ const reviews = [{
   rating: 0,
 }];
 
+const reviewData = {
+  rating: 5,
+  comment: `Great!`
+};
+
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     promoFilm: {
@@ -64,12 +72,14 @@ it(`Reducer without additional parameters should return initial state`, () => {
       genre: ``,
       releaseDate: 0,
       background: ``,
-      posterInfo: ``
+      posterInfo: ``,
+      isFavorite: false
     },
     films: [],
     filteredFilms: [],
     reviews: [],
     review: {},
+    favoriteFilms: [],
     serverError: false
   });
 });
@@ -81,7 +91,8 @@ it(`Reducer should update promoFilm by load promoFilm`, () => {
       genre: ``,
       releaseDate: 0,
       background: ``,
-      posterInfo: ``
+      posterInfo: ``,
+      isFavorite: false
     },
   }, {
     type: ActionType.LOAD_PROMO_FILM,
@@ -121,6 +132,28 @@ it(`Reducer should update serverError by "show error"`, () => {
     payload: true,
   })).toEqual({
     serverError: true,
+  });
+});
+
+it(`Reducer should update favoriteFilms by loadFavoriteFilms `, () => {
+  expect(reducer({
+    favoriteFilms: [],
+  }, {
+    type: ActionType.LOAD_FAVORITE_FILMS,
+    payload: films,
+  })).toEqual({
+    favoriteFilms: films,
+  });
+});
+
+it(`Reducer should send review by sendReview`, () => {
+  expect(reducer({
+    review: {},
+  }, {
+    type: ActionType.SEND_REVIEW,
+    payload: reviewData,
+  })).toEqual({
+    review: reviewData,
   });
 });
 
@@ -179,6 +212,59 @@ describe(`Operation work correctly`, () => {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });
+      });
+  });
+
+  it(`Should make a correct API call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteFilmsLoader = Operations.loadFavoriteFilms();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return favoriteFilmsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.LOAD_FAVORITE_FILMS,
+          payload: [filmAdapter({fake: true})],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to comments/:id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewSender = Operations.sendReview(films[0], reviewData);
+
+    apiMock
+      .onPost(`/comments/2`)
+      .reply(200, [{fake: true}]);
+
+    return reviewSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(6);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SEND_REVIEW,
+          payload: reviewData,
+        });
+      });
+  });
+
+  it(`Should make a correct API call to favorite/:id/1}`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteSender = Operations.changeFavoriteStatus(promoFilm);
+
+    apiMock
+      .onPost(`favorite/1/1`)
+      .reply(200, [{fake: true}]);
+
+    return favoriteSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
       });
   });
 });

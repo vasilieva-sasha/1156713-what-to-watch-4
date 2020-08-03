@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Router, Route, Switch, Redirect} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
-import {getFilms, getServerError, getPromo} from "../../reducer/data/selectors";
+import {getFilms, getServerError, getPromo, getFavoriteFilms} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
@@ -14,23 +14,28 @@ import {Operations as DataOperations} from "../../reducer/data/data";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from './../sign-in/sign-in';
-import {getsignInErrorStatus} from './../../reducer/user/selectors';
-import {CurrentPage} from "../../common/consts";
+import {getsignInErrorStatus, getAuthorizationStatus} from './../../reducer/user/selectors';
+import {CurrentPage, AppRoute, AuthorizationStatus} from "../../common/consts";
 import {getCurrentPage} from './../../reducer/app/selectors';
 import AddReview from "../add-review/add-review";
 import withInputHandlers from './../../hocs/with-input-hadlers/with-input-handlers';
+import MyList from "../my-list/my-list";
+import history from './../../history';
 
 const FilminfoWrapped = withFullPlayer(FilmInfo);
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
 const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, singInError, onReviewSubmit} = props;
+  const {films, serverError, isFullPlayerActive, currentPage, promoFilm, selectedFilm, onCardClick, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus} = props;
 
   const renderApp = () => {
     if (currentPage === CurrentPage.MAIN && serverError) {
       return <LoadErrorScreen/>;
     } else {
+
+
+      // return renderMain();
 
       if (isFullPlayerActive) {
         return <FullScreenVideoPlayerWrapper film={!selectedFilm ? promoFilm : selectedFilm}/>;
@@ -63,9 +68,11 @@ const App = (props) => {
     );
   };
 
-  const renderSignIn = () => {
+  const renderSignIn = (routeProps) => {
     return (
-      <SignIn onSubmit={login} singInError={singInError}/>
+      authorizationStatus === AuthorizationStatus.AUTH ?
+        routeProps.history.goBack() :
+        <SignIn onSubmit={login} singInError={singInError}/>
     );
   };
 
@@ -75,23 +82,22 @@ const App = (props) => {
     );
   };
 
+  const renderMyList = () => {
+    return (
+      authorizationStatus === AuthorizationStatus.AUTH ?
+        <MyList films={favoriteFilms} onCardClick={onCardClick} /> :
+        <Redirect to={AppRoute.SIGN_IN} />
+    );
+  };
+
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          {renderApp()}
-        </Route>
-        <Route exact path="/dev-film">
-          {renderFilmInfo()}
-        </Route>
-        <Route exact path="/login">
-          {renderSignIn()}
-        </Route>
-        <Route exact path="/dev-review">
-          {renderAddReview()}
-        </Route>
+        <Route exact path="/" render={() => renderApp()} />
+        <Route exact path={AppRoute.SIGN_IN} render={(routeProps) => renderSignIn(routeProps)}/>
+        <Route exact path={AppRoute.MYLIST} render={() => renderMyList()} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
@@ -115,6 +121,11 @@ App.propTypes = {
   singInError: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
+  favoriteFilms: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  })).isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -124,7 +135,9 @@ const mapStateToProps = (state) => ({
   isFullPlayerActive: getPlayerStatus(state),
   selectedFilm: getActiveCard(state),
   singInError: getsignInErrorStatus(state),
-  currentPage: getCurrentPage(state)
+  currentPage: getCurrentPage(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  favoriteFilms: getFavoriteFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -135,10 +148,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperations.login(authData));
-
   },
   onReviewSubmit(film, reviewData) {
     dispatch(DataOperations.sendReview(film, reviewData));
+  },
+  loadFavoriteFilms() {
+    dispatch(DataOperations.loadFavoriteFilms());
   }
 });
 

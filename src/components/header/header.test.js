@@ -4,6 +4,8 @@ import Header from "./header";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import NameSpace from './../../reducer/name-space';
+import {Router} from 'react-router-dom';
+import history from './../../history';
 
 const mock = {
   avatar: ``
@@ -19,20 +21,30 @@ const store = mockStore({
     currentPage: `MAIN`
   }
 });
-it(`Header renders correctly with no-auth`, () => {
-  const tree = renderer.create(
-      <Provider store={store}>
-        <Header authorizationStatus={store.authorizationStatus} onLoginClick={() => {}} authInfo={mock} currentPage={store.currentPage}/>
-      </Provider>).toJSON();
 
-  expect(tree).toMatchSnapshot();
-});
+describe(`HeaderComponent`, () => {
+  it(`Header renders correctly with no-auth`, () => {
+    const tree = renderer.create(
+        <Router history={history}>
+          <Provider store={store}>
+            <Header authorizationStatus={store.authorizationStatus} authInfo={mock} currentPage={store.currentPage}/>
+          </Provider>
+        </Router>
+    ).toJSON();
 
-it(`Header renders correctly with no-auth`, () => {
-  const tree = renderer.create(
-      <Provider store={store}>
-        <Header authorizationStatus={`AUTH`} onLoginClick={() => {}} authInfo={store.authInfo} currentPage={store.currentPage}/>
-      </Provider>).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-  expect(tree).toMatchSnapshot();
+  it(`Header renders correctly with no-auth`, () => {
+    const tree = renderer.create(
+        <Router history={history}>
+          <Provider store={store}>
+            <Header authorizationStatus={`AUTH`} authInfo={store.authInfo} currentPage={store.currentPage}/>
+          </Provider>
+        </Router>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
 });

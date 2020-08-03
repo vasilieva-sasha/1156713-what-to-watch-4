@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {getPromo} from './../../reducer/data/selectors';
 import {connect} from "react-redux";
 import Header from './../header/header';
+import MyListButton from './../my-list-button/my-list-button';
 
 const MainFilmCard = (props) => {
   const {film, onPlayClick} = props;
@@ -38,12 +39,7 @@ const MainFilmCard = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              <MyListButton film={film} />
             </div>
           </div>
         </div>
@@ -59,7 +55,7 @@ MainFilmCard.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     background: PropTypes.string.isRequired,
-    posterInfo: PropTypes.string.isRequired
+    posterInfo: PropTypes.string.isRequired,
   }).isRequired,
   onPlayClick: PropTypes.func.isRequired,
 };

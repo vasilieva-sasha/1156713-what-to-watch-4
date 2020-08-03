@@ -1,9 +1,10 @@
 import React, {PureComponent} from "react";
-import {FILMS_SHOW_AMOUNT} from './../../common/consts';
+import {FILMS_SHOW_AMOUNT} from '../../common/consts';
 import PropTypes from 'prop-types';
+import CatalogButton from '../../components/catalog-button/catalog-button';
 
-const withFilmsAmount = (Component) => {
-  class WithFilmsAmount extends PureComponent {
+const withShowMoreButton = (Component) => {
+  class WithShowMoreButton extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -47,17 +48,18 @@ const withFilmsAmount = (Component) => {
     render() {
       const {films, genre, onCardClick} = this.props;
       return (
-        <Component films={films}
+        <Component
           shownFilms={this._getShownFilms()}
           genre={genre}
           onCardClick={onCardClick}
-          onCatalogButtonClick={this._handleCatalogButtonClick}
-          onGenreUpdate ={this._updateAmount}/>
+        >
+          {films.length > this._getShownFilms().length ? <CatalogButton onCatalogButtonClick={this._handleCatalogButtonClick} /> : ``}
+        </Component>
       );
     }
   }
 
-  WithFilmsAmount.propTypes = {
+  WithShowMoreButton.propTypes = {
     films: PropTypes.arrayOf(
         PropTypes.shape({
           title: PropTypes.string,
@@ -68,7 +70,7 @@ const withFilmsAmount = (Component) => {
     onCardClick: PropTypes.func.isRequired,
   };
 
-  return WithFilmsAmount;
+  return WithShowMoreButton;
 };
 
-export default withFilmsAmount;
+export default withShowMoreButton;

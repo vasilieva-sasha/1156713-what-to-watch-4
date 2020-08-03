@@ -17,5 +17,17 @@ export const CurrentPage = {
   MAIN: `MAIN`,
   INFO: `INFO`,
   LOGIN: `LOGIN`,
-  REVIEW: `REVIEW`
+  REVIEW: `REVIEW`,
+  MYLIST: `MYLIST`
 };
+
+export const AppRoute = {
+  MAIN: `/`,
+  SIGN_IN: `/login`,
+  MYLIST: `/mylist`,
+  FILM: `/films`,
+  ADD_REVIEW: `/review`,
+  PLAYER: `/player`
+};
+
+export const RATING = 5;

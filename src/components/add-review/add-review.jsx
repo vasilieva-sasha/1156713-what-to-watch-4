@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Header from './../header/header';
 import {getFormStatus, getCurrentPage} from './../../reducer/app/selectors';
 import {connect} from 'react-redux';
-import {CurrentPage} from "../../common/consts";
+import {CurrentPage, RATING} from "../../common/consts";
 import {getServerError} from './../../reducer/data/selectors';
 
 const AddReview = (props) => {
-  const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, currentPage, serverError} = props;
+  const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, currentPage, serverError, comment} = props;
+  const stars = new Array(RATING);
 
   return (
     <section className="movie-card movie-card--full" style={{background: film.backgroundColor}}>
@@ -40,25 +41,22 @@ const AddReview = (props) => {
         <form action="#" className="add-review__form" onSubmit={onSubmit} disabled={isFormBlocked}>
           <div className="rating">
             <div className="rating__stars" onChange={onRatingSelect}>
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2"/>
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3"/>
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4"/>
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
+              {
+                Array.from(stars).map((_, index) => {
+                  const rating = index + 1;
+                  return (
+                    <React.Fragment key={index + 1}>
+                      <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={`${rating}`}/>
+                      <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
+                    </React.Fragment>
+                  );
+                })
+              }
             </div>
           </div>
 
           <div className="add-review__text" style={{background: `rgba(255, 255, 255, 0.1)`}}>
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength="50" maxLength="400" onChange={onCommentType}></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength="50" maxLength="400" onChange={onCommentType} value={comment}></textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit" disabled={isButtonBlocked}>Post</button>
             </div>
@@ -83,7 +81,8 @@ AddReview.propTypes = {
   isButtonBlocked: PropTypes.bool.isRequired,
   isFormBlocked: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
-  serverError: PropTypes.bool.isRequired
+  serverError: PropTypes.bool.isRequired,
+  comment: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

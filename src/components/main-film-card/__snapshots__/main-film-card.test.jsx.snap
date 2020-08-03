@@ -52,7 +52,7 @@ exports[`Main film card renders correctly 1`] = `
       >
         <a
           className="user-block__link"
-          href="sign-in.html"
+          href="/login"
           onClick={[Function]}
         >
           Sign in
@@ -121,6 +121,7 @@ exports[`Main film card renders correctly 1`] = `
           </button>
           <button
             className="btn btn--list movie-card__button"
+            onClick={[Function]}
             type="button"
           >
             <svg

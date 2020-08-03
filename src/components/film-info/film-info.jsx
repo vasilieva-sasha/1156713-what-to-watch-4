@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
 import {SIMILAR_FILMS_AMOUNT_SHOW, AuthorizationStatus, CurrentPage} from "../../common/consts";
-import withFilmsAmount from './../../hocs/with-films-amount/with-films-amount';
 import withActiveNavigationScreen from "../../hocs/with-active-navigation-screen/with-active-navigation-screen";
 import Header from './../header/header';
 import {getAuthorizationStatus} from './../../reducer/user/selectors';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app";
+import MyListButton from './../my-list-button/my-list-button';
 
-const FilmListWrapped = withFilmsAmount(FilmList);
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
 const FilmInfo = (props) => {
@@ -49,12 +48,7 @@ const FilmInfo = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <MyListButton film={film} />
                 {authorizationStatus === AuthorizationStatus.AUTH ? <a href="add-review.html" className="btn movie-card__button" onClick={(evt) => {
                   evt.preventDefault();
                   onAddReviewClick();
@@ -81,7 +75,7 @@ const FilmInfo = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmListWrapped films={getFilmListByGenre()} genre={film.genre} onCardClick={onCardClick} />
+          <FilmList shownFilms={getFilmListByGenre()} genre={film.genre} onCardClick={onCardClick} />
         </section>
 
         <footer className="page-footer">
@@ -113,12 +107,13 @@ FilmInfo.propTypes = {
     releaseDate: PropTypes.number.isRequired,
     posterInfo: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired
+    backgroundColor: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired
   }),
   onCardClick: PropTypes.func.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onAddReviewClick: PropTypes.func.isRequired
+  onAddReviewClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -128,7 +123,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onAddReviewClick() {
     dispatch(ActionCreator.changePage(CurrentPage.REVIEW));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilmInfo);

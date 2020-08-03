@@ -85,12 +85,17 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
         <div
           className="user-block__avatar"
         >
-          <img
-            alt="User avatar"
-            height="63"
-            src=""
-            width="63"
-          />
+          <a
+            href="/mylist"
+            onClick={[Function]}
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src=""
+              width="63"
+            />
+          </a>
         </div>
       </div>
     </header>
@@ -132,7 +137,8 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
             className="rating__label"
             htmlFor="star-1"
           >
-            Rating 1
+            Rating 
+            1
           </label>
           <input
             className="rating__input"
@@ -145,7 +151,8 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
             className="rating__label"
             htmlFor="star-2"
           >
-            Rating 2
+            Rating 
+            2
           </label>
           <input
             className="rating__input"
@@ -158,7 +165,8 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
             className="rating__label"
             htmlFor="star-3"
           >
-            Rating 3
+            Rating 
+            3
           </label>
           <input
             className="rating__input"
@@ -171,7 +179,8 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
             className="rating__label"
             htmlFor="star-4"
           >
-            Rating 4
+            Rating 
+            4
           </label>
           <input
             className="rating__input"
@@ -184,7 +193,8 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
             className="rating__label"
             htmlFor="star-5"
           >
-            Rating 5
+            Rating 
+            5
           </label>
         </div>
       </div>
@@ -204,6 +214,7 @@ exports[`AddReviewComponent Add review renders correctly 1`] = `
           name="review-text"
           onChange={[Function]}
           placeholder="Review text"
+          value=""
         />
         <div
           className="add-review__submit"

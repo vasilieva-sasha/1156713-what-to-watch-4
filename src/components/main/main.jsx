@@ -4,15 +4,15 @@ import FilmList from "../film-list/film-list";
 import GenreList from "../genre-list/genre-list";
 import {connect} from "react-redux";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
-import withFilmsAmount from "../../hocs/with-films-amount/with-films-amount";
 import MainFilmCard from "../main-film-card/main-film-card";
 import Footer from "../footer/footer";
 import {getGenres} from './../../common/utils';
 import {getFilms, getFilteredByGenreFilms} from "../../reducer/data/selectors";
 import {getGenre} from './../../reducer/app/selectors';
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
+import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
 
-const FilmListWrapped = withFilmsAmount(FilmList);
+const FilmListWrapped = withShowMoreButton(FilmList);
 const MainFilmCardWrapped = withFullPlayer(MainFilmCard);
 
 const Main = (props) => {

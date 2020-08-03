@@ -4,13 +4,16 @@ import MainFilmCard from './main-film-card';
 import configureStore from 'redux-mock-store';
 import NameSpace from './../../reducer/name-space';
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const mock = {
   title: `title`,
   genre: `genre`,
   releaseDate: 0,
   background: ``,
-  posterInfo: ``
+  posterInfo: ``,
+  isFavorite: false
 };
 
 const mockStore = configureStore([]);
@@ -31,9 +34,11 @@ it(`Main film card renders correctly`, () => {
     },
   });
   const tree = renderer.create(
-      <Provider store={store}>
-        <MainFilmCard onPlayClick={() => {}}/>
-      </Provider>
+      <Router history={history}>
+        <Provider store={store}>
+          <MainFilmCard onPlayClick={() => {}}/>
+        </Provider>
+      </Router>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

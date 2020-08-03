@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header renders correctly with no-auth 1`] = `
+exports[`HeaderComponent Header renders correctly with no-auth 1`] = `
 <header
   className="page-header movie-card__head"
 >
@@ -36,7 +36,7 @@ exports[`Header renders correctly with no-auth 1`] = `
     >
       <a
         className="user-block__link"
-        href="sign-in.html"
+        href="/login"
         onClick={[Function]}
       >
         Sign in
@@ -46,7 +46,7 @@ exports[`Header renders correctly with no-auth 1`] = `
 </header>
 `;
 
-exports[`Header renders correctly with no-auth 2`] = `
+exports[`HeaderComponent Header renders correctly with no-auth 2`] = `
 <header
   className="page-header movie-card__head"
 >
@@ -82,7 +82,7 @@ exports[`Header renders correctly with no-auth 2`] = `
     >
       <a
         className="user-block__link"
-        href="sign-in.html"
+        href="/login"
         onClick={[Function]}
       >
         Sign in

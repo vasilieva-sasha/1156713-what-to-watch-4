@@ -84,7 +84,6 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-
   singInError: PropTypes.bool.isRequired
 };
 

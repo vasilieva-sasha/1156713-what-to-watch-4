@@ -10,12 +10,14 @@ const initialState = {
     genre: ``,
     releaseDate: 0,
     background: ``,
-    posterInfo: ``
+    posterInfo: ``,
+    isFavorite: false
   },
   films: [],
   filteredFilms: [],
   reviews: [],
   review: {},
+  favoriteFilms: [],
   serverError: false
 };
 
@@ -24,7 +26,8 @@ const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SHOW_ERROR: `SHOW_ERROR`,
-  SEND_REVIEW: `SEND_REVIEW`
+  SEND_REVIEW: `SEND_REVIEW`,
+  LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -65,6 +68,12 @@ const ActionCreator = {
       type: ActionType.SEND_REVIEW,
       payload: review
     };
+  },
+  loadFavoriteFilms: (films) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_FILMS,
+      payload: films
+    };
   }
 };
 
@@ -89,6 +98,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SEND_REVIEW:
       return extend(state, {
         review: action.payload
+      });
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return extend(state, {
+        favoriteFilms: action.payload
       });
   }
 
@@ -147,6 +160,27 @@ const Operations = {
         dispatch(ActionCreator.showLoadingError(true));
       });
   },
+  loadFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        dispatch(ActionCreator.showLoadingError(false));
+        dispatch(ActionCreator.loadFavoriteFilms(response.data.map((film) => filmAdapter(film))));
+      })
+      .catch(() => {
+        dispatch(ActionCreator.showLoadingError(true));
+      });
+  },
+  changeFavoriteStatus: (film) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${film.id}/${film.isFavorite ? 0 : 1}`)
+    .then(() => {
+      dispatch(Operations.loadFilms());
+      dispatch(Operations.loadPromoFilm());
+      dispatch(Operations.loadFavoriteFilms());
+    })
+    .catch(() => {
+      dispatch(ActionCreator.showLoadingError(true));
+    });
+  }
 };
 
 export {reducer, ActionCreator, ActionType, getFilteredFilms, Operations};
