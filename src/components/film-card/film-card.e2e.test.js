@@ -2,8 +2,11 @@ import React from "react";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import FilmCard from "./film-card";
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const currentFilm = {
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -30,7 +33,9 @@ describe(`FilmCardComponent`, () => {
     const onCardClick = jest.fn();
 
     const filmCardComponent = mount(
-        <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        <Router history={history}>
+          <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        </Router>
     );
 
     const smallCardTitle = filmCardComponent.find(`.small-movie-card__title`);
@@ -44,10 +49,12 @@ describe(`FilmCardComponent`, () => {
     const onCardClick = jest.fn();
 
     const filmCardComponent = mount(
-        <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        <Router history={history}>
+          <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
+        </Router>
     );
 
-    const smallCardImage = filmCardComponent.find(`.small-movie-card__image`);
+    const smallCardImage = filmCardComponent.find(`.small-movie-card__image`).at(2);
 
     smallCardImage.simulate(`click`);
     expect(onCardClick.mock.calls.length).toBe(1);
@@ -59,7 +66,9 @@ describe(`FilmCardComponent`, () => {
     const onCardLeave = jest.fn();
 
     const filmCardComponent = mount(
-        <FilmCard film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} isPlaying={false} onCardLeave={onCardLeave} />
+        <Router history={history}>
+          <FilmCard film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} isPlaying={false} onCardLeave={onCardLeave} />
+        </Router>
     );
 
     const card = filmCardComponent.find(`.small-movie-card`);

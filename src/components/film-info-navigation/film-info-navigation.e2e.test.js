@@ -4,6 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import FilmInfoNavigation from "./film-info-navigation";
 
 const mock = {
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,

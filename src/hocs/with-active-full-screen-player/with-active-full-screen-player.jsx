@@ -25,22 +25,29 @@ const withActiveFullScreenPlayer = (Component) => {
 
     componentDidMount() {
       const {film} = this.props;
-      const video = this._videoRef.current;
 
+      const video = this._videoRef.current;
       video.src = film.video;
       video.muted = false;
+      const promise = video.play();
 
-      video.oncanplaythrough = () => this.setState({duration: video.duration});
+      if (promise !== undefined) {
+        promise.then(() => {
 
-      if (this.state.isPlaying) {
-        video.play();
-        video.ontimeupdate = () => this.setState({
-          progress: Math.floor(video.currentTime),
+          video.oncanplaythrough = () => this.setState({duration: video.duration});
+
+          if (this.state.isPlaying) {
+            video.play();
+            video.ontimeupdate = () => this.setState({
+              progress: Math.floor(video.currentTime),
+            });
+          } else {
+            video.pause();
+          }
+        }).catch(() => {
+          this.setState({isPlaying: false});
         });
-      } else {
-        video.pause();
       }
-
     }
 
     componentWillUnmount() {
@@ -56,6 +63,12 @@ const withActiveFullScreenPlayer = (Component) => {
 
     componentDidUpdate() {
       const video = this._videoRef.current;
+
+      if (document.fullscreenElement) {
+        video.controls = true;
+      } else {
+        video.controls = false;
+      }
 
       if (this.state.isPlaying) {
         video.play();

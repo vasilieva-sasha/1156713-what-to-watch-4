@@ -5,14 +5,15 @@ exports[`MyListComponent My List renders correctly 1`] = `
   className="user-page"
 >
   <header
-    className="page-header movie-card__head"
+    className="page-header user-page__head"
   >
     <div
       className="logo"
     >
       <a
         className="logo__link"
-        href="#"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -63,8 +64,9 @@ exports[`MyListComponent My List renders correctly 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
       >
-        <div
+        <a
           className="small-movie-card__image"
+          href="/films/1"
           onClick={[Function]}
         >
           <video
@@ -76,14 +78,15 @@ exports[`MyListComponent My List renders correctly 1`] = `
               }
             }
           />
-        </div>
+        </a>
         <h3
           className="small-movie-card__title"
           onClick={[Function]}
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/films/1"
+            onClick={[Function]}
           >
             Fantastic Beasts: The Crimes of Grindelwald
           </a>

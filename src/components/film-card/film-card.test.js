@@ -1,8 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FilmCard from "./film-card";
+import {Router} from "react-router-dom";
+import history from './../../history';
 
 const film = {
+  id: 1,
   title: ``,
   poster: ``,
   preview: ``
@@ -11,7 +14,9 @@ const film = {
 describe(`FilmCardComponent`, () => {
   it(`FilmCard correct render`, () => {
     const tree = renderer.create(
-        <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} isPlaying={false} onCardLeave={() => {}} />
+        <Router history={history}>
+          <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} isPlaying={false} onCardLeave={() => {}} />
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

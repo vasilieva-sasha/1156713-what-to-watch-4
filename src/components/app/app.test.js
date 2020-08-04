@@ -6,6 +6,7 @@ import App from "./app";
 import NameSpace from "../../reducer/name-space.js";
 
 const films = [{
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -32,8 +33,6 @@ describe(`AppComponent`, () => {
     [NameSpace.APP]: {
       genre: `All genres`,
       activeCard: null,
-      isFullPlayerActive: false,
-      currentPage: `MAIN`
     },
     [NameSpace.DATA]: {
       promoFilm: films[0],
@@ -55,11 +54,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            isFullPlayerActive={false}
             promoFilm={store.promoFilm}
             selectedFilm={null}
             onCardClick={() => {}}
-            currentPage={store.currentPage}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -78,11 +75,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            isFullPlayerActive={false}
             promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
-            currentPage={`INFO`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -101,11 +96,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            isFullPlayerActive={false}
             promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
-            currentPage={`REVIEW`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -124,11 +117,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            isFullPlayerActive={false}
             promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
-            currentPage={`LOGIN`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -147,11 +138,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={true}
-            isFullPlayerActive={false}
             promoFilm={store.promoFilm}
             selectedFilm={films[0]}
             onCardClick={() => {}}
-            currentPage={`MAIN`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -170,11 +159,9 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={false}
-            isFullPlayerActive={true}
             promoFilm={store.promoFilm}
             selectedFilm={null}
             onCardClick={() => {}}
-            currentPage={`MAIN`}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}

@@ -8,6 +8,7 @@ import {Router} from "react-router-dom";
 import history from './../../history';
 
 const films = [{
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   poster: `fantastic-beasts-the-crimes-of-grindelwald`,
   preview: ``
@@ -19,9 +20,6 @@ const store = mockStore({
     authorizationStatus: `NO_AUTH`,
     authInfo: null,
   },
-  [NameSpace.APP]: {
-    currentPage: `MAIN`
-  }
 });
 
 describe(`MyListComponent`, () => {

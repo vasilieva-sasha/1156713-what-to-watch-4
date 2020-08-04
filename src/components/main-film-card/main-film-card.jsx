@@ -4,9 +4,11 @@ import {getPromo} from './../../reducer/data/selectors';
 import {connect} from "react-redux";
 import Header from './../header/header';
 import MyListButton from './../my-list-button/my-list-button';
+import {Link} from 'react-router-dom';
+import {AppRoute, CurrentPage} from '../../common/consts';
 
 const MainFilmCard = (props) => {
-  const {film, onPlayClick} = props;
+  const {film} = props;
   return (
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -15,7 +17,7 @@ const MainFilmCard = (props) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header/>
+      <Header currentPage={CurrentPage.MAIN}/>
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -31,14 +33,12 @@ const MainFilmCard = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                onPlayClick();
-              }}>
+              <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.PLAYER}`} className="btn btn--play movie-card__button" type="button" >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
+              </Link>
               <MyListButton film={film} />
             </div>
           </div>
@@ -51,13 +51,14 @@ const MainFilmCard = (props) => {
 
 MainFilmCard.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
     background: PropTypes.string.isRequired,
     posterInfo: PropTypes.string.isRequired,
   }).isRequired,
-  onPlayClick: PropTypes.func.isRequired,
+  // onPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

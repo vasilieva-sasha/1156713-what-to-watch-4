@@ -20,9 +20,6 @@ const mockStore = configureStore([]);
 
 describe(`ReviewsComponent`, () => {
   const store = mockStore({
-    [NameSpace.APP]: {
-      currentPage: `INFO`,
-    },
     [NameSpace.DATA]: {
       reviews: mock,
       serverError: false
@@ -31,7 +28,7 @@ describe(`ReviewsComponent`, () => {
   it(`film reviews component renders correctly`, () => {
     const tree = renderer.create(
         <Provider store={store}>
-          <FilmInfoReviews film={mock} currentPage={store.currentPage} serverError={store.serverError}/>
+          <FilmInfoReviews film={mock} serverError={store.serverError}/>
         </Provider>
     ).toJSON();
 
@@ -41,7 +38,7 @@ describe(`ReviewsComponent`, () => {
   it(`film reviews component renders correctly with server error`, () => {
     const tree = renderer.create(
         <Provider store={store}>
-          <FilmInfoReviews film={mock} currentPage={store.currentPage} serverError={true}/>
+          <FilmInfoReviews film={mock} serverError={true}/>
         </Provider>
     ).toJSON();
 

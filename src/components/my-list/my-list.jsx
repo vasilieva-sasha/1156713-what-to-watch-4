@@ -2,7 +2,7 @@ import React from "react";
 import Header from './../header/header';
 import FilmList from "../film-list/film-list";
 import Footer from "../footer/footer";
-import {ALL_GENRES} from './../../common/consts';
+import {ALL_GENRES, CurrentPage} from './../../common/consts';
 import PropTypes from 'prop-types';
 
 const MyList = (props) => {
@@ -10,7 +10,7 @@ const MyList = (props) => {
 
   return (
     <div className="user-page">
-      <Header/>
+      <Header currentPage={CurrentPage.MYLIST}/>
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>

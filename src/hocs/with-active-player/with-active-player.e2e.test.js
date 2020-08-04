@@ -5,6 +5,7 @@ import withActivePlayer from './with-active-player';
 import PropTypes from 'prop-types';
 
 const mock = {
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,

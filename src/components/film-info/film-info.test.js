@@ -11,6 +11,7 @@ const mockStore = configureStore([]);
 
 const films = [
   {
+    id: 1,
     title: `a`,
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -19,6 +20,7 @@ const films = [
     backgroundColor: ``
   },
   {
+    id: 2,
     title: `b`,
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -30,6 +32,7 @@ const films = [
 
 
 const film = {
+  id: 3,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -55,8 +58,6 @@ describe(`FilmInfoComponent`, () => {
     [NameSpace.APP]: {
       genre: `All genres`,
       activeCard: null,
-      isFullPlayerActive: false,
-      currentPage: `INFO`
     },
     [NameSpace.DATA]: {
       films

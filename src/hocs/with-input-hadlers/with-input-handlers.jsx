@@ -48,7 +48,7 @@ const withInputHandlers = (Component) => {
           onSubmit={this._handleSubmit}
           onRatingSelect={this._handleRatingSelect}
           onCommentType={this._handleCommentType}
-          isButtonBlocked={this.state.comment && this.state.rating !== 0 ? false : true}
+          isButtonBlocked={this.state.comment.length > 50 && this.state.rating !== 0 ? false : true}
         />
       );
     }

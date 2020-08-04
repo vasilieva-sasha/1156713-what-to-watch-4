@@ -68,6 +68,7 @@ const reviewData = {
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     promoFilm: {
+      id: 0,
       title: `Loading`,
       genre: ``,
       releaseDate: 0,
@@ -80,13 +81,15 @@ it(`Reducer without additional parameters should return initial state`, () => {
     reviews: [],
     review: {},
     favoriteFilms: [],
-    serverError: false
+    serverError: false,
+    reviewError: false,
   });
 });
 
 it(`Reducer should update promoFilm by load promoFilm`, () => {
   expect(reducer({
     promoFilm: {
+      id: 0,
       title: `Loading`,
       genre: ``,
       releaseDate: 0,
@@ -154,6 +157,17 @@ it(`Reducer should send review by sendReview`, () => {
     payload: reviewData,
   })).toEqual({
     review: reviewData,
+  });
+});
+
+it(`Reducer should change reveiw error status`, () => {
+  expect(reducer({
+    reviewError: false,
+  }, {
+    type: ActionType.SHOW_REVIEW_ERROR,
+    payload: true,
+  })).toEqual({
+    reviewError: true
   });
 });
 

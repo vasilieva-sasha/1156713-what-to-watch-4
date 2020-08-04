@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import withInputHandlers from './with-input-handlers';
 
 const film = {
+  id: 1,
   title: ``,
   posterInfo: ``,
   background: ``,

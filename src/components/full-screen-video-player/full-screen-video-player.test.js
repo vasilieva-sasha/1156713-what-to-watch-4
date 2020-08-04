@@ -6,6 +6,7 @@ import NameSpace from './../../reducer/name-space';
 import {Provider} from "react-redux";
 
 const mock = {
+  id: 1,
   title: ``
 };
 
@@ -14,7 +15,6 @@ describe(`FullScreenVideoPlayerComponent`, () => {
   const store = mockStore({
     [NameSpace.APP]: {
       genre: `All genres`,
-      isFullPlayerActive: false
     },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`,
