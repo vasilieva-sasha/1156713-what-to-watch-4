@@ -24,7 +24,7 @@ const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoP
 const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, onCardClick, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus} = props;
+  const {films, serverError, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus} = props;
 
   const getCurrentFilmById = (id) => {
     return films.find((film) => film.id === id);
@@ -40,16 +40,14 @@ const App = (props) => {
 
   const renderMain = () => {
     return (
-      <Main
-        onCardClick={onCardClick}
-      />
+      <Main/>
     );
   };
 
   const renderFilmInfo = (match) => {
     const id = Number(match.params.id);
     return (
-      <FilmInfo films={films} film={getCurrentFilmById(id)} onCardClick={onCardClick}/>
+      <FilmInfo films={films} film={getCurrentFilmById(id)}/>
     );
   };
 
@@ -77,7 +75,7 @@ const App = (props) => {
 
   const renderMyList = () => {
     return (
-      <MyList films={favoriteFilms} onCardClick={onCardClick} />
+      <MyList films={favoriteFilms}/>
     );
   };
 
@@ -101,7 +99,6 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
   })).isRequired,
   serverError: PropTypes.bool.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   singInError: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
@@ -121,9 +118,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCardClick(film) {
-    dispatch(DataOperations.loadReviews(film));
-  },
   login(authData) {
     dispatch(UserOperations.login(authData));
   },

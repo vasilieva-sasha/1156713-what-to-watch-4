@@ -14,7 +14,7 @@ import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-
 const FilmListWrapped = withShowMoreButton(FilmList);
 
 const Main = (props) => {
-  const {films, allFilms, onCardClick, activeGenre, onFilterClick} = props;
+  const {films, allFilms, activeGenre, onFilterClick} = props;
 
   return (
     <React.Fragment>
@@ -27,7 +27,7 @@ const Main = (props) => {
 
           <GenreList films={allFilms} genres={getGenres(allFilms)} activeGenre={activeGenre} onFilterClick={onFilterClick}/>
 
-          <FilmListWrapped films={films} genre={activeGenre} onCardClick={onCardClick}/>
+          <FilmListWrapped films={films} genre={activeGenre}/>
 
         </section>
 
@@ -51,7 +51,6 @@ Main.propTypes = {
         poster: PropTypes.string
       }))
   .isRequired,
-  onCardClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired
 };

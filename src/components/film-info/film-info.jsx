@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
@@ -10,91 +10,117 @@ import {connect} from "react-redux";
 import MyListButton from './../my-list-button/my-list-button';
 import {Link} from "react-router-dom";
 import LoadingScreen from './../loading-screen/loading-screen';
+import {Operations} from "../../reducer/data/data";
 
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
-const FilmInfo = (props) => {
-  const {films, film, onCardClick, authorizationStatus} = props;
+class FilmInfo extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const getFilmListByGenre = () => {
+    this._getFilmListByGenre = this._getFilmListByGenre.bind(this);
+  }
+
+  componentDidMount() {
+    const {film, loadReviews} = this.props;
+    if (film) {
+      loadReviews(film);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {film, loadReviews} = this.props;
+    if (film !== prevProps.film) {
+      loadReviews(film);
+    }
+  }
+  _getFilmListByGenre() {
+    const {films, film} = this.props;
+
     return films.filter((filmItem) => {
       return filmItem.genre === film.genre && filmItem.title !== film.title;
     }).slice(0, SIMILAR_FILMS_AMOUNT_SHOW);
-  };
+  }
 
-  return (
-    film
-      ? <React.Fragment>
-        <section className="movie-card movie-card--full" style={{background: film.backgroundColor}}>
-          <div className="movie-card__hero">
-            <div className="movie-card__bg">
-              <img src={film.background} alt={film.title}/>
-            </div>
+  render() {
+    const {film, authorizationStatus} = this.props;
+    return (
+      film
+        ? <React.Fragment>
+          <section className="movie-card movie-card--full" style={{background: film.backgroundColor}}>
+            <div className="movie-card__hero">
+              <div className="movie-card__bg">
+                <img src={film.background} alt={film.title}/>
+              </div>
 
-            <h1 className="visually-hidden">WTW</h1>
+              <h1 className="visually-hidden">WTW</h1>
 
-            <Header currentPage={CurrentPage.INFO} />
+              <Header currentPage={CurrentPage.INFO} />
 
-            <div className="movie-card__wrap">
-              <div className="movie-card__desc">
-                <h2 className="movie-card__title">{film.title}</h2>
-                <p className="movie-card__meta">
-                  <span className="movie-card__genre">{film.genre}</span>
-                  <span className="movie-card__year">{film.releaseDate}</span>
-                </p>
+              <div className="movie-card__wrap">
+                <div className="movie-card__desc">
+                  <h2 className="movie-card__title">{film.title}</h2>
+                  <p className="movie-card__meta">
+                    <span className="movie-card__genre">{film.genre}</span>
+                    <span className="movie-card__year">{film.releaseDate}</span>
+                  </p>
 
-                <div className="movie-card__buttons">
-                  <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.PLAYER}`} className="btn btn--play movie-card__button" type="button" >
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </Link>
-                  <MyListButton film={film} />
-                  {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button" >Add review</Link> : ``}
+                  <div className="movie-card__buttons">
+                    <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.PLAYER}`} className="btn btn--play movie-card__button" type="button" >
+                      <svg viewBox="0 0 19 19" width="19" height="19">
+                        <use xlinkHref="#play-s"></use>
+                      </svg>
+                      <span>Play</span>
+                    </Link>
+                    <MyListButton film={film} />
+                    {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button" >Add review</Link> : ``}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="movie-card__wrap movie-card__translate-top">
-            <div className="movie-card__info">
-              <div className="movie-card__poster movie-card__poster--big">
-                <img src={film.posterInfo} alt={`${film.title} poster`}
-                  width="218" height="327"/>
+            <div className="movie-card__wrap movie-card__translate-top">
+              <div className="movie-card__info">
+                <div className="movie-card__poster movie-card__poster--big">
+                  <img src={film.posterInfo} alt={`${film.title} poster`}
+                    width="218" height="327"/>
+                </div>
+
+                <FilmInfoNavigationWrapped film={film} />
+
               </div>
-
-              <FilmInfoNavigationWrapped film={film} />
-
             </div>
-          </div>
-        </section>
-
-        <div className="page-content">
-          <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
-
-            <FilmList shownFilms={getFilmListByGenre()} genre={film.genre} onCardClick={onCardClick} />
           </section>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <a href="main.html" className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+          <div className="page-content">
+            {this._getFilmListByGenre().length > 0
+              ? <section className="catalog catalog--like-this">
+                <h2 className="catalog__title">More like this</h2>
 
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
-        </div>
-      </React.Fragment>
-      : <LoadingScreen/>
-  );
-};
+                <FilmList shownFilms={this._getFilmListByGenre()} genre={film.genre}/>
+              </section>
+              : ``}
+
+            <footer className="page-footer">
+              <div className="logo">
+                <a href="main.html" className="logo__link logo__link--light">
+                  <span className="logo__letter logo__letter--1">W</span>
+                  <span className="logo__letter logo__letter--2">T</span>
+                  <span className="logo__letter logo__letter--3">W</span>
+                </a>
+              </div>
+
+              <div className="copyright">
+                <p>© 2019 What to watch Ltd.</p>
+              </div>
+            </footer>
+          </div>
+        </React.Fragment>
+        : <LoadingScreen/>
+    );
+  }
+
+}
 
 FilmInfo.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
@@ -111,13 +137,18 @@ FilmInfo.propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     isFavorite: PropTypes.bool.isRequired
   }),
-  onCardClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  loadReviews: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadReviews(film) {
+    dispatch(Operations.loadReviews(film));
+  }
+});
 
-export default connect(mapStateToProps)(FilmInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(FilmInfo);

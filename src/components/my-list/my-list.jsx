@@ -6,7 +6,7 @@ import {ALL_GENRES, CurrentPage} from './../../common/consts';
 import PropTypes from 'prop-types';
 
 const MyList = (props) => {
-  const {films, onCardClick} = props;
+  const {films} = props;
 
   return (
     <div className="user-page">
@@ -15,7 +15,7 @@ const MyList = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList shownFilms={films} genre={ALL_GENRES} onCardClick={onCardClick} />
+        <FilmList shownFilms={films} genre={ALL_GENRES}/>
       </section>
 
       <Footer />
@@ -31,7 +31,6 @@ MyList.propTypes = {
         isFavorite: PropTypes.bool.string
       }))
   .isRequired,
-  onCardClick: PropTypes.func.isRequired
 };
 
 export default MyList;

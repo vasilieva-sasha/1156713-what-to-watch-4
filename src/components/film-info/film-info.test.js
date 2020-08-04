@@ -71,7 +71,7 @@ describe(`FilmInfoComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus}/>
+            <FilmInfo films={films} film={film} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus} loadReviews={() => {}}/>
           </Provider>
         </Router>
     ).toJSON();
@@ -83,7 +83,7 @@ describe(`FilmInfoComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={`AUTH`}/>
+            <FilmInfo films={films} film={film} onPlayClick={() => {}} authorizationStatus={`AUTH`} loadReviews={() => {}}/>
           </Provider>
         </Router>
     ).toJSON();

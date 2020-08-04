@@ -56,7 +56,6 @@ describe(`MainComponent`, () => {
               genres={genres}
               films={store.filteredFilms}
               activeGenre={store.genre}
-              onCardClick={() => {}}
             />
           </Provider>
         </Router>

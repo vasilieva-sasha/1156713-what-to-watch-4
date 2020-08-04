@@ -18,7 +18,7 @@ describe(`FilmListComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <FilmList films={films}
-            shownFilms={films} onCardClick={() => {}}
+            shownFilms={films}
             onCatalogButtonClick={() => {}}
             onGenreUpdate={() => {}}
             genre={`All genres`}/>

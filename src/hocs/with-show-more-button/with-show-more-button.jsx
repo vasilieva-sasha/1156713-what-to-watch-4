@@ -46,12 +46,11 @@ const withShowMoreButton = (Component) => {
     }
 
     render() {
-      const {films, genre, onCardClick} = this.props;
+      const {films, genre} = this.props;
       return (
         <Component
           shownFilms={this._getShownFilms()}
           genre={genre}
-          onCardClick={onCardClick}
         >
           {films.length > this._getShownFilms().length ? <CatalogButton onCatalogButtonClick={this._handleCatalogButtonClick} /> : ``}
         </Component>
@@ -67,7 +66,6 @@ const withShowMoreButton = (Component) => {
         }))
       .isRequired,
     genre: PropTypes.string.isRequired,
-    onCardClick: PropTypes.func.isRequired,
   };
 
   return WithShowMoreButton;

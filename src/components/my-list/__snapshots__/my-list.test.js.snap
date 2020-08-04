@@ -81,7 +81,6 @@ exports[`MyListComponent My List renders correctly 1`] = `
         </a>
         <h3
           className="small-movie-card__title"
-          onClick={[Function]}
         >
           <a
             className="small-movie-card__link"

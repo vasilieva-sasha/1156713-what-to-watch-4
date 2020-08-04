@@ -32,7 +32,6 @@ describe(`AppComponent`, () => {
   const store = mockStore({
     [NameSpace.APP]: {
       genre: `All genres`,
-      activeCard: null,
     },
     [NameSpace.DATA]: {
       promoFilm: films[0],
@@ -48,14 +47,12 @@ describe(`AppComponent`, () => {
     },
   });
 
-  it(`App main page correct render`, () => {
+  it(`App correct render no-auth`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
             films={store.films}
             serverError={store.serverError}
-            promoFilm={store.promoFilm}
-            selectedFilm={null}
             onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
@@ -69,20 +66,18 @@ describe(`AppComponent`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App movie page correct render`, () => {
+  it(`App correct render with auth`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
             films={store.films}
             serverError={store.serverError}
-            promoFilm={store.promoFilm}
-            selectedFilm={films[0]}
             onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
             favoriteFilms={store.favoriteFilms}
-            authorizationStatus={store.authorizationStatus}
+            authorizationStatus={`AUTH`}
           />
         </Provider>
     ).toJSON();
@@ -90,56 +85,12 @@ describe(`AppComponent`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App movie page review correct render`, () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-          <App
-            films={store.films}
-            serverError={store.serverError}
-            promoFilm={store.promoFilm}
-            selectedFilm={films[0]}
-            onCardClick={() => {}}
-            login={() => {}}
-            onSignIn={() => {}}
-            singInError={false}
-            favoriteFilms={store.favoriteFilms}
-            authorizationStatus={store.authorizationStatus}
-          />
-        </Provider>
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`App movie page correct render`, () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-          <App
-            films={store.films}
-            serverError={store.serverError}
-            promoFilm={store.promoFilm}
-            selectedFilm={films[0]}
-            onCardClick={() => {}}
-            login={() => {}}
-            onSignIn={() => {}}
-            singInError={false}
-            favoriteFilms={store.favoriteFilms}
-            authorizationStatus={store.authorizationStatus}
-          />
-        </Provider>
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`App Loading Error page correct render`, () => {
+  it(`App correct render with error`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
             films={store.films}
             serverError={true}
-            promoFilm={store.promoFilm}
-            selectedFilm={films[0]}
             onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
@@ -153,24 +104,4 @@ describe(`AppComponent`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`App Player page correct render`, () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-          <App
-            films={store.films}
-            serverError={false}
-            promoFilm={store.promoFilm}
-            selectedFilm={null}
-            onCardClick={() => {}}
-            login={() => {}}
-            onSignIn={() => {}}
-            singInError={false}
-            favoriteFilms={store.favoriteFilms}
-            authorizationStatus={store.authorizationStatus}
-          />
-        </Provider>
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
 });

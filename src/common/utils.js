@@ -30,10 +30,5 @@ export const getRatingLevel = (rating) => {
     case rating === Score.AWESOME:
       return Rating.AWESOME;
   }
-    
-  // [Rating.BAD]: (rating) => rating >= Score.BAD,
-  // [Rating.NORMAL]: (rating) => rating < Score.BAD || rating >= Score.NORMAL,
-  // [Rating.GOOD]: (rating) => rating < Score.NORMAL || rating >= Score.VERY_GOOD,
-  // [Rating.VERY_GOOD]: (rating) => rating < Score.VERY_GOOD || rating > Score.AWESOME,
-  // [Rating.AWESOME]: (rating) => rating === Score.AWESOME
+  return null;
 };

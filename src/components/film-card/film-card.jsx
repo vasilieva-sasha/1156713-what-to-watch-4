@@ -5,22 +5,17 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from "../../common/consts";
 
 const FilmCard = (props) => {
-  const {film, onArticleHover, onCardClick, isPlaying, onCardLeave} = props;
+  const {film, onArticleHover, isPlaying, onCardLeave} = props;
 
   return (
     <article
       onMouseEnter={onArticleHover}
       onMouseLeave={onCardLeave}
       className="small-movie-card catalog__movies-card">
-      <Link to={`${AppRoute.FILM}/${film.id}`} onClick={() => {
-        onCardClick(film);
-      }} className="small-movie-card__image">
+      <Link to={`${AppRoute.FILM}/${film.id}`} className="small-movie-card__image">
         <VideoPlayer isPlaying={isPlaying} film={film} />
       </Link>
-      <h3 onClick={(evt) => {
-        evt.preventDefault();
-        onCardClick(film);
-      }} className="small-movie-card__title">
+      <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to={`${AppRoute.FILM}/${film.id}`}>{film.title}</Link>
       </h3>
     </article>
@@ -35,7 +30,6 @@ FilmCard.propTypes = {
     preview: PropTypes.string.isRequired
   }).isRequired,
   onArticleHover: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onCardLeave: PropTypes.func.isRequired
 };

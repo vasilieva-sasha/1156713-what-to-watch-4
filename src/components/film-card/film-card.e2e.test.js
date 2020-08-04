@@ -29,45 +29,13 @@ Enzyme.configure({
 });
 
 describe(`FilmCardComponent`, () => {
-  it(`Title click`, () => {
-    const onCardClick = jest.fn();
-
-    const filmCardComponent = mount(
-        <Router history={history}>
-          <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
-        </Router>
-    );
-
-    const smallCardTitle = filmCardComponent.find(`.small-movie-card__title`);
-
-    smallCardTitle.simulate(`click`);
-    expect(onCardClick.mock.calls.length).toBe(1);
-    expect(onCardClick).toHaveBeenCalledWith(currentFilm);
-  });
-
-  it(`Image click`, () => {
-    const onCardClick = jest.fn();
-
-    const filmCardComponent = mount(
-        <Router history={history}>
-          <FilmCard film={currentFilm} onArticleHover={() => {}} onCardClick={onCardClick} isPlaying={false} onCardLeave={() => {}} />
-        </Router>
-    );
-
-    const smallCardImage = filmCardComponent.find(`.small-movie-card__image`).at(2);
-
-    smallCardImage.simulate(`click`);
-    expect(onCardClick.mock.calls.length).toBe(1);
-    expect(onCardClick).toHaveBeenCalledWith(currentFilm);
-  });
-
   it(`Card hover`, () => {
     const onArticleHover = jest.fn();
     const onCardLeave = jest.fn();
 
     const filmCardComponent = mount(
         <Router history={history}>
-          <FilmCard film={currentFilm} onArticleHover={onArticleHover} onCardClick={() => {}} isPlaying={false} onCardLeave={onCardLeave} />
+          <FilmCard film={currentFilm} onArticleHover={onArticleHover} isPlaying={false} onCardLeave={onCardLeave} />
         </Router>
     );
 

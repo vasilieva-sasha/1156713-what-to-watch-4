@@ -12,7 +12,6 @@ const filmAdapter = (film) => ({
   video: film.video_link,
   rating: {
     score: film.rating,
-    level: `Very good`,
     count: film.scores_count
   },
   text: film.description,

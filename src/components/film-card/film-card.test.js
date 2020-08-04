@@ -15,7 +15,7 @@ describe(`FilmCardComponent`, () => {
   it(`FilmCard correct render`, () => {
     const tree = renderer.create(
         <Router history={history}>
-          <FilmCard film={film} onArticleHover={() => {}} onCardClick={() => {}} isPlaying={false} onCardLeave={() => {}} />
+          <FilmCard film={film} onArticleHover={() => {}} isPlaying={false} onCardLeave={() => {}} />
         </Router>
     ).toJSON();
 

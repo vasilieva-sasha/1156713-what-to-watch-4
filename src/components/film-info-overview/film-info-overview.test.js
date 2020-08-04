@@ -6,7 +6,6 @@ const mock = {
   id: 1,
   rating: {
     score: 8,
-    level: ` `,
     count: 200
   },
   text: `text`,

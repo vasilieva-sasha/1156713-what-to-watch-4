@@ -29,7 +29,6 @@ FilmInfoOverview.propTypes = {
   film: PropTypes.shape({
     rating: PropTypes.shape({
       score: PropTypes.number.isRequired,
-      level: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired
     }),
     text: PropTypes.string.isRequired,

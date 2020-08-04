@@ -27,7 +27,7 @@ describe(`MyListComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <MyList films={films} onCardClick={() => {}} />
+            <MyList films={films}/>
           </Provider>
         </Router>
     ).toJSON();
