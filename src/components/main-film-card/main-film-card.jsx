@@ -58,7 +58,6 @@ MainFilmCard.propTypes = {
     background: PropTypes.string.isRequired,
     posterInfo: PropTypes.string.isRequired,
   }).isRequired,
-  // onPlayClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
