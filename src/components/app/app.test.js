@@ -53,7 +53,6 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -72,7 +71,6 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={store.serverError}
-            onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
@@ -91,7 +89,6 @@ describe(`AppComponent`, () => {
           <App
             films={store.films}
             serverError={true}
-            onCardClick={() => {}}
             login={() => {}}
             onSignIn={() => {}}
             singInError={false}
