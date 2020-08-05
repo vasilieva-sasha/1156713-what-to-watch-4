@@ -45,13 +45,13 @@ describe(`signInComponent`, () => {
         </Router>
     );
 
-    const component = signIn.find(`.sign-in`);
+    const component = signIn.find(SignIn);
 
-    const {loginRef} = component.instance();
-    loginRef.current.value = mock.login;
+    const {_loginRef} = component.instance();
+    _loginRef.current.value = mock.login;
 
-    const {passwordRef} = component.instance();
-    passwordRef.current.value = mock.password;
+    const {_passwordRef} = component.instance();
+    _passwordRef.current.value = mock.password;
 
     const form = signIn.find(`form`);
 

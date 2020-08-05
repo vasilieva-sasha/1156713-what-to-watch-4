@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import withActiveFullScreenPlayer from './with-active-full-screen-player';
+import PropTypes from 'prop-types';
 
 const mock = {
   poster: `poster`,
@@ -12,14 +13,22 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-const Player = () => {
+const Player = (props) => {
+  const {renderVideo, renderPlayButton, renderPauseButton} = props;
   return (
     <div>
-
+      {renderVideo()}
+      {renderPlayButton()}
+      {renderPauseButton()}
     </div>
   );
 };
 
+Player.propTypes = {
+  renderVideo: PropTypes.func,
+  renderPlayButton: PropTypes.func,
+  renderPauseButton: PropTypes.func,
+};
 
 const PlayerWrapped = withActiveFullScreenPlayer(Player);
 
@@ -29,11 +38,10 @@ describe(`FullVideoPlayer HOC`, () => {
         <PlayerWrapped film={mock}/>
     );
 
-    wrapper.instance()._renderVideo();
-    wrapper.instance()._renderPauseButton();
-    wrapper.instance()._renderPlayButton();
-
     window.HTMLMediaElement.prototype.play = () => Promise.resolve();
+    window.HTMLMediaElement.prototype.pause = () => Promise.resolve();
+
+    wrapper.instance().componentDidMount();
 
     expect(wrapper.state().isPlaying).toEqual(true);
     wrapper.instance()._handlePlayPauseToggle();
