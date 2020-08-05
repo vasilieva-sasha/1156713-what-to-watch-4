@@ -55,7 +55,7 @@ describe(`AppComponent`, () => {
             serverError={store.serverError}
             login={() => {}}
             onSignIn={() => {}}
-            singInError={false}
+            signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={store.authorizationStatus}
           />
@@ -73,7 +73,7 @@ describe(`AppComponent`, () => {
             serverError={store.serverError}
             login={() => {}}
             onSignIn={() => {}}
-            singInError={false}
+            signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={`AUTH`}
           />
@@ -91,7 +91,7 @@ describe(`AppComponent`, () => {
             serverError={true}
             login={() => {}}
             onSignIn={() => {}}
-            singInError={false}
+            signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={store.authorizationStatus}
           />

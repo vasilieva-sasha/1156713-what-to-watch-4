@@ -24,7 +24,7 @@ const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoP
 const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo} = props;
+  const {films, serverError, login, signInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo} = props;
 
   const getCurrentFilmById = (id) => {
     return films.find((film) => film.id === id);
@@ -63,7 +63,7 @@ const App = (props) => {
   const renderSignIn = () => {
     return (
       authorizationStatus === AuthorizationStatus.NO_AUTH ?
-        <SignIn onSubmit={login} singInError={singInError}/> :
+        <SignIn onSubmit={login} signInError={signInError}/> :
         <Redirect to={AppRoute.MAIN} />
     );
   };
@@ -102,7 +102,7 @@ App.propTypes = {
   })).isRequired,
   serverError: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
-  singInError: PropTypes.bool.isRequired,
+  signInError: PropTypes.bool.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
   favoriteFilms: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -120,7 +120,7 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   films: getFilms(state),
   serverError: getServerError(state),
-  singInError: getsignInErrorStatus(state),
+  signInError: getsignInErrorStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
   favoriteFilms: getFavoriteFilms(state),
   authInfo: getAuthInfo(state)

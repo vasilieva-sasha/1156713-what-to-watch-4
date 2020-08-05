@@ -140,4 +140,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {FilmInfo};
 export default connect(mapStateToProps, mapDispatchToProps)(FilmInfo);

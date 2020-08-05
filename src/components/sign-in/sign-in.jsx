@@ -26,34 +26,23 @@ class SignIn extends PureComponent {
   }
 
   render() {
-    const {singInError} = this.props;
+    const {signInError} = this.props;
 
     return (
       <div className="user-page">
         <Header currentPage={CurrentPage.LOGIN}>
           <h1 className="page-title user-page__title">Sign in</h1>
         </Header>
-        {/* <header className="page-header user-page__head">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-
-        </header> */}
 
         <div className="sign-in user-page__content">
           <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
-            {singInError ?
+            {signInError ?
               <div className="sign-in__message">
                 <p>Please enter a valid email address</p>
               </div> :
               ``}
             <div className="sign-in__fields">
-              <div className={`sign-in__field ${singInError ? `sign-in__field--error` : ``}`}>
+              <div className={`sign-in__field ${signInError ? `sign-in__field--error` : ``}`}>
                 <input className="sign-in__input"
                   type="email"
                   placeholder="Email address"
@@ -89,7 +78,7 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  singInError: PropTypes.bool.isRequired
+  signInError: PropTypes.bool.isRequired
 };
 
 export default SignIn;

@@ -3,10 +3,10 @@ import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import SignIn from "./sign-in";
 import {Router} from "react-router-dom";
-import history from './../../history';
+import history from '../../history';
 import {Provider} from "react-redux";
 import configureStore from 'redux-mock-store';
-import NameSpace from './../../reducer/name-space';
+import NameSpace from '../../reducer/name-space';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -34,25 +34,26 @@ const store = mockStore({
 });
 
 
-describe(`singInComponent`, () => {
+describe(`signInComponent`, () => {
   it(`Submit login`, () => {
     const onSubmit = jest.fn();
-    const singIn = mount(
+    const signIn = mount(
         <Router history={history}>
           <Provider store={store}>
-            <SignIn onSubmit={onSubmit} singInError={false} />
+            <SignIn onSubmit={onSubmit} signInError={false} />
           </Provider>
-
         </Router>
     );
 
-    const {loginRef} = singIn.instance();
+    const component = signIn.find(`.sign-in`);
+
+    const {loginRef} = component.instance();
     loginRef.current.value = mock.login;
 
-    const {passwordRef} = singIn.instance();
+    const {passwordRef} = component.instance();
     passwordRef.current.value = mock.password;
 
-    const form = singIn.find(`form`);
+    const form = signIn.find(`form`);
 
     form.simulate(`submit`);
 

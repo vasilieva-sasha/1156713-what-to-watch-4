@@ -29,6 +29,12 @@ describe(`FullVideoPlayer HOC`, () => {
         <PlayerWrapped film={mock}/>
     );
 
+    wrapper.instance()._renderVideo();
+    wrapper.instance()._renderPauseButton();
+    wrapper.instance()._renderPlayButton();
+
+    window.HTMLMediaElement.prototype.play = () => Promise.resolve();
+
     expect(wrapper.state().isPlaying).toEqual(true);
     wrapper.instance()._handlePlayPauseToggle();
     expect(wrapper.state().isPlaying).toEqual(false);
