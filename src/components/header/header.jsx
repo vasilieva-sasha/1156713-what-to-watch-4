@@ -9,9 +9,27 @@ const Header = (props) => {
   const {authorizationStatus, authInfo, currentPage, children} = props;
 
   const getHeaderClass = () => {
-    return currentPage === (CurrentPage.MYLIST || CurrentPage.LOGIN) ?
+    return currentPage === CurrentPage.MYLIST || currentPage === CurrentPage.LOGIN ?
       `user-page__head` :
       `movie-card__head`;
+  };
+
+  const getUserBlock = () => {
+    if (currentPage !== CurrentPage.LOGIN) {
+      return (
+        <div className="user-block">
+          {authorizationStatus === AuthorizationStatus.AUTH ?
+            <div className="user-block__avatar">
+              <Link to={AppRoute.MYLIST}><img src={authInfo.avatar} alt="User avatar" width="63" height="63"/></Link>
+            </div> :
+            <div className="user-block">
+              <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>
+            </div>}
+
+        </div>);
+    }
+
+    return null;
   };
 
   return (
@@ -32,16 +50,8 @@ const Header = (props) => {
       </div>
       {children}
 
-      <div className="user-block">
-        {authorizationStatus === AuthorizationStatus.AUTH ?
-          <div className="user-block__avatar">
-            <Link to={AppRoute.MYLIST}><img src={authInfo.avatar} alt="User avatar" width="63" height="63"/></Link>
-          </div> :
-          <div className="user-block">
-            <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>
-          </div>}
+      {getUserBlock()}
 
-      </div>
     </header>
   );
 };

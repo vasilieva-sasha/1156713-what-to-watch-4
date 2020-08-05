@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Router, Route, Switch} from "react-router-dom";
+import {Router, Route, Switch, Redirect} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
@@ -11,7 +11,7 @@ import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-pla
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from './../sign-in/sign-in';
-import {getsignInErrorStatus, getAuthorizationStatus} from './../../reducer/user/selectors';
+import {getsignInErrorStatus, getAuthorizationStatus, getAuthInfo} from './../../reducer/user/selectors';
 import {AppRoute, AuthorizationStatus} from "../../common/consts";
 import AddReview from "../add-review/add-review";
 import withInputHandlers from './../../hocs/with-input-hadlers/with-input-handlers';
@@ -24,7 +24,7 @@ const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoP
 const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus} = props;
+  const {films, serverError, login, singInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo} = props;
 
   const getCurrentFilmById = (id) => {
     return films.find((film) => film.id === id);
@@ -33,6 +33,8 @@ const App = (props) => {
   const renderApp = () => {
     if (serverError) {
       return <LoadErrorScreen/>;
+    } else if (authorizationStatus === AuthorizationStatus.AUTH && !authInfo) {
+      return <LoadingScreen />;
     } else {
       return renderMain();
     }
@@ -58,11 +60,11 @@ const App = (props) => {
       : <LoadingScreen />;
   };
 
-  const renderSignIn = (routeProps) => {
+  const renderSignIn = () => {
     return (
-      authorizationStatus === AuthorizationStatus.AUTH ?
-        routeProps.history.goBack() :
-        <SignIn onSubmit={login} singInError={singInError}/>
+      authorizationStatus === AuthorizationStatus.NO_AUTH ?
+        <SignIn onSubmit={login} singInError={singInError}/> :
+        <Redirect to={AppRoute.MAIN} />
     );
   };
 
@@ -83,7 +85,7 @@ const App = (props) => {
     <Router history={history}>
       <Switch>
         <Route exact path={AppRoute.MAIN} render={() => renderApp()} />
-        <Route exact path={AppRoute.SIGN_IN} render={(routeProps) => renderSignIn(routeProps)}/>
+        <Route exact path={AppRoute.SIGN_IN} render={() => renderSignIn()}/>
         <PrivateRoute exact path={AppRoute.MYLIST} render={() => renderMyList()} />
         <Route exact path={`${AppRoute.FILM}/:id?${AppRoute.PLAYER}`} render={({match}) => renderVideoPage(match)}/>
         <PrivateRoute exact path={`${AppRoute.FILM}/:id?${AppRoute.ADD_REVIEW}`} render={({match}) => renderAddReview(match)} />
@@ -106,7 +108,13 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
   })).isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  authInfo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired
+  })
 };
 
 const mapStateToProps = (state) => ({
@@ -115,6 +123,7 @@ const mapStateToProps = (state) => ({
   singInError: getsignInErrorStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
   favoriteFilms: getFavoriteFilms(state),
+  authInfo: getAuthInfo(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

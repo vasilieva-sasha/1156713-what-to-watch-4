@@ -1,6 +1,8 @@
 import React, {PureComponent, createRef} from "react";
 import Footer from './../footer/footer';
 import PropTypes from 'prop-types';
+import Header from './../header/header';
+import {CurrentPage} from './../../common/consts';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -28,7 +30,10 @@ class SignIn extends PureComponent {
 
     return (
       <div className="user-page">
-        <header className="page-header user-page__head">
+        <Header currentPage={CurrentPage.LOGIN}>
+          <h1 className="page-title user-page__title">Sign in</h1>
+        </Header>
+        {/* <header className="page-header user-page__head">
           <div className="logo">
             <a href="main.html" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
@@ -37,8 +42,8 @@ class SignIn extends PureComponent {
             </a>
           </div>
 
-          <h1 className="page-title user-page__title">Sign in</h1>
-        </header>
+
+        </header> */}
 
         <div className="sign-in user-page__content">
           <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
