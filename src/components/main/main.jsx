@@ -10,6 +10,7 @@ import {getGenres} from './../../common/utils';
 import {getFilms, getFilteredByGenreFilms} from "../../reducer/data/selectors";
 import {getGenre} from './../../reducer/app/selectors';
 import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
+import {CurrentPage} from './../../common/consts';
 
 const FilmListWrapped = withShowMoreButton(FilmList);
 
@@ -31,7 +32,7 @@ const Main = (props) => {
 
         </section>
 
-        <Footer />
+        <Footer currentPage={CurrentPage.MAIN}/>
 
       </div>
     </React.Fragment>

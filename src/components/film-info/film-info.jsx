@@ -11,6 +11,7 @@ import MyListButton from './../my-list-button/my-list-button';
 import {Link} from "react-router-dom";
 import LoadingScreen from './../loading-screen/loading-screen';
 import {Operations} from "../../reducer/data/data";
+import Footer from "../footer/footer";
 
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
@@ -101,19 +102,7 @@ class FilmInfo extends PureComponent {
               </section>
               : ``}
 
-            <footer className="page-footer">
-              <div className="logo">
-                <a href="main.html" className="logo__link logo__link--light">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </a>
-              </div>
-
-              <div className="copyright">
-                <p>© 2019 What to watch Ltd.</p>
-              </div>
-            </footer>
+            <Footer />
           </div>
         </React.Fragment>
         : <LoadingScreen/>
