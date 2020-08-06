@@ -38,10 +38,14 @@ describe(`FullVideoPlayer HOC`, () => {
         <PlayerWrapped film={mock}/>
     );
 
-    window.HTMLMediaElement.prototype.play = () => Promise.resolve();
+    window.HTMLMediaElement.prototype.play = () => Promise.resolve(jest.spyOn(_videoRef.current, `play`));
     window.HTMLMediaElement.prototype.pause = () => Promise.resolve();
 
+    const {_videoRef} = wrapper.instance();
+
     wrapper.instance().componentDidMount();
+
+    jest.spyOn(_videoRef.current, `play`);
 
     expect(wrapper.state().isPlaying).toEqual(true);
     wrapper.instance()._handlePlayPauseToggle();

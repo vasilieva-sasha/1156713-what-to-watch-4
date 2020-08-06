@@ -30,6 +30,7 @@ const withActiveFullScreenPlayer = (Component) => {
       video.src = film.video;
       video.muted = false;
       const promise = video.play();
+      console.log(promise);
 
       if (promise !== undefined) {
         promise.then(() => {
