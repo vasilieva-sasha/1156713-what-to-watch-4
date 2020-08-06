@@ -46,3 +46,7 @@ export const Score = {
   VERY_GOOD: 8,
   AWESOME: 10
 };
+
+export const Comment = {
+  MIN: 50
+};

@@ -34,12 +34,12 @@ const PlayerWrapped = withActiveFullScreenPlayer(Player);
 
 describe(`FullVideoPlayer HOC`, () => {
   it(`Video stops on pause`, () => {
+    window.HTMLMediaElement.prototype.play = () => Promise.resolve();
+    window.HTMLMediaElement.prototype.pause = () => Promise.resolve();
+
     const wrapper = mount(
         <PlayerWrapped film={mock}/>
     );
-
-    window.HTMLMediaElement.prototype.play = () => Promise.resolve(jest.spyOn(_videoRef.current, `play`));
-    window.HTMLMediaElement.prototype.pause = () => Promise.resolve();
 
     const {_videoRef} = wrapper.instance();
 
