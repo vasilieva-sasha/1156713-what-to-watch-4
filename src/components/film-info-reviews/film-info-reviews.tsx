@@ -1,11 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {Review} from "../review/review";
+import * as React from "react";
+import Review from "../review/review";
 import {getReviews} from "../../reducer/data/selectors";
 import {connect} from "react-redux";
-import {getServerError} from './../../reducer/data/selectors';
+import {getServerError} from '../../reducer/data/selectors';
+import {ReviewInterface} from "../../types";
 
-const FilmInfoReviews = (props) => {
+interface Props {
+  reviews: Array<ReviewInterface>;
+  serverError: boolean;
+}
+
+
+const FilmInfoReviews: React.FunctionComponent<Props> = (props: Props) => {
   const {reviews, serverError} = props;
 
   const splitIndex = Math.ceil(reviews.length / 2);
@@ -26,22 +32,6 @@ const FilmInfoReviews = (props) => {
         </div>
       </div>
   );
-};
-
-FilmInfoReviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        user: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-        }),
-        comment: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-      })
-  ),
-  serverError: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({

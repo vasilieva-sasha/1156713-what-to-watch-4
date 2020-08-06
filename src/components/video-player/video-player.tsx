@@ -1,16 +1,24 @@
-import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Film} from "../../types";
 
-class VideoPlayer extends PureComponent {
+interface Props {
+  isPlaying: boolean;
+  film: Film;
+}
+
+
+class VideoPlayer extends React.PureComponent<Props, {}> {
+  private videoRef: React.RefObject<HTMLVideoElement>
+
   constructor(props) {
     super(props);
 
-    this._videoRef = createRef();
+    this.videoRef = React.createRef();
   }
 
   componentDidMount() {
     const {film} = this.props;
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       video.src = film.preview;
@@ -19,7 +27,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentWillUnmount() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       video.oncanplaythrough = null;
@@ -29,7 +37,7 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidUpdate() {
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     if (video) {
       if (this.props.isPlaying) {
@@ -46,18 +54,10 @@ class VideoPlayer extends PureComponent {
       <video
         style={{width: `100%`, height: `100%`}}
         poster={film.poster}
-        ref={this._videoRef}
+        ref={this.videoRef}
       />
     );
   }
 }
-
-VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  film: PropTypes.shape({
-    poster: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired
-  }).isRequired,
-};
 
 export default VideoPlayer;

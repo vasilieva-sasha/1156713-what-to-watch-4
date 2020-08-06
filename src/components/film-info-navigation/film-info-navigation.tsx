@@ -1,9 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import FilmInfoOverview from "../film-info-overview/film-info-overview.jsx";
-import FilmInfoDetails from "../film-info-details/film-info-details.jsx";
-import FilmInfoReviews from "../film-info-reviews/film-info-reviews.jsx";
+import * as React from "react";
+import FilmInfoOverview from "../film-info-overview/film-info-overview";
+import FilmInfoDetails from "../film-info-details/film-info-details";
+import FilmInfoReviews from "../film-info-reviews/film-info-reviews";
 import {makeLetterUppercase} from "../../common/utils";
+import {Film} from './../../types';
+
+interface Props {
+  film: Film;
+  detailsScreen: number;
+  onLinkClick: (index: number) => void;
+}
 
 const TABS = [`overview`, `details`, `reviews`];
 
@@ -13,7 +19,7 @@ const FilmInfoScreen = {
   REVIEWS: 2
 };
 
-const FilmInfoNavigation = (props) => {
+const FilmInfoNavigation: React.FunctionComponent<Props> = (props: Props) => {
   const {film, detailsScreen, onLinkClick} = props;
 
   const renderScreen = () => {
@@ -51,21 +57,8 @@ const FilmInfoNavigation = (props) => {
     <div className="movie-card__desc">
       {renderNavigationMenu()}
       {renderScreen()}
-
     </div>
   );
-};
-
-FilmInfoNavigation.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterInfo: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired
-  }),
-  detailsScreen: PropTypes.number.isRequired,
-  onLinkClick: PropTypes.func.isRequired
 };
 
 export default FilmInfoNavigation;

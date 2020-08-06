@@ -1,10 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import VideoPlayer from "../video-player/video-player";
 import {Link} from 'react-router-dom';
 import {AppRoute} from "../../common/consts";
+import {Film} from './../../types';
 
-const FilmCard = (props) => {
+interface Props {
+  film: Film;
+  onArticleHover: () => void;
+  isPlaying: boolean;
+  onCardLeave: () => void;
+}
+
+
+const FilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {film, onArticleHover, isPlaying, onCardLeave} = props;
 
   return (
@@ -20,18 +28,6 @@ const FilmCard = (props) => {
       </h3>
     </article>
   );
-};
-
-FilmCard.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired
-  }).isRequired,
-  onArticleHover: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
-  onCardLeave: PropTypes.func.isRequired
 };
 
 export default FilmCard;

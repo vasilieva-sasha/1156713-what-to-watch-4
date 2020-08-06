@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {Router, Route, Switch, Redirect} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
@@ -7,23 +6,40 @@ import {connect} from "react-redux";
 import {getFilms, getServerError, getFavoriteFilms, getReviewStatus} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
-import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
+import withActiveFullScreenPlayer from '../../hocs/with-active-full-screen-player/with-active-full-screen-player';
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {Operations as UserOperations} from "../../reducer/user/user";
-import SignIn from './../sign-in/sign-in';
-import {getsignInErrorStatus, getAuthorizationStatus, getAuthInfo} from './../../reducer/user/selectors';
+import SignIn from '../sign-in/sign-in';
+import {getsignInErrorStatus, getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors';
 import {AppRoute, AuthorizationStatus} from "../../common/consts";
 import AddReview from "../add-review/add-review";
-import withInputHandlers from './../../hocs/with-input-hadlers/with-input-handlers';
+import withInputHandlers from '../../hocs/with-input-hadlers/with-input-handlers';
 import MyList from "../my-list/my-list";
-import history from './../../history';
-import PrivateRoute from './../private-router/private-router';
+import history from '../../history';
+import PrivateRoute from '../private-router/private-router';
 import LoadingScreen from "../loading-screen/loading-screen";
+import {Film, AuthData, ReviewData} from './../../types';
+
+
+interface Props {
+  films: Array<Film>;
+  serverError: boolean;
+  login: (authData: {
+    login: string;
+    password: string;
+  }) => void;
+  signInError: boolean;
+  onReviewSubmit: (film: Film, reviewData: ReviewData) => void;
+  favoriteFilms: Array<Film>;
+  authorizationStatus: string;
+  authInfo: AuthData;
+  isReviewSent: boolean;
+}
 
 const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoPlayer);
 const AddReviewWrapped = withInputHandlers(AddReview);
 
-const App = (props) => {
+const App: React.FunctionComponent<Props> = (props: Props) => {
   const {films, serverError, login, signInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo, isReviewSent} = props;
 
   const getCurrentFilmById = (id) => {
@@ -95,29 +111,6 @@ const App = (props) => {
       </Switch>
     </Router>
   );
-};
-
-App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-  })).isRequired,
-  serverError: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  signInError: PropTypes.bool.isRequired,
-  onReviewSubmit: PropTypes.func.isRequired,
-  favoriteFilms: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-  })).isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  authInfo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired
-  }),
-  isReviewSent: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({

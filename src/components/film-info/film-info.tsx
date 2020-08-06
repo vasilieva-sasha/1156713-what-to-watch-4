@@ -1,21 +1,28 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import FilmInfoNavigation from "../film-info-navigation/film-info-navigation";
 import FilmList from "../film-list/film-list";
 import {SIMILAR_FILMS_AMOUNT_SHOW, AuthorizationStatus, AppRoute, CurrentPage} from "../../common/consts";
 import withActiveNavigationScreen from "../../hocs/with-active-navigation-screen/with-active-navigation-screen";
-import Header from './../header/header';
-import {getAuthorizationStatus} from './../../reducer/user/selectors';
+import Header from '../header/header';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
 import {connect} from "react-redux";
-import MyListButton from './../my-list-button/my-list-button';
+import MyListButton from '../my-list-button/my-list-button';
 import {Link} from "react-router-dom";
-import LoadingScreen from './../loading-screen/loading-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
 import {Operations} from "../../reducer/data/data";
 import Footer from "../footer/footer";
+import {Film} from "../../types";
+
+interface Props {
+  films: Array<Film>;
+  film: Film;
+  authorizationStatus: string;
+  loadReviews: (film: Film) => void;
+}
 
 const FilmInfoNavigationWrapped = withActiveNavigationScreen(FilmInfoNavigation);
 
-class FilmInfo extends PureComponent {
+class FilmInfo extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
@@ -108,27 +115,7 @@ class FilmInfo extends PureComponent {
         : <LoadingScreen/>
     );
   }
-
 }
-
-FilmInfo.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-  })).isRequired,
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterInfo: PropTypes.string.isRequired,
-    background: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    isFavorite: PropTypes.bool.isRequired
-  }),
-  authorizationStatus: PropTypes.string.isRequired,
-  loadReviews: PropTypes.func.isRequired
-};
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

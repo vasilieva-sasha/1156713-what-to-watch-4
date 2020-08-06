@@ -1,9 +1,13 @@
-import React from "react";
+import * as React from "react";
 import {Link} from 'react-router-dom';
-import {CurrentPage, AppRoute} from './../../common/consts';
-import PropTypes from 'prop-types';
+import {CurrentPage, AppRoute} from '../../common/consts';
 
-const Footer = ({currentPage}) => {
+interface Props {
+  currentPage?: string;
+}
+
+const Footer: React.FunctionComponent<Props> = (props: Props) => {
+  const {currentPage} = props;
   return (
     <footer className="page-footer">
       <div className="logo">
@@ -26,10 +30,6 @@ const Footer = ({currentPage}) => {
       </div>
     </footer>
   );
-};
-
-Footer.propTypes = {
-  currentPage: PropTypes.string
 };
 
 export default Footer;

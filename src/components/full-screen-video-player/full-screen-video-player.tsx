@@ -1,8 +1,19 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import history from './../../history';
+import * as React from "react";
+import history from '../../history';
+import { Film } from "../../types";
 
-const FullScreenVideoPlayer = (props) => {
+interface Props {
+  isPlaying: boolean;
+  renderVideo: () => React.ReactNode;
+  renderPlayButton: () => React.ReactNode;
+  renderPauseButton: () => React.ReactNode;
+  getTogglerPosition: () => number;
+  getCountDown: () => number;
+  onFullScreenClick: () => void;
+  film: Film;
+}
+
+const FullScreenVideoPlayer: React.FunctionComponent<Props> = (props: Props) => {
 
   const {
     isPlaying,
@@ -42,19 +53,6 @@ const FullScreenVideoPlayer = (props) => {
       </div>
     </div>
   );
-};
-
-FullScreenVideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  renderVideo: PropTypes.func.isRequired,
-  renderPlayButton: PropTypes.func,
-  renderPauseButton: PropTypes.func,
-  getTogglerPosition: PropTypes.func.isRequired,
-  getCountDown: PropTypes.func.isRequired,
-  onFullScreenClick: PropTypes.func.isRequired,
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired
-  })
 };
 
 export default FullScreenVideoPlayer;

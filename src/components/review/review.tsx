@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import * as React from "react";
+import * as moment from "moment";
+import { ReviewInterface } from "../../types";
 
-const Review = (props) => {
+interface Props {
+  review: ReviewInterface;
+}
+
+const Review: React.FunctionComponent<Props> = (props: Props) => {
   const {review} = props;
   return (
     <div className="review">
@@ -20,17 +24,4 @@ const Review = (props) => {
   );
 };
 
-Review.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-  })
-};
-
-export {Review};
+export default Review;

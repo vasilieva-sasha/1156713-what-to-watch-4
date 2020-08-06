@@ -1,11 +1,19 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import {getAuthorizationStatus, getAuthInfo} from './../../reducer/user/selectors';
+import * as React from "react";
+import {getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors';
 import {connect} from 'react-redux';
 import {AuthorizationStatus, CurrentPage, AppRoute} from "../../common/consts";
 import {Link} from "react-router-dom";
 
-const Header = (props) => {
+interface Props {
+  authorizationStatus: string;
+  authInfo?: {
+    avatar: string;
+  };
+  currentPage: string;
+  children?: React.ReactNode;
+}
+
+const Header: React.FunctionComponent<Props> = (props: Props) => {
   const {authorizationStatus, authInfo, currentPage, children} = props;
 
   const getHeaderClass = () => {
@@ -54,15 +62,6 @@ const Header = (props) => {
 
     </header>
   );
-};
-
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  authInfo: PropTypes.shape({
-    avatar: PropTypes.string.isRequired
-  }),
-  currentPage: PropTypes.string.isRequired,
-  children: PropTypes.node,
 };
 
 const mapStateToProps = (state) => ({

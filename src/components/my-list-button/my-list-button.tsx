@@ -1,12 +1,19 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import {getAuthorizationStatus} from './../../reducer/user/selectors';
+import * as React from "react";
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
 import {AuthorizationStatus, AppRoute} from "../../common/consts";
-import history from './../../history';
+import history from '../../history';
 import {connect} from "react-redux";
 import {Operations} from "../../reducer/data/data";
+import {Film} from "../../types";
 
-const MyListButton = (props) => {
+interface Props {
+  film: Film;
+  handleChangeFavoriteStatus: (film: Film) => void;
+  authorizationStatus: string;
+}
+
+
+const MyListButton: React.FunctionComponent<Props> = (props: Props) => {
   const {film, handleChangeFavoriteStatus, authorizationStatus} = props;
 
   const hanleFavoriteClick = () => {
@@ -23,14 +30,6 @@ const MyListButton = (props) => {
       <span>My list</span>
     </button>
   );
-};
-
-MyListButton.propTypes = {
-  film: PropTypes.shape({
-    isFavorite: PropTypes.bool.isRequired
-  }).isRequired,
-  handleChangeFavoriteStatus: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

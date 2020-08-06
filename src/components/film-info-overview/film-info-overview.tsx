@@ -1,8 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {getRatingLevel} from "../../common/utils";
+import {Film} from './../../types';
 
-const FilmInfoOverview = (props) => {
+interface Props {
+  film: Film;
+}
+
+
+const FilmInfoOverview: React.FunctionComponent<Props> = (props: Props) => {
   const {film} = props;
   return (
     <React.Fragment>
@@ -23,18 +28,6 @@ const FilmInfoOverview = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-FilmInfoOverview.propTypes = {
-  film: PropTypes.shape({
-    rating: PropTypes.shape({
-      score: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired
-    }),
-    text: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    actors: PropTypes.arrayOf(PropTypes.string).isRequired
-  })
 };
 
 export default FilmInfoOverview;

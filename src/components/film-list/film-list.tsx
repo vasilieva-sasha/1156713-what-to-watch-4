@@ -1,11 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import FilmCard from "../film-card/film-card";
-import withActivePlayer from './../../hocs/with-active-player/with-active-player';
+import withActivePlayer from '../../hocs/with-active-player/with-active-player';
+import {Film} from "../../types";
+
+interface Props {
+  shownFilms: Array<Film>;
+  genre: string;
+  children?: React.ReactNode;
+}
 
 const FilmCardWrapped = withActivePlayer(FilmCard);
 
-const FilmList = (props) => {
+const FilmList: React.FunctionComponent<Props> = (props: Props) => {
 
   const {shownFilms, children} = props;
 
@@ -23,18 +29,6 @@ const FilmList = (props) => {
       {children}
     </React.Fragment>
   );
-
-};
-
-FilmList.propTypes = {
-  shownFilms: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string
-      }))
-    .isRequired,
-  genre: PropTypes.string.isRequired,
-  children: PropTypes.node
 };
 
 export default FilmList;

@@ -1,13 +1,17 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import {getPromo} from './../../reducer/data/selectors';
+import * as React from "react";
+import {getPromo} from '../../reducer/data/selectors';
 import {connect} from "react-redux";
-import Header from './../header/header';
-import MyListButton from './../my-list-button/my-list-button';
+import Header from '../header/header';
+import MyListButton from '../my-list-button/my-list-button';
 import {Link} from 'react-router-dom';
 import {AppRoute, CurrentPage} from '../../common/consts';
+import {Film} from "../../types";
 
-const MainFilmCard = (props) => {
+interface Props {
+  film: Film;
+}
+
+const MainFilmCard: React.FunctionComponent<Props> = (props: Props) => {
   const {film} = props;
   return (
     <section className="movie-card">
@@ -47,17 +51,6 @@ const MainFilmCard = (props) => {
 
     </section>
   );
-};
-
-MainFilmCard.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    background: PropTypes.string.isRequired,
-    posterInfo: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

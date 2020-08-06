@@ -1,8 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {MAX_GENRES} from "../../common/consts";
+import { Film } from "../../types";
 
-const GenreList = (props) => {
+interface Props {
+  films: Array<Film>;
+  genres: Array<string>;
+  activeGenre: string;
+  onFilterClick: (films: Array<Film>, genre: string) => void;
+}
+
+const GenreList: React.FunctionComponent<Props> = (props: Props) => {
   const {films, genres, activeGenre, onFilterClick} = props;
 
   return (
@@ -21,18 +28,6 @@ const GenreList = (props) => {
       })}
     </ul>
   );
-};
-
-GenreList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string
-      }))
-  .isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired
 };
 
 export default GenreList;

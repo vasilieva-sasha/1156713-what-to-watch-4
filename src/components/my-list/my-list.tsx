@@ -1,11 +1,15 @@
-import React from "react";
-import Header from './../header/header';
+import * as React from "react";
+import Header from '../header/header';
 import FilmList from "../film-list/film-list";
 import Footer from "../footer/footer";
-import {ALL_GENRES, CurrentPage} from './../../common/consts';
-import PropTypes from 'prop-types';
+import {ALL_GENRES, CurrentPage} from '../../common/consts';
+import { Film } from "../../types";
 
-const MyList = (props) => {
+interface Props {
+  films: Array<Film>;
+}
+
+const MyList: React.FunctionComponent<Props> = (props: Props) => {
   const {films} = props;
 
   return (
@@ -21,16 +25,6 @@ const MyList = (props) => {
       <Footer />
     </div>
   );
-};
-
-MyList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string,
-        isFavorite: PropTypes.bool.string
-      }))
-  .isRequired,
 };
 
 export default MyList;

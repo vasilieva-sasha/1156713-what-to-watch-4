@@ -1,20 +1,27 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import FilmList from "../film-list/film-list";
 import GenreList from "../genre-list/genre-list";
 import {connect} from "react-redux";
 import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
 import MainFilmCard from "../main-film-card/main-film-card";
 import Footer from "../footer/footer";
-import {getGenres} from './../../common/utils';
+import {getGenres} from '../../common/utils';
 import {getFilms, getFilteredByGenreFilms} from "../../reducer/data/selectors";
-import {getGenre} from './../../reducer/app/selectors';
+import {getGenre} from '../../reducer/app/selectors';
 import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
-import {CurrentPage} from './../../common/consts';
+import {CurrentPage} from '../../common/consts';
+import {Film} from "../../types";
+
+interface Props {
+  films: Array<Film>;
+  allFilms: Array<Film>;
+  activeGenre: string;
+  onFilterClick: (films: Array<Film>, genre: string) => void;
+}
 
 const FilmListWrapped = withShowMoreButton(FilmList);
 
-const Main = (props) => {
+const Main: React.FunctionComponent<Props> = (props: Props) => {
   const {films, allFilms, activeGenre, onFilterClick} = props;
 
   return (
@@ -37,23 +44,6 @@ const Main = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-Main.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string
-      }))
-    .isRequired,
-  allFilms: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        poster: PropTypes.string
-      }))
-  .isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

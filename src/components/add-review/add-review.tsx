@@ -1,13 +1,24 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import Header from './../header/header';
-import {getFormStatus} from './../../reducer/app/selectors';
+import * as React from "react";
+import Header from '../header/header';
+import {getFormStatus} from '../../reducer/app/selectors';
 import {connect} from 'react-redux';
-import {CurrentPage, RATING, AppRoute} from "../../common/consts";
-import {getReviewError} from './../../reducer/data/selectors';
+import {CurrentPage, RATING, AppRoute, Comment} from "../../common/consts";
+import {getReviewError} from '../../reducer/data/selectors';
 import {Link} from 'react-router-dom';
+import {Film} from './../../types';
 
-const AddReview = (props) => {
+interface Props {
+  film: Film;
+  onSubmit: () => void;
+  onRatingSelect: () => void;
+  onCommentType: () => void;
+  isButtonBlocked: boolean;
+  isFormBlocked: boolean;
+  reviewError: boolean;
+  comment: string;
+}
+
+const AddReview: React.FunctionComponent<Props> = (props: Props) => {
   const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, reviewError, comment} = props;
   const stars = new Array(RATING);
 
@@ -57,7 +68,7 @@ const AddReview = (props) => {
           </div>
 
           <div className="add-review__text" style={{background: `rgba(255, 255, 255, 0.1)`}}>
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength="50" maxLength="400" onChange={onCommentType} value={comment}></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={Comment.MIN} maxLength={Comment.MAX} onChange={onCommentType} value={comment}></textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit" disabled={isButtonBlocked}>Post</button>
             </div>
@@ -67,23 +78,6 @@ const AddReview = (props) => {
       </div>
     </section>
   );
-};
-
-AddReview.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isrequired,
-    posterInfo: PropTypes.string.isrequired,
-    background: PropTypes.string.isrequired,
-    backgroundColor: PropTypes.string.isRequired
-  }),
-  onSubmit: PropTypes.func.isRequired,
-  onRatingSelect: PropTypes.func.isRequired,
-  onCommentType: PropTypes.func.isRequired,
-  isButtonBlocked: PropTypes.bool.isRequired,
-  isFormBlocked: PropTypes.bool.isRequired,
-  reviewError: PropTypes.bool.isRequired,
-  comment: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

@@ -1,7 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-const CatalogButton = (props) => {
+interface Props {
+  onCatalogButtonClick: () => void;
+}
+
+const CatalogButton: React.FunctionComponent<Props> = (props: Props) => {
   const {onCatalogButtonClick} = props;
   return (
     <div className="catalog__more">
@@ -10,10 +13,6 @@ const CatalogButton = (props) => {
         onClick={onCatalogButtonClick}>Show more</button>
     </div>
   );
-};
-
-CatalogButton.propTypes = {
-  onCatalogButtonClick: PropTypes.func.isRequired
 };
 
 export default CatalogButton;

@@ -1,27 +1,37 @@
-import React, {PureComponent, createRef} from "react";
-import Footer from './../footer/footer';
-import PropTypes from 'prop-types';
-import Header from './../header/header';
-import {CurrentPage} from './../../common/consts';
+import * as React from "react";
+import Footer from '../footer/footer';
+import Header from '../header/header';
+import {CurrentPage} from '../../common/consts';
 
-class SignIn extends PureComponent {
+interface Props {
+  onSubmit: (authData: {
+    login: string;
+    password: string;
+  }) => void;
+  signInError: boolean;
+}
+
+class SignIn extends React.PureComponent<Props, {}> {
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
-    this._loginRef = createRef();
-    this._passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  _handleSubmit(evt) {
+  private handleSubmit(evt) {
     const {onSubmit} = this.props;
 
     evt.preventDefault();
 
     onSubmit({
-      login: this._loginRef.current.value,
-      password: this._passwordRef.current.value,
+      login: this.loginRef.current.value,
+      password: this.passwordRef.current.value,
     });
   }
 
@@ -35,7 +45,7 @@ class SignIn extends PureComponent {
         </Header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
+          <form action="#" className="sign-in__form" onSubmit={this.handleSubmit}>
             {signInError ?
               <div className="sign-in__message">
                 <p>Please enter a valid email address</p>
@@ -48,7 +58,7 @@ class SignIn extends PureComponent {
                   placeholder="Email address"
                   name="user-email"
                   id="user-email"
-                  ref={this._loginRef}
+                  ref={this.loginRef}
                   required/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
@@ -58,7 +68,7 @@ class SignIn extends PureComponent {
                   placeholder="Password"
                   name="user-password"
                   id="user-password"
-                  ref={this._passwordRef}
+                  ref={this.passwordRef}
                   required/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
@@ -75,10 +85,5 @@ class SignIn extends PureComponent {
   }
 
 }
-
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  signInError: PropTypes.bool.isRequired
-};
 
 export default SignIn;

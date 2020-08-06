@@ -1,9 +1,9 @@
-import React from "react";
+import * as React from "react";
 import Footer from "../footer/footer";
-import {CurrentPage, AuthorizationStatus} from './../../common/consts';
-import {Header} from './../header/header';
+import {CurrentPage, AuthorizationStatus} from '../../common/consts';
+import {Header} from '../header/header';
 
-const LoadingScreen = () => {
+const LoadingScreen: React.FunctionComponent = () => {
   return (
     <div className="user-page">
       <Header currentPage={CurrentPage.LOGIN} authorizationStatus={AuthorizationStatus.NO_AUTH}/>

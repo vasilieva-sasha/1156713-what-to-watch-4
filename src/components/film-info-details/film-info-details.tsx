@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {getFilmDuration} from './../../common/utils';
+import * as React from "react";
+import {getFilmDuration} from '../../common/utils';
+import {Film} from './../../types';
 
-const FilmInfoDetails = (props) => {
+interface Props {
+  film: Film;
+}
+
+const FilmInfoDetails: React.FunctionComponent<Props> = (props: Props) => {
   const {film} = props;
   return (
     <div className="movie-card__text movie-card__row">
@@ -45,13 +49,4 @@ const FilmInfoDetails = (props) => {
   );
 };
 
-FilmInfoDetails.propTypes = {
-  film: PropTypes.shape({
-    director: PropTypes.string.isRequired,
-    actors: PropTypes.arrayOf(PropTypes.string).isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    runtime: PropTypes.number.isRequired
-  }).isRequired
-};
 export default FilmInfoDetails;

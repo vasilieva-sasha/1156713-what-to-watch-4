@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Review} from "./review";
+import Review from "./review";
 
 const mock = {
   id: 0,
