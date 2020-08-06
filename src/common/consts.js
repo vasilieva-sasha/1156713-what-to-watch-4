@@ -50,3 +50,5 @@ export const Score = {
 export const Comment = {
   MIN: 50
 };
+
+export const MINUTES_IN_HOUR = 60;

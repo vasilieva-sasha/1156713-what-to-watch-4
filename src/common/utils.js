@@ -1,4 +1,4 @@
-import {ALL_GENRES, Rating, Score} from "./consts";
+import {ALL_GENRES, Rating, Score, MINUTES_IN_HOUR} from "./consts";
 
 export const makeLetterUppercase = (string) => {
   return string[0].toUpperCase() + string.slice(1);
@@ -31,4 +31,11 @@ export const getRatingLevel = (rating) => {
       return Rating.AWESOME;
   }
   return null;
+};
+
+export const getFilmDuration = (runtime) => {
+  const hours = Math.floor(runtime / MINUTES_IN_HOUR);
+  const minutes = runtime % MINUTES_IN_HOUR;
+  const filmDuration = `${hours}h ${minutes}m`;
+  return filmDuration;
 };
