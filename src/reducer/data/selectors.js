@@ -37,3 +37,7 @@ export const getFavoriteFilms = (state) => {
 export const getReviewError = (state) => {
   return state[NameSpace.DATA].reviewError;
 };
+
+export const getReviewStatus = (state) => {
+  return state[NameSpace.DATA].reviewSent;
+};

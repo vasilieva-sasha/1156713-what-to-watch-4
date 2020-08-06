@@ -38,7 +38,8 @@ describe(`AppComponent`, () => {
       films,
       filteredFilms: films,
       serverError: false,
-      favoriteFilms: films
+      favoriteFilms: films,
+      reviewSent: false
     },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`,
@@ -58,6 +59,7 @@ describe(`AppComponent`, () => {
             signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={store.authorizationStatus}
+            isReviewSent={false}
           />
         </Provider>
     ).toJSON();
@@ -76,6 +78,7 @@ describe(`AppComponent`, () => {
             signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={`AUTH`}
+            isReviewSent={false}
           />
         </Provider>
     ).toJSON();
@@ -94,6 +97,7 @@ describe(`AppComponent`, () => {
             signInError={false}
             favoriteFilms={store.favoriteFilms}
             authorizationStatus={store.authorizationStatus}
+            isReviewSent={false}
           />
         </Provider>
     ).toJSON();

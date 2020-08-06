@@ -4,7 +4,7 @@ import {Router, Route, Switch, Redirect} from "react-router-dom";
 import Main from "../main/main";
 import FilmInfo from "../film-info/film-info";
 import {connect} from "react-redux";
-import {getFilms, getServerError, getFavoriteFilms} from "../../reducer/data/selectors";
+import {getFilms, getServerError, getFavoriteFilms, getReviewStatus} from "../../reducer/data/selectors";
 import LoadErrorScreen from "../load-error-screen/load-error-screen";
 import FullScreenVideoPlayer from "../full-screen-video-player/full-screen-video-player";
 import withActiveFullScreenPlayer from './../../hocs/with-active-full-screen-player/with-active-full-screen-player';
@@ -24,7 +24,7 @@ const FullScreenVideoPlayerWrapper = withActiveFullScreenPlayer(FullScreenVideoP
 const AddReviewWrapped = withInputHandlers(AddReview);
 
 const App = (props) => {
-  const {films, serverError, login, signInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo} = props;
+  const {films, serverError, login, signInError, onReviewSubmit, favoriteFilms, authorizationStatus, authInfo, isReviewSent} = props;
 
   const getCurrentFilmById = (id) => {
     return films.find((film) => film.id === id);
@@ -71,7 +71,9 @@ const App = (props) => {
   const renderAddReview = (match) => {
     const id = Number(match.params.id);
     return (
-      <AddReviewWrapped film={getCurrentFilmById(id)} onReviewSubmit={onReviewSubmit}/>
+      !isReviewSent ?
+        <AddReviewWrapped film={getCurrentFilmById(id)} onReviewSubmit={onReviewSubmit}/> :
+        <Redirect to={`${AppRoute.FILM}/${id}`} />
     );
   };
 
@@ -87,9 +89,9 @@ const App = (props) => {
         <Route exact path={AppRoute.MAIN} render={() => renderApp()} />
         <Route exact path={AppRoute.SIGN_IN} render={() => renderSignIn()}/>
         <PrivateRoute exact path={AppRoute.MYLIST} render={() => renderMyList()} />
-        <Route exact path={`${AppRoute.FILM}/:id?${AppRoute.PLAYER}`} render={({match}) => renderVideoPage(match)}/>
-        <PrivateRoute exact path={`${AppRoute.FILM}/:id?${AppRoute.ADD_REVIEW}`} render={({match}) => renderAddReview(match)} />
-        <Route exact path={`${AppRoute.FILM}/:id?`} render={({match}) => renderFilmInfo(match)} />
+        <Route exact path={`${AppRoute.FILM}/:id${AppRoute.PLAYER}`} render={({match}) => renderVideoPage(match)}/>
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({match}) => renderAddReview(match)} />
+        <Route exact path={`${AppRoute.FILM}/:id`} render={({match}) => renderFilmInfo(match)} />
       </Switch>
     </Router>
   );
@@ -114,7 +116,8 @@ App.propTypes = {
     email: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired
-  })
+  }),
+  isReviewSent: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -123,7 +126,8 @@ const mapStateToProps = (state) => ({
   signInError: getsignInErrorStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
   favoriteFilms: getFavoriteFilms(state),
-  authInfo: getAuthInfo(state)
+  authInfo: getAuthInfo(state),
+  isReviewSent: getReviewStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

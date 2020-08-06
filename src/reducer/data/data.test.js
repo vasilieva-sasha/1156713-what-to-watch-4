@@ -74,7 +74,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
       releaseDate: 0,
       background: ``,
       posterInfo: ``,
-      isFavorite: false
+      isFavorite: false,
     },
     films: [],
     filteredFilms: [],
@@ -83,6 +83,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     favoriteFilms: [],
     serverError: false,
     reviewError: false,
+    reviewSent: false
   });
 });
 
@@ -168,6 +169,17 @@ it(`Reducer should change reveiw error status`, () => {
     payload: true,
   })).toEqual({
     reviewError: true
+  });
+});
+
+it(`Reducer should change reveiw status`, () => {
+  expect(reducer({
+    reviewSent: false,
+  }, {
+    type: ActionType.CHANGE_REVIEW_STATUS,
+    payload: true,
+  })).toEqual({
+    reviewSent: true
   });
 });
 
@@ -259,8 +271,8 @@ describe(`Operation work correctly`, () => {
 
     return reviewsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(4, {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });
@@ -335,7 +347,7 @@ describe(`Operation work correctly`, () => {
 
     return reviewSender(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(6);
+        expect(dispatch).toHaveBeenCalledTimes(8);
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SEND_REVIEW,
           payload: reviewData,
@@ -354,8 +366,8 @@ describe(`Operation work correctly`, () => {
 
     return reviewSender(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.SHOW_REVIEW_ERROR,
           payload: true,
         });
