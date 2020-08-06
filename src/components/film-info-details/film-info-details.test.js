@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import FilmInfoDetails from "./film-info-details";
 
 const mock = {
+  id: 1,
   director: ` `,
   actors: [`a`, `b`],
   genre: ` `,

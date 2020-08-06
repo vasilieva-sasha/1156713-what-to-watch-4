@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderComponent Header renders correctly with no-auth 1`] = `
+exports[`HeaderComponent Header renders correctly with auth 1`] = `
 <header
   className="page-header movie-card__head"
 >
@@ -46,7 +46,7 @@ exports[`HeaderComponent Header renders correctly with no-auth 1`] = `
 </header>
 `;
 
-exports[`HeaderComponent Header renders correctly with no-auth 2`] = `
+exports[`HeaderComponent Header renders correctly with no-auth 1`] = `
 <header
   className="page-header movie-card__head"
 >

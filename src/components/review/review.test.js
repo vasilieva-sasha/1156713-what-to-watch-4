@@ -9,7 +9,7 @@ const mock = {
     name: ``,
   },
   comment: ``,
-  date: `PropTypes.string.isRequired`,
+  date: `2020-07-09T16:06:01.831Z`,
   rating: 0,
 };
 

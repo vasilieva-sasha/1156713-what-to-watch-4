@@ -32,12 +32,11 @@ const withActivePlayer = (Component) => {
     }
 
     render() {
-      const {film, onCardClick} = this.props;
+      const {film} = this.props;
       return (
         <Component
           film={film}
           onArticleHover={this._handleArticleHover}
-          onCardClick={onCardClick}
           isPlaying={this.state.isPlaying}
           onCardLeave={this._handleCardLeave}
         />
@@ -51,7 +50,6 @@ const withActivePlayer = (Component) => {
       poster: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired
     }).isRequired,
-    onCardClick: PropTypes.func.isRequired,
   };
 
   return WithActivePlayer;

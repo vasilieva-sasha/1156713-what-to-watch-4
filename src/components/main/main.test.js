@@ -8,6 +8,7 @@ import {Router} from "react-router-dom";
 import history from './../../history';
 
 const films = [{
+  id: 1,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -36,8 +37,6 @@ describe(`MainComponent`, () => {
       [NameSpace.APP]: {
         genre: `All genres`,
         activeCard: null,
-        isFullPlayerActive: false,
-        currentPage: `MAIN`
       },
       [NameSpace.DATA]: {
         promoFilm: films[0],
@@ -57,7 +56,6 @@ describe(`MainComponent`, () => {
               genres={genres}
               films={store.filteredFilms}
               activeGenre={store.genre}
-              onCardClick={() => {}}
             />
           </Provider>
         </Router>

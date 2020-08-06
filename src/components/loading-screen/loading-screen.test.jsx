@@ -1,11 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import LoadErrorScreen from "./load-error-screen";
+import LoadingScreen from "./loading-screen";
 import {Router} from "react-router-dom";
 import history from './../../history';
 
-it(`LoadErrorScreen`, () => {
-  const tree = renderer.create(<Router history={history}><LoadErrorScreen /></Router>).toJSON();
+
+it(`LoadingScreen`, () => {
+  const tree = renderer.create(<Router history={history}><LoadingScreen /></Router>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -9,6 +9,7 @@ import history from './../../history';
 import {Router} from 'react-router-dom';
 
 const film = {
+  id: 1,
   title: ``,
   posterInfo: ``,
   background: ``,
@@ -23,10 +24,10 @@ const mockStore = configureStore([]);
 const store = mockStore({
   [NameSpace.APP]: {
     isFormBlocked: false,
-    currentPage: `REVIEW`
   },
   [NameSpace.DATA]: {
-    serverError: false
+    serverError: false,
+    reviewError: false
   },
   [NameSpace.USER]: {
     authorizationStatus: `AUTH`,
@@ -49,8 +50,7 @@ describe(`AddReviewComponent`, () => {
               onCommentType={() => {}}
               isButtonBlocked={false}
               isFormBlocked={false}
-              currentPage={`REVIEW`}
-              serverError={false}
+              reviewError={false}
               comment={``}
             />
           </Provider>

@@ -68,25 +68,29 @@ const reviewData = {
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     promoFilm: {
+      id: 0,
       title: `Loading`,
       genre: ``,
       releaseDate: 0,
       background: ``,
       posterInfo: ``,
-      isFavorite: false
+      isFavorite: false,
     },
     films: [],
     filteredFilms: [],
     reviews: [],
     review: {},
     favoriteFilms: [],
-    serverError: false
+    serverError: false,
+    reviewError: false,
+    reviewSent: false
   });
 });
 
 it(`Reducer should update promoFilm by load promoFilm`, () => {
   expect(reducer({
     promoFilm: {
+      id: 0,
       title: `Loading`,
       genre: ``,
       releaseDate: 0,
@@ -157,6 +161,28 @@ it(`Reducer should send review by sendReview`, () => {
   });
 });
 
+it(`Reducer should change reveiw error status`, () => {
+  expect(reducer({
+    reviewError: false,
+  }, {
+    type: ActionType.SHOW_REVIEW_ERROR,
+    payload: true,
+  })).toEqual({
+    reviewError: true
+  });
+});
+
+it(`Reducer should change reveiw status`, () => {
+  expect(reducer({
+    reviewSent: false,
+  }, {
+    type: ActionType.CHANGE_REVIEW_STATUS,
+    payload: true,
+  })).toEqual({
+    reviewSent: true
+  });
+});
+
 describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /films/promo`, function () {
     const apiMock = new MockAdapter(api);
@@ -173,6 +199,25 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_PROMO_FILM,
           payload: filmAdapter({fake: true}),
+        });
+      });
+  });
+
+  it(`Should make incorrect API call to /films/promo`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const promoFilmLoader = Operations.loadPromoFilm();
+
+    apiMock
+      .onGet(`/films/invalid`)
+      .reply(200, [{fake: true}]);
+
+    return promoFilmLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SHOW_ERROR,
+          payload: true,
         });
       });
   });
@@ -196,6 +241,25 @@ describe(`Operation work correctly`, () => {
       });
   });
 
+  it(`Should make incorrect API call to /films`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const filmsLoader = Operations.loadFilms();
+
+    apiMock
+      .onGet(`/invalid`)
+      .reply(200, [{fake: true}]);
+
+    return filmsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SHOW_ERROR,
+          payload: true,
+        });
+      });
+  });
+
   it(`Should make a correct API call to /comments/film_id`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -207,10 +271,29 @@ describe(`Operation work correctly`, () => {
 
     return reviewsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(4, {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make incorrect API call to /comments/film_id`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operations.loadReviews(promoFilm);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(400, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SHOW_ERROR,
+          payload: true,
         });
       });
   });
@@ -234,6 +317,25 @@ describe(`Operation work correctly`, () => {
       });
   });
 
+  it(`Should make incorrect API call to /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteFilmsLoader = Operations.loadFavoriteFilms();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(401, [{fake: true}]);
+
+    return favoriteFilmsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SHOW_ERROR,
+          payload: true,
+        });
+      });
+  });
+
   it(`Should make a correct API call to comments/:id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -245,10 +347,29 @@ describe(`Operation work correctly`, () => {
 
     return reviewSender(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(6);
+        expect(dispatch).toHaveBeenCalledTimes(8);
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SEND_REVIEW,
           payload: reviewData,
+        });
+      });
+  });
+
+  it(`Should make incorrect API call to comments/:id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewSender = Operations.sendReview(films[0], reviewData);
+
+    apiMock
+      .onPost(`/comments/2`)
+      .reply(400, [{fake: true}]);
+
+    return reviewSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionType.SHOW_REVIEW_ERROR,
+          payload: true,
         });
       });
   });
@@ -265,6 +386,21 @@ describe(`Operation work correctly`, () => {
     return favoriteSender(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make incorrect API call to favorite/:id/1}`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteSender = Operations.changeFavoriteStatus(promoFilm);
+
+    apiMock
+      .onPost(`favorite/1/1`)
+      .reply(401, [{fake: true}]);
+
+    return favoriteSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
 });

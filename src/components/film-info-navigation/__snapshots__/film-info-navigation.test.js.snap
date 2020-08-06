@@ -58,9 +58,7 @@ exports[`FilmNavigationComponent Navigation bar renders correctly 1`] = `
     >
       <span
         className="movie-rating__level"
-      >
-        Very good
-      </span>
+      />
       <span
         className="movie-rating__count"
       >

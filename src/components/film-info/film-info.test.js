@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import FilmInfo from "./film-info";
+import {FilmInfo} from "./film-info";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import NameSpace from './../../reducer/name-space';
@@ -11,6 +11,7 @@ const mockStore = configureStore([]);
 
 const films = [
   {
+    id: 1,
     title: `a`,
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -19,6 +20,7 @@ const films = [
     backgroundColor: ``
   },
   {
+    id: 2,
     title: `b`,
     genre: `Drama`,
     poster: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -30,6 +32,7 @@ const films = [
 
 
 const film = {
+  id: 3,
   title: `Fantastic Beasts: The Crimes of Grindelwald`,
   genre: `Drama`,
   releaseDate: 2018,
@@ -55,8 +58,6 @@ describe(`FilmInfoComponent`, () => {
     [NameSpace.APP]: {
       genre: `All genres`,
       activeCard: null,
-      isFullPlayerActive: false,
-      currentPage: `INFO`
     },
     [NameSpace.DATA]: {
       films
@@ -70,7 +71,7 @@ describe(`FilmInfoComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={store.authorizationStatus}/>
+            <FilmInfo films={films} film={film} onPlayClick={() => {}} authorizationStatus={`NO_AUTH`} loadReviews={() => {}}/>
           </Provider>
         </Router>
     ).toJSON();
@@ -82,7 +83,7 @@ describe(`FilmInfoComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <FilmInfo films={films} film={film} onCardClick={() => {}} onPlayClick={() => {}} authorizationStatus={`AUTH`}/>
+            <FilmInfo films={films} film={film} onPlayClick={() => {}} authorizationStatus={`AUTH`} loadReviews={() => {}}/>
           </Provider>
         </Router>
     ).toJSON();

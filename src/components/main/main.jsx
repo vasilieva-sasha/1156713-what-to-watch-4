@@ -9,19 +9,18 @@ import Footer from "../footer/footer";
 import {getGenres} from './../../common/utils';
 import {getFilms, getFilteredByGenreFilms} from "../../reducer/data/selectors";
 import {getGenre} from './../../reducer/app/selectors';
-import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import withShowMoreButton from "../../hocs/with-show-more-button/with-show-more-button";
+import {CurrentPage} from './../../common/consts';
 
 const FilmListWrapped = withShowMoreButton(FilmList);
-const MainFilmCardWrapped = withFullPlayer(MainFilmCard);
 
 const Main = (props) => {
-  const {films, allFilms, onCardClick, activeGenre, onFilterClick} = props;
+  const {films, allFilms, activeGenre, onFilterClick} = props;
 
   return (
     <React.Fragment>
 
-      <MainFilmCardWrapped/>
+      <MainFilmCard/>
 
       <div className="page-content">
         <section className="catalog">
@@ -29,11 +28,11 @@ const Main = (props) => {
 
           <GenreList films={allFilms} genres={getGenres(allFilms)} activeGenre={activeGenre} onFilterClick={onFilterClick}/>
 
-          <FilmListWrapped films={films} genre={activeGenre} onCardClick={onCardClick}/>
+          <FilmListWrapped films={films} genre={activeGenre}/>
 
         </section>
 
-        <Footer />
+        <Footer currentPage={CurrentPage.MAIN}/>
 
       </div>
     </React.Fragment>
@@ -53,7 +52,6 @@ Main.propTypes = {
         poster: PropTypes.string
       }))
   .isRequired,
-  onCardClick: PropTypes.func.isRequired,
   activeGenre: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired
 };

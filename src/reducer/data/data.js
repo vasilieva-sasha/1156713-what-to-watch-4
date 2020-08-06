@@ -1,11 +1,11 @@
-import {ALL_GENRES, CurrentPage} from './../../common/consts';
+import {ALL_GENRES} from './../../common/consts';
 import {extend} from '../../common/utils';
 import filmAdapter from './../../adapter/film';
 import {ActionCreator as AppActionCreator} from '../app/app';
 
-
 const initialState = {
   promoFilm: {
+    id: 0,
     title: `Loading`,
     genre: ``,
     releaseDate: 0,
@@ -18,7 +18,9 @@ const initialState = {
   reviews: [],
   review: {},
   favoriteFilms: [],
-  serverError: false
+  serverError: false,
+  reviewError: false,
+  reviewSent: false
 };
 
 const ActionType = {
@@ -28,6 +30,8 @@ const ActionType = {
   SHOW_ERROR: `SHOW_ERROR`,
   SEND_REVIEW: `SEND_REVIEW`,
   LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
+  SHOW_REVIEW_ERROR: `SHOW_REVIEW_ERROR`,
+  CHANGE_REVIEW_STATUS: `CHANGE_REVIEW_STATUS`
 };
 
 const getFilteredFilms = (filmsList, genre) => {
@@ -74,6 +78,18 @@ const ActionCreator = {
       type: ActionType.LOAD_FAVORITE_FILMS,
       payload: films
     };
+  },
+  showReviewError: (bool) => {
+    return {
+      type: ActionType.SHOW_REVIEW_ERROR,
+      payload: bool
+    };
+  },
+  changeReviewStatus: (bool) => {
+    return {
+      type: ActionType.CHANGE_REVIEW_STATUS,
+      payload: bool
+    };
   }
 };
 
@@ -102,6 +118,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITE_FILMS:
       return extend(state, {
         favoriteFilms: action.payload
+      });
+    case ActionType.SHOW_REVIEW_ERROR:
+      return extend(state, {
+        reviewError: action.payload
+      });
+    case ActionType.CHANGE_REVIEW_STATUS:
+      return extend(state, {
+        reviewSent: action.payload
       });
   }
 
@@ -132,6 +156,8 @@ const Operations = {
   loadReviews: (film) => (dispatch, getState, api) => {
     return api.get(`/comments/${film.id}`)
     .then((response) => {
+      dispatch(ActionCreator.changeReviewStatus(false));
+      dispatch(ActionCreator.showReviewError(false));
       dispatch(ActionCreator.showLoadingError(false));
       dispatch(ActionCreator.loadReviews(response.data));
     })
@@ -145,19 +171,23 @@ const Operations = {
       rating: reviewData.rating,
       comment: reviewData.comment,
     })
-      .then((response) => {
-        dispatch(ActionCreator.showLoadingError(false));
+      .then(() => {
+        dispatch(ActionCreator.showReviewError(false));
         dispatch(ActionCreator.sendReview(reviewData));
         dispatch(AppActionCreator.changeFormstatus(true));
-        dispatch(ActionCreator.loadReviews(response.data));
+
       })
       .then(() => {
         dispatch(AppActionCreator.changeFormstatus(false));
-        dispatch(AppActionCreator.changePage(CurrentPage.INFO));
+        dispatch(ActionCreator.changeReviewStatus(true));
+      })
+      .then((response) => {
+        dispatch(ActionCreator.loadReviews(response.data));
       })
       .catch(() => {
+        dispatch(ActionCreator.changeReviewStatus(false));
         dispatch(AppActionCreator.changeFormstatus(false));
-        dispatch(ActionCreator.showLoadingError(true));
+        dispatch(ActionCreator.showReviewError(true));
       });
   },
   loadFavoriteFilms: () => (dispatch, getState, api) => {

@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import VideoPlayer from "./video-player";
 
 const mock = {
+  id: 1,
   poster: ``,
   preview: ``
 };

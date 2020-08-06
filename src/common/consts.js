@@ -31,3 +31,24 @@ export const AppRoute = {
 };
 
 export const RATING = 5;
+
+export const Rating = {
+  BAD: `Bad`,
+  NORMAL: `Normal`,
+  GOOD: `Good`,
+  VERY_GOOD: `Very good`,
+  AWESOME: `Awesome`
+};
+
+export const Score = {
+  BAD: 3,
+  NORMAL: 5,
+  VERY_GOOD: 8,
+  AWESOME: 10
+};
+
+export const Comment = {
+  MIN: 50
+};
+
+export const MINUTES_IN_HOUR = 60;

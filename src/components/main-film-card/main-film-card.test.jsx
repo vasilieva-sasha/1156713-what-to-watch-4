@@ -8,6 +8,7 @@ import {Router} from "react-router-dom";
 import history from './../../history';
 
 const mock = {
+  id: 1,
   title: `title`,
   genre: `genre`,
   releaseDate: 0,
@@ -23,8 +24,6 @@ it(`Main film card renders correctly`, () => {
     [NameSpace.APP]: {
       genre: `All genres`,
       activeCard: null,
-      isFullPlayerActive: false,
-      currentPage: `MAIN`
     },
     [NameSpace.DATA]: {
       promoFilm: mock,

@@ -33,3 +33,11 @@ export const getFilteredByGenreFilms = createSelector(
 export const getFavoriteFilms = (state) => {
   return state[NameSpace.DATA].favoriteFilms;
 };
+
+export const getReviewError = (state) => {
+  return state[NameSpace.DATA].reviewError;
+};
+
+export const getReviewStatus = (state) => {
+  return state[NameSpace.DATA].reviewSent;
+};

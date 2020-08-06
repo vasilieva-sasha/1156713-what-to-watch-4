@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Header from './../header/header';
-import {getFormStatus, getCurrentPage} from './../../reducer/app/selectors';
+import {getFormStatus} from './../../reducer/app/selectors';
 import {connect} from 'react-redux';
-import {CurrentPage, RATING} from "../../common/consts";
-import {getServerError} from './../../reducer/data/selectors';
+import {CurrentPage, RATING, AppRoute} from "../../common/consts";
+import {getReviewError} from './../../reducer/data/selectors';
+import {Link} from 'react-router-dom';
 
 const AddReview = (props) => {
-  const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, currentPage, serverError, comment} = props;
+  const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, reviewError, comment} = props;
   const stars = new Array(RATING);
 
   return (
@@ -19,11 +20,11 @@ const AddReview = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header>
+        <Header currentPage={CurrentPage.REVIEW}>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">{film.title}</a>
+                <Link to={`${AppRoute.FILM}/${film.id}`} className="breadcrumbs__link">{film.title}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -62,7 +63,7 @@ const AddReview = (props) => {
             </div>
           </div>
         </form>
-        {currentPage === CurrentPage.REVIEW && serverError ? <div style={{color: `#000000`, textAlign: `center`}}>Oops! Server error! Please try again later</div> : ``}
+        {reviewError ? <div style={{color: `#000000`, textAlign: `center`}}>Oops! Server error! Please try again later</div> : ``}
       </div>
     </section>
   );
@@ -70,6 +71,7 @@ const AddReview = (props) => {
 
 AddReview.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isrequired,
     posterInfo: PropTypes.string.isrequired,
     background: PropTypes.string.isrequired,
@@ -80,15 +82,13 @@ AddReview.propTypes = {
   onCommentType: PropTypes.func.isRequired,
   isButtonBlocked: PropTypes.bool.isRequired,
   isFormBlocked: PropTypes.bool.isRequired,
-  currentPage: PropTypes.string.isRequired,
-  serverError: PropTypes.bool.isRequired,
+  reviewError: PropTypes.bool.isRequired,
   comment: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   isFormBlocked: getFormStatus(state),
-  currentPage: getCurrentPage(state),
-  serverError: getServerError(state)
+  reviewError: getReviewError(state)
 });
 
 export default connect(mapStateToProps)(AddReview);

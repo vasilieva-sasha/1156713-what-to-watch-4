@@ -6,8 +6,9 @@ exports[`FilmCardComponent FilmCard correct render 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
+  <a
     className="small-movie-card__image"
+    href="/films/1"
     onClick={[Function]}
   >
     <video
@@ -19,14 +20,14 @@ exports[`FilmCardComponent FilmCard correct render 1`] = `
         }
       }
     />
-  </div>
+  </a>
   <h3
     className="small-movie-card__title"
-    onClick={[Function]}
   >
     <a
       className="small-movie-card__link"
-      href="movie-page.html"
+      href="/films/1"
+      onClick={[Function]}
     >
       
     </a>

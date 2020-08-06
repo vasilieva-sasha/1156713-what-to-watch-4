@@ -7,7 +7,7 @@ const FilmCardWrapped = withActivePlayer(FilmCard);
 
 const FilmList = (props) => {
 
-  const {shownFilms, onCardClick, children} = props;
+  const {shownFilms, children} = props;
 
   return (
     <React.Fragment>
@@ -17,7 +17,6 @@ const FilmList = (props) => {
             <FilmCardWrapped
               key={`${film.poster}-${index}`}
               film={film}
-              onCardClick={onCardClick}
             />);
         })}
       </div>
@@ -34,7 +33,6 @@ FilmList.propTypes = {
         poster: PropTypes.string
       }))
     .isRequired,
-  onCardClick: PropTypes.func.isRequired,
   genre: PropTypes.string.isRequired,
   children: PropTypes.node
 };

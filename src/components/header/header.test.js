@@ -17,9 +17,6 @@ const store = mockStore({
     authorizationStatus: `NO_AUTH`,
     authInfo: null,
   },
-  [NameSpace.APP]: {
-    currentPage: `MAIN`
-  }
 });
 
 describe(`HeaderComponent`, () => {
@@ -27,7 +24,7 @@ describe(`HeaderComponent`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <Header authorizationStatus={store.authorizationStatus} authInfo={mock} currentPage={store.currentPage}/>
+            <Header authorizationStatus={store.authorizationStatus} authInfo={mock} currentPage={`MAIN`}/>
           </Provider>
         </Router>
     ).toJSON();
@@ -35,11 +32,11 @@ describe(`HeaderComponent`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`Header renders correctly with no-auth`, () => {
+  it(`Header renders correctly with auth`, () => {
     const tree = renderer.create(
         <Router history={history}>
           <Provider store={store}>
-            <Header authorizationStatus={`AUTH`} authInfo={store.authInfo} currentPage={store.currentPage}/>
+            <Header authorizationStatus={`AUTH`} authInfo={store.authInfo} currentPage={`MAIN`}/>
           </Provider>
         </Router>
     ).toJSON();

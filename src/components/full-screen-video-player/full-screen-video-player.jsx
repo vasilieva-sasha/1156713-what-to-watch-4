@@ -1,11 +1,10 @@
 import React from "react";
-import {ActionCreator as AppActionCreator} from "../../reducer/app/app";
-import {connect} from "react-redux";
 import PropTypes from 'prop-types';
+import history from './../../history';
 
 const FullScreenVideoPlayer = (props) => {
 
-  const {onExitClick,
+  const {
     isPlaying,
     renderVideo,
     renderPlayButton,
@@ -18,7 +17,7 @@ const FullScreenVideoPlayer = (props) => {
     <div className="player">
       {renderVideo()}
 
-      <button type="button" className="player__exit" onClick={onExitClick}>Exit</button>
+      <button type="button" className="player__exit" onClick={() => history.goBack()}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -46,7 +45,6 @@ const FullScreenVideoPlayer = (props) => {
 };
 
 FullScreenVideoPlayer.propTypes = {
-  onExitClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   renderVideo: PropTypes.func.isRequired,
   renderPlayButton: PropTypes.func,
@@ -59,9 +57,4 @@ FullScreenVideoPlayer.propTypes = {
   })
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onExitClick() {
-    dispatch(AppActionCreator.changePlayerStatus(false));
-  }
-});
-export default connect(null, mapDispatchToProps)(FullScreenVideoPlayer);
+export default FullScreenVideoPlayer;

@@ -102,8 +102,9 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/films/1/player"
               onClick={[Function]}
               type="button"
             >
@@ -119,7 +120,7 @@ Array [
               <span>
                 Play
               </span>
-            </button>
+            </a>
             <button
               className="btn btn--list movie-card__button"
               onClick={[Function]}
@@ -188,8 +189,9 @@ Array [
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
+          <a
             className="small-movie-card__image"
+            href="/films/1"
             onClick={[Function]}
           >
             <video
@@ -201,14 +203,14 @@ Array [
                 }
               }
             />
-          </div>
+          </a>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/1"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -225,6 +227,7 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
+          href="#"
         >
           <span
             className="logo__letter logo__letter--1"
