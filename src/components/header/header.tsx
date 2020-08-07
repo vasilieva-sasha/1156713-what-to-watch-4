@@ -3,12 +3,11 @@ import {getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors'
 import {connect} from 'react-redux';
 import {AuthorizationStatus, CurrentPage, AppRoute} from "../../common/consts";
 import {Link} from "react-router-dom";
+import {AuthData} from "../../types";
 
 interface Props {
   authorizationStatus: string;
-  authInfo?: {
-    avatar: string;
-  };
+  authInfo?: AuthData | null;
   currentPage: string;
   children?: React.ReactNode;
 }

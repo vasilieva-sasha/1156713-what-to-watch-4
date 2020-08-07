@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmCardComponent FilmCard correct render 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <a
+    className="small-movie-card__image"
+    href="/films/3"
+    onClick={[Function]}
+  >
+    <video
+      poster="fantastic-beasts-the-crimes-of-grindelwald"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </a>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+      href="/films/3"
+      onClick={[Function]}
+    >
+      a
+    </a>
+  </h3>
+</article>
+`;

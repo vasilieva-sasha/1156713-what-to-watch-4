@@ -1,6 +1,6 @@
 import * as React from "react";
 import history from '../../history';
-import { Film } from "../../types";
+import {Film} from "../../types";
 
 interface Props {
   isPlaying: boolean;

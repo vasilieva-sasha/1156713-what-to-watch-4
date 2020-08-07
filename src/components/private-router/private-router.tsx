@@ -1,4 +1,5 @@
 import * as React from "react";
+import {RouterProps} from 'react-router';
 import {connect} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../common/consts";
@@ -7,7 +8,7 @@ import {getAuthorizationStatus} from '../../reducer/user/selectors';
 interface Props {
   exact: boolean;
   path: string;
-  render: (routeProps) => void;
+  render: (routeProps: RouterProps) => React.ReactNode;
   authorizationStatus: string;
 }
 

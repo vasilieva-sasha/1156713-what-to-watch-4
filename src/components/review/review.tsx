@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "moment";
-import { ReviewInterface } from "../../types";
+import {ReviewInterface} from "../../types";
 
 interface Props {
   review: ReviewInterface;

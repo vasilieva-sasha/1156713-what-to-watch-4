@@ -3,7 +3,7 @@ import Header from '../header/header';
 import FilmList from "../film-list/film-list";
 import Footer from "../footer/footer";
 import {ALL_GENRES, CurrentPage} from '../../common/consts';
-import { Film } from "../../types";
+import {Film} from "../../types";
 
 interface Props {
   films: Array<Film>;

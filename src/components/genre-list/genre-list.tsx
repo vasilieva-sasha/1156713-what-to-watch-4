@@ -1,6 +1,6 @@
 import * as React from "react";
 import {MAX_GENRES} from "../../common/consts";
-import { Film } from "../../types";
+import {Film} from "../../types";
 
 interface Props {
   films: Array<Film>;

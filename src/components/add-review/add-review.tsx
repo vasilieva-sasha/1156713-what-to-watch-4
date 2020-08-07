@@ -50,7 +50,7 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form" onSubmit={onSubmit} disabled={isFormBlocked}>
+        <form action="#" className="add-review__form" onSubmit={onSubmit} >
           <div className="rating">
             <div className="rating__stars" onChange={onRatingSelect}>
               {
@@ -58,7 +58,7 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
                   const rating = index + 1;
                   return (
                     <React.Fragment key={index + 1}>
-                      <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={`${rating}`}/>
+                      <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={`${rating}`} disabled={isFormBlocked}/>
                       <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
                     </React.Fragment>
                   );
@@ -68,7 +68,7 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
           </div>
 
           <div className="add-review__text" style={{background: `rgba(255, 255, 255, 0.1)`}}>
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={Comment.MIN} maxLength={Comment.MAX} onChange={onCommentType} value={comment}></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={Comment.MIN} maxLength={Comment.MAX} onChange={onCommentType} value={comment} disabled={isFormBlocked}></textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit" disabled={isButtonBlocked}>Post</button>
             </div>
