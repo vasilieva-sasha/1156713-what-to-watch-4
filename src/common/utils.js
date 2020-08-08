@@ -25,7 +25,7 @@ export const getRatingLevel = (rating) => {
       return Rating.NORMAL;
     case rating > Score.NORMAL && rating <= Score.VERY_GOOD:
       return Rating.GOOD;
-    case rating < Score.VERY_GOOD && rating < Score.AWESOME:
+    case rating > Score.VERY_GOOD && rating < Score.AWESOME:
       return Rating.VERY_GOOD;
     case rating === Score.AWESOME:
       return Rating.AWESOME;

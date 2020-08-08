@@ -10,6 +10,6 @@ export const getAuthInfo = (state) => {
   return state[NAME_SPACE].authInfo;
 };
 
-export const getsignInErrorStatus = (state) => {
+export const getSignInErrorStatus = (state) => {
   return state[NAME_SPACE].signInError;
 };

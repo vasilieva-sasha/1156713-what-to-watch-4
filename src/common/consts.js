@@ -27,7 +27,7 @@ export const AppRoute = {
   MYLIST: `/mylist`,
   FILM: `/films`,
   ADD_REVIEW: `/review`,
-  PLAYER: `/player`
+  PLAYER: `/player/`
 };
 
 export const RATING = 5;
@@ -48,7 +48,8 @@ export const Score = {
 };
 
 export const Comment = {
-  MIN: 50
+  MIN: 50,
+  MAX: 400
 };
 
 export const MINUTES_IN_HOUR = 60;

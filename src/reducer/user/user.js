@@ -1,6 +1,7 @@
 import {AuthorizationStatus} from "../../common/consts";
 import {extend} from "../../common/utils";
 import userAdapter from './../../adapter/user';
+import {Operations as DataOperations} from '../data/data';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -60,9 +61,10 @@ const Operations = {
       .then((response) => {
         dispatch(ActionCreator.loadAuthInfo(userAdapter(response.data)));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(DataOperations.loadFavoriteFilms());
       })
-      .catch((err) => {
-        throw err;
+      .catch(() => {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
       });
   },
   login: (authData) => (dispatch, getState, api) => {
@@ -74,6 +76,7 @@ const Operations = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.loadAuthInfo(userAdapter(response.data)));
         dispatch(ActionCreator.checkSignIn(false));
+        dispatch(DataOperations.loadFavoriteFilms());
       })
       .catch(() => {
         dispatch(ActionCreator.checkSignIn(true));
