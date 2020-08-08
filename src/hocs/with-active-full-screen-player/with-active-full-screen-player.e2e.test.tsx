@@ -6,7 +6,6 @@ import {film} from '../../common/test-data';
 
 interface Props {
   renderVideo: () => React.ReactNode;
-  // renderPlayButton: () => React.ReactNode;
   renderPauseButton: () => React.ReactNode;
 }
 
@@ -19,7 +18,6 @@ const Player: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <div>
       {renderVideo()}
-      {/* {renderPlayButton()} */}
       {renderPauseButton()}
     </div>
   );
