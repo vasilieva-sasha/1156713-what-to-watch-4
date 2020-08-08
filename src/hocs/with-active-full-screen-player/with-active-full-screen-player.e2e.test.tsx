@@ -6,7 +6,7 @@ import {film} from '../../common/test-data';
 
 interface Props {
   renderVideo: () => React.ReactNode;
-  renderPlayButton: () => React.ReactNode;
+  // renderPlayButton: () => React.ReactNode;
   renderPauseButton: () => React.ReactNode;
 }
 
@@ -15,11 +15,11 @@ configure({
 });
 
 const Player: React.FunctionComponent<Props> = (props: Props) => {
-  const {renderVideo, renderPlayButton, renderPauseButton} = props;
+  const {renderVideo, renderPauseButton} = props;
   return (
     <div>
       {renderVideo()}
-      {renderPlayButton()}
+      {/* {renderPlayButton()} */}
       {renderPauseButton()}
     </div>
   );
@@ -38,12 +38,13 @@ describe(`FullVideoPlayer HOC`, () => {
 
     const {videoRef} = wrapper.instance();
 
-    wrapper.instance().componentDidMount();
-
     jest.spyOn(videoRef.current, `play`);
 
+    const button = wrapper.find(`button`);
+
+
     expect(wrapper.state().isPlaying).toEqual(true);
-    wrapper.instance().handlePlayPauseToggle();
+    button.simulate(`click`);
     expect(wrapper.state().isPlaying).toEqual(false);
   });
 });

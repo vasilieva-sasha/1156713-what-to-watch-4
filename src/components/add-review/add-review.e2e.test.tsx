@@ -41,6 +41,7 @@ describe(`AddReviewComponent`, () => {
               onSubmit={onSubmit}
               onRatingSelect={noop}
               onCommentType={noop}
+              renderMessage={noop}
               isButtonBlocked={false}
               isFormBlocked={false}
               reviewError={false}

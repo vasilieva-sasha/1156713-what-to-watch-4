@@ -103,7 +103,7 @@ exports[`Main film card renders correctly 1`] = `
         >
           <a
             className="btn btn--play movie-card__button"
-            href="/films/3/player"
+            href="/player/3"
             onClick={[Function]}
             type="button"
           >

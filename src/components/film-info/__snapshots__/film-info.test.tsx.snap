@@ -100,7 +100,7 @@ Array [
           >
             <a
               className="btn btn--play movie-card__button"
-              href="/films/3/player"
+              href="/player/3"
               onClick={[Function]}
               type="button"
             >
@@ -213,7 +213,9 @@ Array [
             >
               <span
                 className="movie-rating__level"
-              />
+              >
+                Very good
+              </span>
               <span
                 className="movie-rating__count"
               >
@@ -441,7 +443,7 @@ Array [
           >
             <a
               className="btn btn--play movie-card__button"
-              href="/films/3/player"
+              href="/player/3"
               onClick={[Function]}
               type="button"
             >
@@ -560,7 +562,9 @@ Array [
             >
               <span
                 className="movie-rating__level"
-              />
+              >
+                Very good
+              </span>
               <span
                 className="movie-rating__count"
               >

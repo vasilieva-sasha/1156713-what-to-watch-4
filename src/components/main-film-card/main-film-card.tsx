@@ -37,7 +37,7 @@ const MainFilmCard: React.FunctionComponent<Props> = (props: Props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <Link to={`${AppRoute.FILM}/${film.id}${AppRoute.PLAYER}`} className="btn btn--play movie-card__button" type="button" >
+              <Link to={`${AppRoute.PLAYER}${film.id}`} className="btn btn--play movie-card__button" type="button" >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

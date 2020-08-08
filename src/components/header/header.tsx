@@ -14,6 +14,7 @@ interface Props {
 
 const Header: React.FunctionComponent<Props> = (props: Props) => {
   const {authorizationStatus, authInfo, currentPage, children} = props;
+  const avatar = authInfo ? authInfo.avatar : ``;
 
   const getHeaderClass = () => {
     return currentPage === CurrentPage.MYLIST || currentPage === CurrentPage.LOGIN ?
@@ -27,7 +28,7 @@ const Header: React.FunctionComponent<Props> = (props: Props) => {
         <div className="user-block">
           {authorizationStatus === AuthorizationStatus.AUTH ?
             <div className="user-block__avatar">
-              <Link to={AppRoute.MYLIST}><img src={authInfo.avatar} alt="User avatar" width="63" height="63"/></Link>
+              <Link to={AppRoute.MYLIST}><img src={avatar} alt="User avatar" width="63" height="63"/></Link>
             </div> :
             <div className="user-block">
               <Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link>

@@ -14,7 +14,7 @@ const FilmInfoOverview: React.FunctionComponent<Props> = (props: Props) => {
       <div className="movie-rating">
         <div className="movie-rating__score">{film.rating.score}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">{getRatingLevel(Math.round(film.rating.score))}</span>
+          <span className="movie-rating__level">{getRatingLevel(film.rating.score)}</span>
           <span className="movie-rating__count">{film.rating.count} ratings</span>
         </p>
       </div>

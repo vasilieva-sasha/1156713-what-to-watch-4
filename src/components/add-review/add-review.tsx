@@ -12,6 +12,7 @@ interface Props {
   onSubmit: () => void;
   onRatingSelect: () => void;
   onCommentType: () => void;
+  renderMessage: () => React.ReactNode;
   isButtonBlocked: boolean;
   isFormBlocked: boolean;
   reviewError: boolean;
@@ -19,7 +20,7 @@ interface Props {
 }
 
 const AddReview: React.FunctionComponent<Props> = (props: Props) => {
-  const {film, onSubmit, onRatingSelect, onCommentType, isButtonBlocked, isFormBlocked, reviewError, comment} = props;
+  const {film, onSubmit, onRatingSelect, onCommentType, renderMessage, isButtonBlocked, isFormBlocked, reviewError, comment} = props;
   const stars = new Array(RATING);
 
   return (
@@ -70,7 +71,8 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
           <div className="add-review__text" style={{background: `rgba(255, 255, 255, 0.1)`}}>
             <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength={Comment.MIN} maxLength={Comment.MAX} onChange={onCommentType} value={comment} disabled={isFormBlocked}></textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={isButtonBlocked}>Post</button>
+              {renderMessage()}
+              <button className="add-review__btn" type="submit" disabled={isButtonBlocked} >Post</button>
             </div>
           </div>
         </form>

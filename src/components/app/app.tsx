@@ -10,7 +10,7 @@ import withActiveFullScreenPlayer from '../../hocs/with-active-full-screen-playe
 import {Operations as DataOperations} from "../../reducer/data/data";
 import {Operations as UserOperations} from "../../reducer/user/user";
 import SignIn from '../sign-in/sign-in';
-import {getsignInErrorStatus, getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors';
+import {getSignInErrorStatus, getAuthorizationStatus, getAuthInfo} from '../../reducer/user/selectors';
 import {AppRoute, AuthorizationStatus} from "../../common/consts";
 import AddReview from "../add-review/add-review";
 import withInputHandlers from '../../hocs/with-input-hadlers/with-input-handlers';
@@ -105,7 +105,7 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
         <Route exact path={AppRoute.MAIN} render={() => renderApp()} />
         <Route exact path={AppRoute.SIGN_IN} render={() => renderSignIn()}/>
         <PrivateRoute exact path={AppRoute.MYLIST} render={() => renderMyList()} />
-        <Route exact path={`${AppRoute.FILM}/:id${AppRoute.PLAYER}`} render={({match}) => renderVideoPage(match)}/>
+        <Route exact path={`${AppRoute.PLAYER}:id`} render={({match}) => renderVideoPage(match)}/>
         <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({match}) => renderAddReview(match)} />
         <Route exact path={`${AppRoute.FILM}/:id`} render={({match}) => renderFilmInfo(match)} />
       </Switch>
@@ -116,7 +116,7 @@ const App: React.FunctionComponent<Props> = (props: Props) => {
 const mapStateToProps = (state) => ({
   films: getFilms(state),
   serverError: getServerError(state),
-  signInError: getsignInErrorStatus(state),
+  signInError: getSignInErrorStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
   favoriteFilms: getFavoriteFilms(state),
   authInfo: getAuthInfo(state),
