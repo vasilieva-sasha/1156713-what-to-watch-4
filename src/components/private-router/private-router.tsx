@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../common/consts";
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import LoadingScreen from './../loading-screen/loading-screen';
 
 interface Props {
   exact: boolean;
@@ -20,12 +21,14 @@ const PrivateRoute: React.FunctionComponent<Props> = (props: Props) => {
       exact={exact}
       path={path}
       render={(routeProps) => {
-        if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-          routeProps.history.push(path);
-
-          return <Redirect to={AppRoute.SIGN_IN} />;
+        switch (authorizationStatus) {
+          case (null):
+            return <LoadingScreen />;
+          case (AuthorizationStatus.NO_AUTH):
+            return <Redirect to={AppRoute.SIGN_IN} />;
+          case (AuthorizationStatus.AUTH):
+            return render(routeProps);
         }
-
         return render(routeProps);
       }}
     />

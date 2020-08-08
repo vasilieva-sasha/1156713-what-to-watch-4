@@ -4,7 +4,7 @@ import userAdapter from './../../adapter/user';
 import {Operations as DataOperations} from '../data/data';
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: null,
   authInfo: null,
   signInError: false
 };

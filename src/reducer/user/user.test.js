@@ -10,7 +10,7 @@ const authData = {
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    authorizationStatus: AuthorizationStatus.NO_AUTH,
+    authorizationStatus: null,
     authInfo: null,
     signInError: false
   });
@@ -18,7 +18,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
 
 it(`Reducer should change authorization status`, () => {
   expect(reducer({
-    authorizationStatus: AuthorizationStatus.NO_AUTH,
+    authorizationStatus: null,
   }, {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: AuthorizationStatus.AUTH,
